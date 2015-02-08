@@ -1,0 +1,94 @@
+<?php include("includes/header.php"); ?>
+<div class="row">&nbsp;</div>
+<section class = "container">
+	<?php if (isset($email_sent)){
+	?>
+	<div class = "row">
+			<h3>Hello <?php echo $this->session->userdata("fname")?></h3>
+			<?php if($this->session->flashdata("message")) echo $this->session->flashdata("message")  ?>
+			<p><?php echo $email_sent?></p>
+		</div>
+	<?php
+	}
+	else {
+	?>
+		<div class = "container col-lg-4">
+		<div class = "row">
+			<h3>Hello <?php echo $this->session->userdata("fname")?></h3>
+			<?php if($this->session->flashdata("message")) echo $this->session->flashdata("message")  ?>
+		</div>
+		<div class="row">
+		<?php echo form_open("scholar/send_verify","id='send_verify'");?>
+		<?php echo form_dropdown("verify-type",array(""=>"-Select-","email"=>"Send to Email","mobile"=>"Send to Mobile"),null,"class='form-control' id='verify-type'")?>
+		<div id="email-box" style="display:none">
+			<div class="form-group">
+	            <label class="control-label" for="email">Email</label>
+	            <div class="input-group">
+	            <span class="input-group-addon input-sm">@</span>
+	            <?php echo form_input(array("name"=>"email","class"=>"form-control input-sm contact","placeholder"=>"Your Email"),set_value("email")); ?>
+	            </div>
+	        	<?php echo form_error('email'); ?>
+	        </div>
+		</div>
+		<div id="phone-box" style="display:none">
+			<div class="form-group">
+	            <label class="control-label" for="email">Phone</label>
+	            <div class="input-group">
+	            <span class="input-group-addon input-sm">+63</span>
+	            <?php echo form_input(array("type"=>"number","name"=>"phone","class"=>"form-control input-sm contact","placeholder"=>"Your Phone No"),set_value("email")); ?>
+	            </div>
+	        	<?php echo form_error('phone'); ?>
+	        </div>
+		</div>
+	
+		<div class="form-group">
+	        <?php echo form_button(null,"Send Verification Code","class='btn btn-success col-lg-6' id='btn-send-verification'") ?>
+	    </div>
+		<?php echo form_close();?>
+		</div>
+		<hr />
+		<div class = "row" id="code-box" style="display:none">
+		<?php echo form_open("scholar/verify","id='verify'");?>
+	
+		<div class="form-group">
+	        <label class="control-label" for="code">Verification Code</label>
+	        <div class="input-group">
+	        <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span>
+	        <?php echo form_input(array("name"=>"code","class"=>"form-control input-sm","placeholder"=>"Verification Code")); ?>
+	        </div>
+	    </div>
+		<div class="form-group">
+	        <?php echo form_button(null,"Confirm","class='btn btn-success col-lg-6'") ?>
+	    </div>
+		<?php echo form_close();?>
+		</div>
+		</div>
+	<?php
+	}
+	?>
+	
+	
+	
+</section>
+<div class="row">&nbsp;</div>
+<?php $script = '<script type="text/javascript">
+	$(document).ready(function(){
+		$("#verify-type").on("change",function(){
+			
+			if($(this).val()=="email"){
+				$("#phone-box").slideUp("fast").removeClass("box-active");
+				$("#email-box").slideDown("fast").addClass("box-active");
+			}
+			else{
+				$("#email-box").slideUp("fast").removeClass("box-active");
+				$("#phone-box").slideDown("fast").addClass("box-active");
+			}
+			
+		});
+	});
+	$("#btn-send-verification").click(function(){
+		alert($(".box-active").children().find(".contact").val());
+		$("#code-box").slideDown("fast");
+	});
+</script>';?>
+<?php include("includes/footer.php"); ?>

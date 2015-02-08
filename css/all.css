@@ -1,0 +1,5 @@
+body{overflow-x:hidden;height:100%;}
+.main-container {padding-top:1em !important;min-height:400px;}
+.main-container::before {content:" "}
+.main-container{min-height:80%;padding-top:3em;}
+.myfooter::before{content:" ";}
