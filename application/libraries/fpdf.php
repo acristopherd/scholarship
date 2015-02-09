@@ -102,7 +102,7 @@ function FPDF($orientation='P', $unit='mm', $size='A4')
 	$this->ColorFlag = false;
 	$this->ws = 0;
 	// Font path
-	if(defined('FPDF_FONTPATH'))
+	/*if(defined('FPDF_FONTPATH'))
 	{
 		$this->fontpath = FPDF_FONTPATH;
 		if(substr($this->fontpath,-1)!='/' && substr($this->fontpath,-1)!='\\')
@@ -112,6 +112,7 @@ function FPDF($orientation='P', $unit='mm', $size='A4')
 		$this->fontpath = dirname(__FILE__).'/font/';
 	else
 		$this->fontpath = '';
+	 * */
 	// Core fonts
 	$this->CoreFonts = array('courier', 'helvetica', 'times', 'symbol', 'zapfdingbats');
 	// Scale factor

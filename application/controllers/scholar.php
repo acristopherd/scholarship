@@ -885,6 +885,18 @@ class scholar extends CI_Controller{
 		$this->load->view("print_grade_view",$data);
 	}
 	
+	function print_cert_grade(){
+		$this->load->library("fpdf");
+		$this->fpdf->pdf = new Fpdf();
+		$this->fpdf->AddPage('L');
+		$this->fpdf->fontpath=base_url()."fonts/";
+		$this->fpdf->SetFont('Arial', 'B', 12);
+		$m = 'something';
+		//$this->fpdf->MultiCell(250, 4, $m, 0, 'C');
+		$this->fpdf->AddText($m);
+		$this->fpdf->Output();
+	}
+	
 	function confirm(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
 			$this->load->view("error_404");
