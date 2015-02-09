@@ -66,6 +66,15 @@ class scholarship_model extends CI_Model{
 		return $scholarship;
 	}
 	
+	function get_by_scholarship($scholar_id){
+		$this->db->where("aid",$scholar_id);
+		$this->db->join("tblscholar_type", "tblscholarship.scholar_type=tblscholar_type.id");
+		$result=$this->db->get("tblscholarship");		
+		$scholarship=$result->result();
+		//echo $this->db->last_query();
+		return $scholarship;
+	}
+	
 	function get_scholars($data=NULL){
 		$this->db->join("tblscholar","tblscholar.id=tblscholarship.sid","inner");
 		$this->db->join("tblscholar_type","tblscholar_type.id=tblscholarship.scholar_type","inner");	

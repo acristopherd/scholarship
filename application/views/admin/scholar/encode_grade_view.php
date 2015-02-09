@@ -13,7 +13,7 @@ $style = '
     <div class="container col-lg-11">
     <div class="panel panel-primary">
     	<div class="panel-heading">
-    		Compute Grades
+    		Encode Grades
     	</div>
     	<div class="panel-body">
     		<?php echo form_open("scholar/compute_grade",array("class"=>"form"));?>		
@@ -22,11 +22,11 @@ $style = '
     			<div class="row grade-row">
     				<div class="form-group  col-lg-3">
 	                        <label class="control-label" for="type">Sem/Term</label>
-	                        <?php echo form_dropdown("sem",array(""=>"-Select-","1"=>"1st","2"=>"2nd","3"=>"Summer"),null,"class='form-control input-sm' id ='sem'"); ?>
+	                        <?php echo form_dropdown("sem",array(""=>"-Select-","1"=>"1st","2"=>"2nd","3"=>"Summer"),$sem,"class='form-control input-sm' id ='sem' disabled"); ?>
 	                	</div>
 	                	<div class="form-group  col-lg-3">
 	                        <label class="control-label" for="type">School Year</label>
-	                        <?php echo form_dropdown("sy",array(""=>"-Select-",Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")))=>Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y"))),Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),null,"class='form-control input-sm' id ='sy'"); ?>
+	                        <?php echo form_input(array("name"=>"sy","class"=>"form-control input-sm","disabled"=>"disabled"),$sy);//form_dropdown("sy",array(""=>"-Select-",Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")))=>Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y"))),Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),null,"class='form-control input-sm' id ='sy'"); ?>
 	                	</div>
     			</div>
     			<div id = "old-grade"></div>
@@ -94,7 +94,7 @@ $script='
 			
 		});
 		
-		$("#sy").bind("change",function(){
+		//$("#sy").bind("change",function(){
 			//alert($("#stud_id").val());
 			$.post("'.site_url("scholar/get_grade").'",{sem:$("#sem").val(),sy:$("#sy").val(),stud_id:$("#stud_id").val()},function(data){
 				$.each(data,function(key,value){
@@ -114,7 +114,7 @@ $script='
 				});
 				
 			},"json");
-		});
+		//});
 		
 		/*$(".final").bind("blur",function(){
 			var ave=0;

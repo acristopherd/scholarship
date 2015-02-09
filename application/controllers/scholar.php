@@ -818,6 +818,8 @@ class scholar extends CI_Controller{
 			return;
 		}
 		$data['scholar_id']=$this->uri->segment(3);
+		$data['sem']=$this->uri->segment(4);
+		$data['sy']=$this->uri->segment(5);
 		$this->load->view("admin/scholar/encode_grade_view",$data);
 		
 	}
@@ -835,8 +837,8 @@ class scholar extends CI_Controller{
 		$sum_of_grade=0;
 		for($i=0;$i<sizeof($subjects);$i++){
 			$data=array("sid"=>$this->input->post("stud_id"),
-						"sub_code"=>$_POST['subj_code'][$i],
-						"sub_desc"=>$_POST['subject'][$i],
+						"sub_code"=>ucwords($_POST['subj_code'][$i]),
+						"sub_desc"=>ucwords($_POST['subject'][$i]),
 						"unit"=>$_POST['units'][$i],
 						"mg"=>$_POST['midterm'][$i],
 						"fg"=>$_POST['final'][$i],
@@ -856,11 +858,16 @@ class scholar extends CI_Controller{
 		$this->load->model("adviser_model");
 		$this->adviser_model->insert(array("scholarship_id"=>$this->input->post("stud_id"),"adviser"=>$this->input->post("adviser"),"dean"=>$this->input->post("dean")));
 		$data['signs']=$this->adviser_model->get($this->input->post("stud_id"));
+		$scholarship_type=$this->scholarship_model->get_by_scholarship($sid);
+		$data['min_grade']=$scholarship_type[0]->minimum_grade;
+		$data['average']=$scholarship_type[0]->min_average;
+		$data['scholar_type']=$scholarship_type[0]->type;
+		$data['scholar_ave']=$scholarship_type[0]->average;
 		$this->load->view("print_grade_view",$data);
 	}
 	
-	function print_grade(){
-		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+	function print_grade(){		
+		if((!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r")||(strcmp(md5($this->uri->segment(3).$this->session->userdata("admin_secret")),$this->uri->segment(4))>0)) {
 			$this->load->view("error_404");
 			return;
 		}
@@ -870,7 +877,11 @@ class scholar extends CI_Controller{
 		$data['grades'] =$this->scholar_grade_model->get($sid,'2013-2014',1);
 		$data['signs']=$this->adviser_model->get($sid);
 		$data['student']=$this->scholar_model->get_by_scholarship_id($sid);
-		
+		$scholarship_type=$this->scholarship_model->get_by_scholarship($sid);
+		$data['min_grade']=$scholarship_type[0]->minimum_grade;
+		$data['average']=$scholarship_type[0]->min_average;
+		$data['scholar_type']=$scholarship_type[0]->type;
+		$data['scholar_ave']=$scholarship_type[0]->average;
 		$this->load->view("print_grade_view",$data);
 	}
 	

@@ -79,8 +79,8 @@ $style = '<style type = "text/css">
 	    				}     				
 	    				?>
 	    			</td>
-    				<td><div class="btn-group"><?php echo ($this->session->userdata("college_user_id")&&$this->session->userdata("college_id")==$scholar['info']->coll_id)||$this->session->userdata("super_admin_id")||$this->session->userdata("admin_id")?anchor("scholar/encode_grade/".$scholar['info']->aid,"<i class='fa fa-edit'></i>",array("class"=>"btn btn-sm btn-primary","title"=>"encode grade","data-toggle"=>"tooltip","data-placement"=>"top")):""?>
-    					<?php echo anchor("scholar/print_grade/".$scholar['info']->aid,"<i class='fa fa-print'></i>",array("class"=>"btn btn-sm btn-primary","title"=>"print grade","data-toggle"=>"tooltip","data-placement"=>"top"))?>
+    				<td><div class="btn-group"><?php echo ($this->session->userdata("college_user_id")&&$this->session->userdata("college_id")==$scholar['info']->coll_id)||$this->session->userdata("super_admin_id")||$this->session->userdata("admin_id")?anchor("scholar/encode_grade/".$scholar['info']->aid."/".$scholar['info']->semester."/".$scholar['info']->sy,"<i class='fa fa-edit'></i>",array("class"=>"btn btn-sm btn-primary","title"=>"encode grade","data-toggle"=>"tooltip","data-placement"=>"top")):""?>
+    					<?php echo anchor("scholar/print_grade/".$scholar['info']->aid."/".md5($scholar['info']->aid.$this->session->userdata("admin_secret")),"<i class='fa fa-print'></i>",array("class"=>"btn btn-sm btn-primary btn-print-grade","title"=>"print grade","data-toggle"=>"tooltip","data-placement"=>"top"))?>
     					<?php  echo ($scholar['info']->approved==0) ? ($this->session->userdata("admin_id")||$this->session->userdata("super_admin_id")?anchor("scholar/confirm/".$scholar['info']->aid,"<i class='fa fa-thumbs-up'></i>",array("class"=>"btn btn-sm btn-primary","title"=>"Approve","data-toggle"=>"tooltip","data-placement"=>"top")):"<span class='btn  btn-sm btn-primary disabled'  data-toggle='tooltip' data-placement='top' title='not confirmed'> <i class='fa fa-thumbs-up'></i></span>"): "<span class='btn  btn-sm btn-success disabled'  data-toggle='tooltip' data-placement='top' title='confirmed'> <i class='fa fa-thumbs-up'></i></span>"?>
     					</div>
     				</td>
@@ -123,6 +123,10 @@ $style = '<style type = "text/css">
          	$(".chk-approv").attr("checked","checked");
          });
          $("#btn-print").click(function(e){
+         	var w = window.open($(this).attr("href"),"Print Window","height=1000,width=1000,menubar=0,location=0");
+         	e.preventDefault();
+         });
+         $(".btn-print-grade").click(function(e){
          	var w = window.open($(this).attr("href"),"Print Window","height=1000,width=1000,menubar=0,location=0");
          	e.preventDefault();
          });

@@ -60,7 +60,7 @@
     			<tr><td><?php echo $no++?></td>	
     				<td><?php echo $type["info"]->type?></td>
     				<td><?php echo $type["info"]->minimum_grade?></td>
-    				<td><?php echo $type["info"]->average?></td>
+    				<td><?php echo $type["info"]->min_average?></td>
     				<td><?php foreach ($type["requirements"] as $requirement)echo "<span class='btn btn-default btn-sm btn-outline'>".$requirement->requ_name."</span>&nbsp;"?></td>
     				<td><?php echo anchor("scholarshiptype/edit/".$type['info']->id,"<i class='fa fa-edit'></i>") ?>&nbsp;<?php echo anchor("scholarshiptype/delete/".$type['info']->id."/".md5(mdate($type['info']->id."")),"<i class='fa fa-times'></i>",array("class"=>"btn-delete")) ?></td></tr>
     			<?php

@@ -43,7 +43,7 @@ class scholarshiptype extends CI_Controller{
 		else{
 			$data=array("type"=>$this->input->post("name"),
 						"minimum_grade"=>$this->input->post("min_grade"),
-						"average"=>$this->input->post("min_ave"));
+						"min_average"=>$this->input->post("min_ave"));
 			
 			
 			$data["message"]=$this->scholartype_model->insert($data);
@@ -87,7 +87,7 @@ class scholarshiptype extends CI_Controller{
 			else{
 				$data["fields"]=array("type"=>$this->input->post("name"),
 										"minimum_grade"=>$this->input->post("min_grade"),
-										"average"=>$this->input->post("min_ave"));
+										"min_average"=>$this->input->post("min_ave"));
 				$data["id"]=$this->input->post("id");
 				
 				$data["message"]=$this->scholartype_model->update($data["id"],$data["fields"]);
@@ -95,11 +95,12 @@ class scholarshiptype extends CI_Controller{
 				//$this->type_requirement_model->delete_by_type($data["id"]);
 				if($data["message"]){
 					foreach($this->input->post("requirements") as $requirement){
-						$data["requirement"]=array("type_id"=>$data["id"],"requ_name"=>$requirement);
-						$this->type_requirement_model->insert($data["requirement"]);
+						$data["requirement"]=array("type_id"=>$data["id"],"requ_name"=>ucwords($requirement));
+						if(trim($requirement)!= "")$this->type_requirement_model->insert($data["requirement"]);
 					}
 				}
-	    		redirect("scholarshiptype/");
+	    		$this->session->set_flashdata("message","Scholarship type successfully updated.");
+				redirect("scholarshiptype/#message");
 			}
 		}
     	
