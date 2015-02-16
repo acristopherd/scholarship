@@ -13,12 +13,17 @@
 	    		<div class="">
 	    			<input type = "hidden" name = "id" value = "<?php echo (isset($colleges))?$colleges[0]->id:set_value("id")?>" />
 	    			<div class="form-group">
-	                    <label class="control-label" for="accronym">college Accronym</label>
+	                    <label class="control-label" for="accronym">College Accronym</label>
 	                    <?php echo form_input(array("name"=>"accronym","class"=>"form-control input-sm","placeholder"=>"Accronym"),(isset($colleges))?$colleges[0]->college:set_value("accronym")); ?>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="name">college Name</label>
-	                    <?php echo form_input(array("name"=>"name","class"=>"form-control input-sm","placeholder"=>"college Name"),(isset($colleges))?$colleges[0]->desc:set_value("name")); ?>
+	                    <label class="control-label" for="name">College Name</label>
+	                    <?php echo form_input(array("name"=>"name","class"=>"form-control input-sm","placeholder"=>"College Name"),(isset($colleges))?$colleges[0]->desc:set_value("name")); ?>
+	                </div> 
+	                <div class="form-group">
+	                    <label class="control-label" for="dean">College Dean</label>
+	                    <?php echo form_input(array("name"=>"dean","class"=>"form-control input-sm","placeholder"=>"College Dean"),set_value("dean")); ?>
+	                	<?php echo form_error('dean'); ?>
 	                </div> 
 	    		</div>
 	    		<div class="form-group col-md-8 col-lg-4">

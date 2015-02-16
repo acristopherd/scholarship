@@ -112,7 +112,7 @@
 					<td class="sign"><i>Dean</i></td>
 				</tr>
 			</table>
-			<a href="#" class="btn btn-primary no-print" id ="btn-print" onclick="javascript:window.print()">Print</a>
+			<a href="#" class="btn btn-primary no-print"  onclick="javascript:window.print()">Print</a>
 			<div class="no-print">
 				<div class="panel panel-info">
 					<div class="panel-heading">
@@ -124,7 +124,7 @@
 							<tr><td>Sholarship</td><td><?php echo $scholar_type?></td></tr>
 							<tr><td>Minimum</td><td><?php echo $min_grade?></td><td><?php echo $min ?></td><td><?php if( $min<=$min_grade&&$min!=0) {echo "OK";$passed=true; }else { echo "Failed"; $passed = false;} ?></td></tr>
 							<tr><td>Average</td><td><?php echo $average?></td><td><?php echo $scholar_ave?></td><td><?php if( $scholar_ave<=$average&&$scholar_ave!=0) {echo "OK";$passed=true; }else { echo "Failed"; $passed = false;} ?></td></tr>
-							<tr><td><?php echo $passed?anchor("scholar/print_cert_grade","Print Certificate of Grades",array("class"=>"btn btn-primary")):""?></td></tr>
+							<tr><td><?php echo $passed?anchor("scholar/print_cert_grade/".$scholarship_id,"Print Certificate of Grades",array("class"=>"btn btn-primary","id"=>"btn-print")):""?></td></tr>
 						</table>
 					</div>
 				</div>
@@ -133,6 +133,14 @@
 	<script src="<?php echo base_url();?>js/jquery.js"></script>    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo base_url();?>js/bootstrap.min.js"></script>
+    <script>
+    	$(document).ready(function(){
+	    	$("#btn-print").click(function(e){
+	         	var w = window.open($(this).attr("href"),"Print Window","height=1000,width=1000,menubar=0,location=0");
+	         	e.preventDefault();
+	         });
+         });
+    </script>
 	</body>
 </html>
 

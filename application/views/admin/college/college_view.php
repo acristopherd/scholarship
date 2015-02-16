@@ -19,8 +19,13 @@
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="name">College Name</label>
-	                    <?php echo form_input(array("name"=>"name","class"=>"form-control input-sm","placeholder"=>"college Name"),set_value("name")); ?>
+	                    <?php echo form_input(array("name"=>"name","class"=>"form-control input-sm","placeholder"=>"College Name"),set_value("name")); ?>
 	                	<?php echo form_error('name'); ?>
+	                </div> 
+	                <div class="form-group">
+	                    <label class="control-label" for="dean">College Dean</label>
+	                    <?php echo form_input(array("name"=>"dean","class"=>"form-control input-sm","placeholder"=>"College Dean"),set_value("dean")); ?>
+	                	<?php echo form_error('dean'); ?>
 	                </div> 
 	    		</div>
 	    		<div class="form-group col-md-8 col-lg-4">
@@ -35,13 +40,13 @@
     <div class = "row">    	
     	<h3 class="">List of colleges</h3>
     	<table class="table table-striped table-hover table-responsive">
-    		<thead><tr class="table-header"><th>No</th><th>Accronym</th><th>Name</th><th>Edit</th></tr></thead>
+    		<thead><tr class="table-header"><th>No</th><th>Accronym</th><th>Name</th><th>Dean</th><th>Edit</th></tr></thead>
     		<tbody>
     			<?php
     			$no=1;
     			foreach($colleges as $college){
     			?>
-    			<tr><td><?php echo $no++?></td><td><?php echo $college->college?></td><td><?php echo $college->desc?></td><td><?php echo anchor("college/edit/".$college->id,"<i class='fa fa-edit'></i>") ?></td></tr>
+    			<tr><td><?php echo $no++?></td><td><?php echo $college->college?></td><td><?php echo $college->desc?></td><td><?php echo $college->dean?></td><td><?php echo anchor("college/edit/".$college->id,"<i class='fa fa-edit'></i>") ?></td></tr>
     			<?php
     			}
 				?>

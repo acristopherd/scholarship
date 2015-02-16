@@ -878,6 +878,7 @@ class scholar extends CI_Controller{
 		$data['signs']=$this->adviser_model->get($sid);
 		$data['student']=$this->scholar_model->get_by_scholarship_id($sid);
 		$scholarship_type=$this->scholarship_model->get_by_scholarship($sid);
+		$data['scholarship_id']=$sid;
 		$data['min_grade']=$scholarship_type[0]->minimum_grade;
 		$data['average']=$scholarship_type[0]->min_average;
 		$data['scholar_type']=$scholarship_type[0]->type;
@@ -886,17 +887,24 @@ class scholar extends CI_Controller{
 	}
 	
 	function print_cert_grade(){
+		$aid = $this->uri->segment(3);
+		$data['scholar']=$this->scholar_model->get_by_aid($aid);
+		
+		$data['scholarship']=$this->scholarship_model->get_by_scholarship($aid);
+		$this->load->view("admin/scholar/print_cert_grade_view",$data);
+	}
+	
+	function create_pdf(){
 		$this->load->library("fpdf");
 		$this->fpdf->pdf = new Fpdf();
 		$this->fpdf->AddPage('L');
-		$this->fpdf->fontpath=base_url()."fonts/";
+		$this->fpdf->fontpath= realpath(APPPATH."../fonts")."/";
 		$this->fpdf->SetFont('Arial', 'B', 12);
 		$m = 'something';
-		//$this->fpdf->MultiCell(250, 4, $m, 0, 'C');
-		$this->fpdf->AddText($m);
+		$this->fpdf->MultiCell(250, 4, $m, 0, 'C');
+		//$this->fpdf->setText($m);
 		$this->fpdf->Output();
 	}
-	
 	function confirm(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
 			$this->load->view("error_404");

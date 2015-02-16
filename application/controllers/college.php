@@ -23,14 +23,15 @@ class college extends CI_Controller{
 		}
 		$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
 		$this->form_validation->set_rules("accronym","Accronym","trim|required|min_length[2]|max_length[20]|xss_clean");
-		$this->form_validation->set_rules("name","college Name","trim|required|min_length[5]|max_length[100]|xss_clean");
+		$this->form_validation->set_rules("name","College Name","trim|required|min_length[5]|max_length[100]|xss_clean");
+		$this->form_validation->set_rules("dean","College Dean","trim|required|min_length[5]|max_length[100]|xss_clean");
 		if($this->form_validation->run()==FALSE){
 			$this->load->model("college_model");
 			$data["colleges"]=$this->college_model->get();				
 	        $this->load->view("admin/college/college_view.php",$data);
 		}
 		else{
-			$data["insert"]=array("college"=>$this->input->post("accronym"),"desc"=>$this->input->post("name"));
+			$data["insert"]=array("college"=>$this->input->post("accronym"),"desc"=>$this->input->post("name"),"dean"=>$this->input->post("dean"));
 			
 			$data["message"]=$this->college_model->insert($data["insert"]);
 			if($data["message"]){
@@ -61,11 +62,12 @@ class college extends CI_Controller{
 	    	$this->form_validation->set_rules("id","ID","trim|required|min_length[1]|max_length[20]|xss_clean");
 			$this->form_validation->set_rules("accronym","Accronym","trim|required|min_length[2]|max_length[20]|xss_clean");
 			$this->form_validation->set_rules("name","college Name","trim|required|min_length[5]|max_length[100]|xss_clean");
+			$this->form_validation->set_rules("dean","College Dean","trim|required|min_length[5]|max_length[100]|xss_clean");
 			if($this->form_validation->run()==FALSE){
 				$this->load->view("admin/college/college_edit_view.php");
 			}
 			else{
-				$data["fields"]=array("college"=>$this->input->post("accronym"),"desc"=>$this->input->post("name"));
+				$data["fields"]=array("college"=>$this->input->post("accronym"),"desc"=>$this->input->post("name"),"dean"=>$this->input->post("dean"));
 				$data["id"]=$this->input->post("id");
 				$this->load->model("college_model");
 				$data["message"]=$this->college_model->update($data["id"],$data["fields"]);
