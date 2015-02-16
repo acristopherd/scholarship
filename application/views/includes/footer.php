@@ -40,6 +40,7 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="<?php echo base_url();?>js/jquery.js"></script>
+    <script src="<?php echo base_url();?>js/jquery.validate.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <?php if(isset($script)) echo $script;?><script src="<?php echo base_url();?>js/bootstrap.min.js"></script>    
     <script src="<?php echo base_url();?>js/jquery.toastmessage.js"></script>

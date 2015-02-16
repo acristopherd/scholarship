@@ -45,7 +45,7 @@ class scholar_model extends CI_Model{
 	}
 	
 	function get_by_aid($aid){
-		$this->db->select("fname,mname,lname,college,dean");
+		$this->db->select("fname,mname,lname,college,dean,tblcollege.desc as college_name,yr_level,tblcourse.desc as course_name,gender");
 		$this->db->join("tblscholarship","tblscholarship.sid=tblscholar.id");
 		$this->db->join("tblcourse","tblcourse.id=cour_id");
 		$this->db->join("tblcollege","tblcollege.id=tblscholarship.coll_id");

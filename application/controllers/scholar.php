@@ -889,8 +889,9 @@ class scholar extends CI_Controller{
 	function print_cert_grade(){
 		$aid = $this->uri->segment(3);
 		$data['scholar']=$this->scholar_model->get_by_aid($aid);
-		
+		$this->load->model("scholar_grade_model");
 		$data['scholarship']=$this->scholarship_model->get_by_scholarship($aid);
+		$data['grade']=$this->scholar_grade_model->get_by_aid($aid);
 		$this->load->view("admin/scholar/print_cert_grade_view",$data);
 	}
 	

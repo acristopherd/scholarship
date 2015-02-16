@@ -4,6 +4,10 @@ $style='<style type = "text/css">
 	input[type="text"]{
 		text-transform:capitalize;
 	}
+	label.error{
+		background:red;
+		color:#EEE;
+	}
 </style>';
 require_once("includes/header.php"); ?>
 <section class = "container main-container">
@@ -44,7 +48,7 @@ require_once("includes/header.php"); ?>
 	                <div class="row">
 	                	<div class="form-group  col-lg-4">
 	                        <label class="control-label" for="bdate">Birthdate</label>
-	                        <?php echo form_input(array("type"=>"date","name"=>"bdate","class"=>"form-control input-sm","placeholder"=>"Birthdate","required"=>""),set_value("bdate")); ?>
+	                        <?php echo form_input(array("type"=>"date","max"=>date("Y-m-d",mktime(0,0,0,date('m'),date('d'),date('Y')-14)),"name"=>"bdate","class"=>"form-control input-sm","placeholder"=>"Birthdate","required"=>""),set_value("bdate")); ?>
 	                		<?php echo form_error('bdate'); ?>
 	                    </div>
 	                	<div class="form-group  col-lg-4">
@@ -137,7 +141,7 @@ require_once("includes/header.php"); ?>
                 		<label class="control-label" for="income">Combined Monthly Income</label>  
                 		<div class="input-group col-lg-8">  	
                         <span class="input-group-addon">Php</span>
-                        <?php echo form_input(array("type"=>"number","min"=>"0","name"=>"income","class"=>"form-control","placeholder"=>"Combined Monthly Income","required"=>""),set_value("income")); ?>
+                        <?php echo form_input(array("type"=>"number","min"=>"1","max"=>"1000000","name"=>"income","id"=>"income","class"=>"form-control","placeholder"=>"Combined Monthly Income","required"=>""),set_value("income")); ?>
                         <span class="input-group-addon">.00</span>
                         </div>
                         <?php echo form_error('income'); ?>
@@ -145,7 +149,7 @@ require_once("includes/header.php"); ?>
                     </div>
                     <div class="form-group col-lg-4">
                         <label class="control-label" for="no_of_children">No of Children</label>
-                        <?php echo form_input(array("type"=>"number","min"=>"1","name"=>"no_of_children","class"=>"form-control input-sm","placeholder"=>"No of Children in the family","required"=>""),set_value("no_of_children")); ?>
+                        <?php echo form_input(array("type"=>"number","min"=>"1","max"=>"20","name"=>"no_of_children","class"=>"form-control input-sm number","placeholder"=>"No of Children in the family","required"=>""),set_value("no_of_children")); ?>
                     	<?php echo form_error('no_of_children'); ?>
 	                </div>
 	            </div>
@@ -193,7 +197,8 @@ require_once("includes/header.php"); ?>
                 <div class="form-group">
                     <label class="control-label" for="pass">Password</label>
                     <div class="input-group">
-                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
+                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span>
+                    <?php echo form_password(array("name"=>"pass","id"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
                 	
                 	</div>
                 	<?php echo form_error('pass'); ?>
@@ -202,7 +207,7 @@ require_once("includes/header.php"); ?>
                     <label class="control-label" for="pass">Confirm Password</label>
                     <div class="input-group">
                     <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span>
-                    <?php echo form_password(array("name"=>"cpass","class"=>"form-control input-sm","placeholder"=>"ConfirmPassword","required"=>"")); ?>
+                    <?php echo form_password(array("name"=>"cpass","id"=>"cpass","class"=>"form-control input-sm","placeholder"=>"ConfirmPassword","required"=>"")); ?>
                 	</div>
                 	<?php echo form_error('cpass'); ?>
 	            </div>
@@ -249,6 +254,60 @@ $(document).ready(function(){
 	$.post("'.site_url("captcha/recaptcha").'",function(data){
 		$("#captcha-image").attr("src",data);
 	});
+		
+	$("form#signup").validate({
+		rules: {  			             
+            email:{
+            	required:true,
+            	email:true
+            },  
+            pass:{
+            	minlength:8
+            },
+            cpass:{
+            	minlength:8,
+            	equalTo:"#pass"
+            },
+            income:{
+            	number:true,
+            	min:0,
+            	max:1000000
+            }
+       },
+       messages:{
+       		email:{
+       			email:"Enter a valid email.",
+       			required:""
+       		},
+       		pass:{
+       			minlength:"Password too short. Min of 8 characters."
+			},
+       		cpass:{
+       			minlength:"Password too short. Min of 8 characters.",
+       			equalTo:"Password did not match."
+       		},
+       		income:{
+       			min:"enter a number",
+       			number:"enter a number"
+       		}
+       }
+	});
+	
+	$("input[type=\'number\']").bind("blur",function(){
+		if(!$(this).valid()){
+		$().toastmessage("showToast",{
+		    text     : "This is a numeric field.",
+		    sticky   : false,
+		    position : "top-center",
+		    type     : "success",
+		    inEffectDuration:  600,   // in effect duration in miliseconds
+			stayTime:         2000
+		});
+			$(this).focus();
+		}
+		//if($.isNumeric($(this).val())) alert(1);
+	});
+	
 	$("#lastname").bind("blur",function(){
 		$.post("'.site_url("scholar/get_existing_scholar").'?sid="+Math.random(),{firstname:$("#firstname").val(),middlename:$("#middlename").val(),lastname:$("#lastname").val()},function(data){
 			if(data.count>0){
@@ -276,6 +335,7 @@ $(document).ready(function(){
 	});
 	*/
 	$("#email").bind("blur",function(){
+		
 		$.post("'.site_url("scholar/get_existing_email").'?sid="+Math.random(),{email:$("#email").val()},function(data){
 			console.log(data);
 			if(data.count>0){
@@ -284,6 +344,7 @@ $(document).ready(function(){
 			}
 		},"json");
 	});
+	
 });
 		</script>';
 include("includes/footer.php"); ?>

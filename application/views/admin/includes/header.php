@@ -108,7 +108,7 @@
                             <a href="<?php echo site_url("admin")?>"><i class="fa fa-home fa-fw"></i> Home</a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('scholar/view_scholar')?>"><i class="fa fa-users fa-fw"></i> Scholars</a>
+                            <a href="<?php echo site_url('scholar/view_scholar')?>"><i class="fa fa-graduation-cap fa-fw"></i> Scholars</a>
                         </li>
                          <li>
                             <?php if($this->session->userdata("access_level")>=4){?><a href="<?php echo site_url('announcement/')?>"><i class="fa fa-bullhorn fa-fw"></i> Announcements</a><?php } ?>

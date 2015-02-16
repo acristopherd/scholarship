@@ -6,11 +6,9 @@
 		<style type="text/css">
 			.page-wrapper{
 				width:6.5in;
-				margin:auto;
+				margin: 1in auto;
 			}
-			p{
-				text-indent:5em;
-			}
+			
 			#grades,#grades td,#grades th{
 				border:1px solid black;
 				border-collapse: collapse;
@@ -37,6 +35,7 @@
 			}
 			.grade-header{
 				text-align:center;
+				display: relative;
 			}
 			.sign{
 				border-top:1px solid black;
@@ -60,7 +59,7 @@
 			}
 			.bold{font-weight: bold}
 			.underline{text-decoration:underline}
-			#sign{}
+			#sign{width:25em;text-align:right}
 			#dean{text-transform:uppercase;font-weight:bold;text-decoration:underline}
 			@media print{
 				footer{display:none}
@@ -74,16 +73,55 @@
 		<div class="page-wrapper ">
 			
 			<div class="grade-header">
+				<img src = "<?php echo base_url() ?>images/unpv1.png" />
 				Republic of the Philippines<br />
-					<b>University of Northern Philippines</b><br />
-					Vigan City
+				<b>University of Northern Philippines</b><br />
+				Vigan City
 			</div>
 			<br />
-			<p>
-				This is to certify that <span class="bold underline"><?php echo $scholar[0]->fname ." ".$scholar[0]->mname." ". $scholar[0]->lname?></span> is qualified to be a
-				 <span class="bold underline"><?php echo $scholarship[0]->type?></span> in our college 
-				with an average of <span class="bold underline"><?php echo $scholarship[0]->average ?></span>.
+			<p style="text-transform:uppercase;text-align:center"><b><?php echo $scholar[0]->college_name?></b></p>
+			<p style="text-transform:uppercase;text-align:center;font-size: 2em"><b>CERTIFICATION</b></p>
+			<br />
+			<p style="line-height:2em">To Whom It May Concern:</p>
+			<br />
+			<p style="text-indent:5em;line-height: 2em;text-align: justify">
+				This is to certify that <span class="bold"><?php echo $scholar[0]->fname ." ".$scholar[0]->mname." ". $scholar[0]->lname?></span> 
+				a <?php 
+				switch($scholar[0]->yr_level){
+					case 1:
+						echo "1st";
+						break;
+					case 2:
+						echo "2nd";
+						break;
+					case 3:
+						echo "3rd";
+						break;
+					case 4:
+						echo "4th";
+						break;
+					case 5:
+						echo "5th";
+						break;
+				} 
+				?> Year <?php echo $scholar[0]->course_name?> of the 
+				<span style = "text-transform: capitalize"><?php echo $scholar[0]->college_name?></span> obtained a grade of 
+				<span class="bold"><?php echo number_format($scholarship[0]->average,2) ?></span> during the <?php 
+				switch($grade[0]->sem){
+					case 1:
+						echo "1st Semester";
+						break;
+					case 2:
+						echo "2nd Semester";
+						break;
+					case 3:
+						echo "Summer";
+						break;
+				} 
+				?> of school year <?php echo $grade[0]->school_year?>. Therefore <?php echo $scholar[0]->gender=="Male"?"he":"she"?> is considered/qualified to be a
+				 <span class="bold"><?php echo $scholarship[0]->type?></span>.
 			</p>
+			<br />
 			<p id = "sign">
 				<div id = "dean"><?php echo $scholar[0]->dean?></div>
 				<div>Dean <?php echo $scholar[0]->college?></div>

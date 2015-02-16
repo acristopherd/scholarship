@@ -22,7 +22,7 @@
 	                </div> 
 	                <div class="form-group">
 	                    <label class="control-label" for="dean">College Dean</label>
-	                    <?php echo form_input(array("name"=>"dean","class"=>"form-control input-sm","placeholder"=>"College Dean"),set_value("dean")); ?>
+	                    <?php echo form_input(array("name"=>"dean","class"=>"form-control input-sm","placeholder"=>"College Dean"),(isset($colleges))?$colleges[0]->dean:set_value("name")); ?>
 	                	<?php echo form_error('dean'); ?>
 	                </div> 
 	    		</div>
