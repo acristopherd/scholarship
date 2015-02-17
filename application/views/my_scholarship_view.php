@@ -34,7 +34,7 @@ include("includes/header.php"); ?>
 				}
 				 echo $sem . " - ". $scholarship->sy;
 				 ?> 
-				 </b>
+				</b> - <i><?php echo $scholarship->approved==1?"Approved":"Pending"?></i>
 			</div>
 			<div class="panel-body">
 				<div class ="wrapper"><b><?php echo $scholarship->type ?></b></div>

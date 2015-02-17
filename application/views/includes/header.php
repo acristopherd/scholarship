@@ -39,7 +39,7 @@
 	        <li><a href="<?php echo site_url("osa")?>"><i class="fa fa-home fa-fw"></i> Home</a></li>
 	        
 	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book fa-fw"></i> Scholarship <b class="caret"></b></a>
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-graduation-cap fa-fw"></i> Scholarship <b class="caret"></b></a>
 	          <ul class="dropdown-menu">
 	            <li><?php if(!$this->session->userdata("user_id"))echo anchor("scholar/signup","Signup")?></li>
 	            <li><?php echo anchor("scholar/apply","Apply")?></li>

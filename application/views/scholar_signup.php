@@ -13,7 +13,7 @@ require_once("includes/header.php"); ?>
 <section class = "container main-container">
 	<div class = "row">
 		
-		<div class="col-lg-6">
+		<div class="col-lg-6 col-md-8">
 		<h1 class="h1">
 			Signup
 		</h1>
@@ -98,6 +98,15 @@ require_once("includes/header.php"); ?>
 					Family Background
 				</div>
 				<div class = "panel-body">
+					<?php
+					$educ = array(	"Elementary Level"=>"Elementary Level",
+									"Elementary Graduate"=>"Elementary Graduate",
+									"High School Level"=>"High School Level",
+									"High School Graduate"=>"High School Graduate",
+									"College Level"=>"College Level",
+									"College Graduate"=>"College Graduate",
+									"Post Graduate"=>"Post Graduate");
+					?>
 	                <div class="row">
 	                    <div class="form-group col-lg-10">
 	                        <label class="control-label" for="father">Father</label>
@@ -113,7 +122,7 @@ require_once("includes/header.php"); ?>
 	                    </div>
 	                    <div class="form-group col-lg-6">
 	                        <label class="control-label" for="father_educ">Father Educational Attainment</label>
-	                        <?php echo form_input(array("name"=>"father_educ","class"=>"form-control input-sm input-right","placeholder"=>"Educational Attainment"),set_value("father_educ")); ?>
+	                        <?php echo form_dropdown("father_educ",$educ,set_value("father_educ"),"class = 'form-control input-sm input-right'"); ?>
 	                   	<?php echo form_error('father_educ'); ?>
 	                     </div>
 	                </div>
@@ -132,8 +141,8 @@ require_once("includes/header.php"); ?>
 	                    </div>
 	                    <div class="form-group col-lg-6">
 	                        <label class="control-label" for="mother_educ">Mother Educational Attainment</label>
-	                        <?php echo form_input(array("name"=>"mother_educ","class"=>"form-control input-sm","placeholder"=>"Educational Attainment"),set_value("mother_educ")); ?>
-	                    	<?php echo form_error('mother_educ'); ?>
+	                        <?php echo form_dropdown("mother_educ",$educ,set_value("mother_educ"),"class = 'form-control input-sm input-right'"); ?>
+	                   		<?php echo form_error('mother_educ'); ?>
 	                    </div>
 	                </div>
                 	<div class="form-group ">	                  
@@ -201,6 +210,7 @@ require_once("includes/header.php"); ?>
                     <?php echo form_password(array("name"=>"pass","id"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
                 	
                 	</div>
+                	<span class="label label-warning">Password should be at least 8 characters and a combination of uppercase,lowercase and number.</span>
                 	<?php echo form_error('pass'); ?>
 	            </div>
 	            <div class="form-group">
@@ -228,7 +238,7 @@ require_once("includes/header.php"); ?>
 	            </div>
                 </div>
                 <div class="panel-footer">
-                   	<div class="btn btn-primary"><a href="#education" data-toggle="tab" aria-expanded="false">Back</a></div> <div class="btn"><?php echo form_submit(array("value"=>"Save","class"=>"btn btn-success")); ?></div>
+                   	<a class="btn btn-primary" href="#education" data-toggle="tab" aria-expanded="false">Back</a> <div class="btn"><?php echo form_submit(array("value"=>"Save","class"=>"btn btn-success")); ?></div>
                 </div>
             	</div>                         
         	</div>

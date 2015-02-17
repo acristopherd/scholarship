@@ -9,7 +9,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
 <div id="page-wrapper">
     <h1> Announcements</h1>
     <div class="row">
-    <div class="wrapper col-lg-6">
+    <div class="wrapper col-lg-6 col-md-8">
     <div class="panel panel-primary">
     	<div class="panel-heading">
     		Add Announcement
@@ -24,7 +24,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
 	                </div>
 	                <div class="form-group col-lg-8">
 	                    <label class="control-label" for="a_date">Date</label>
-	                    <?php echo form_input(array("name"=>"a_date","class"=>"form-control input-sm","placeholder"=>"Date","type"=>"date"),set_value("a_date")); 
+	                    <?php echo form_input(array("name"=>"a_date","min"=>date("Y-m-d",mktime(0,0,0,date('m'),date('d')+1,date('Y'))),"class"=>"form-control input-sm","placeholder"=>"Date","type"=>"date"),set_value("a_date")); 
 	                    		echo form_error("a_date");?>
 	                </div>
 	                <div class="form-group col-lg-8">

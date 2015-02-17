@@ -29,6 +29,7 @@ class scholarshiptype extends CI_Controller{
 		}
 		$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
 		$this->form_validation->set_rules("name","Scholarship Name","trim|required|min_length[5]|max_length[100]|xss_clean");
+		$this->form_validation->set_rules("category","Category","trim|required|min_length[1]|max_length[100]|xss_clean");		
 		$this->form_validation->set_rules("min_grade","Minimum Grade","trim|required|min_length[1]|max_length[100]|xss_clean");		
 		$this->form_validation->set_rules("min_ave","Average","trim|required|min_length[1]|max_length[100]|xss_clean");
 		$this->form_validation->set_rules("requirements[]","Requirements","trim|max_length[100]|xss_clean");
@@ -42,6 +43,7 @@ class scholarshiptype extends CI_Controller{
 		}
 		else{
 			$data=array("type"=>$this->input->post("name"),
+						"category"=>$this->input->post("category"),
 						"minimum_grade"=>$this->input->post("min_grade"),
 						"min_average"=>$this->input->post("min_ave"));
 			
@@ -78,6 +80,7 @@ class scholarshiptype extends CI_Controller{
 			$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
 	    	$this->form_validation->set_rules("id","ID","trim|required|min_length[1]|max_length[20]|xss_clean");
 			$this->form_validation->set_rules("name","Scholarship Name","trim|required|min_length[5]|max_length[100]|xss_clean");
+			$this->form_validation->set_rules("category","Category","trim|required|min_length[1]|max_length[100]|xss_clean");		
 			$this->form_validation->set_rules("min_grade","Minimum Grade","trim|required|min_length[1]|max_length[100]|xss_clean");		
 			$this->form_validation->set_rules("min_ave","Average","trim|required|min_length[1]|max_length[100]|xss_clean");		
 			$this->form_validation->set_rules("requirements[]","Requirements","trim|max_length[100]|xss_clean");
@@ -86,6 +89,7 @@ class scholarshiptype extends CI_Controller{
 			}
 			else{
 				$data["fields"]=array("type"=>$this->input->post("name"),
+										"category"=>$this->input->post("category"),
 										"minimum_grade"=>$this->input->post("min_grade"),
 										"min_average"=>$this->input->post("min_ave"));
 				$data["id"]=$this->input->post("id");

@@ -378,7 +378,7 @@ class scholar extends CI_Controller{
 		if(isset($_POST['scholar_type'])){
 			$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
 			$this->form_validation->set_rules("scholar_type","Scholarship Type","trim|required|greater_than[-1]|xss_clean");
-			$this->form_validation->set_rules("sem","Semester","trim|min_length[0]|max_length[100]|xss_clean");
+			$this->form_validation->set_rules("sem","Semester","trim|required|min_length[0]|max_length[100]|xss_clean");
 			$this->form_validation->set_rules("sy","School Year","trim|required|min_length[2]|max_length[100]|xss_clean");
 			$this->form_validation->set_rules("no_of_units","Units","trim|required|greater_than[0]|xss_clean");
 			$this->form_validation->set_rules("no_of_subj","Subjects","trim|required|greater_than[0]|xszs_clean");
@@ -464,7 +464,7 @@ class scholar extends CI_Controller{
 				}
 				
 				}
-				$this->session->set_flashdata("msg","You have successfully applied for scholarship.");
+				$this->session->set_flashdata("message","You have successfully applied for scholarship.");
 								
 				redirect("scholar/my_scholarship#message");
 				/*
@@ -811,6 +811,71 @@ class scholar extends CI_Controller{
 		
 		$this->load->view("admin/scholar/scholar_print",$data);
 	}
+
+	function print_scholar_college(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+			$this->load->view("error_404");
+			return;
+		}
+		$where  = array();	
+		$data['scholars']=array();	
+		if($this->input->get("college")>0){
+			$where['coll_id'] = $this->input->get("college");
+			$data['scholars']=$this->scholarship_model->get_scholars_by_college($where);
+		}		
+		
+		$this->load->view("admin/scholar/scholar_print_college",$data);
+	}
+	
+	function print_scholar_course(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+			$this->load->view("error_404");
+			return;
+		}
+		$where  = array();	
+		$data['scholars']=array();	
+		if($this->input->get("course")>0){
+			$where['cour_id'] = $this->input->get("course");
+			$data['scholars']=$this->scholarship_model->get_scholars_by_course($where);
+		}		
+		
+		$this->load->view("admin/scholar/scholar_print_course",$data);
+	}
+	
+	function print_scholar_type(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+			$this->load->view("error_404");
+			return;
+		}
+		$where  = array();	
+		$data['scholars']=array();	
+		if($this->input->get("type")>0){
+			$where['scholar_type'] = $this->input->get("type");
+			$data['scholars']=$this->scholarship_model->get_scholars_by_type($where);
+		}	
+		
+		$this->load->view("admin/scholar/scholar_print_type",$data);
+	}
+
+	function choose_cat_to_print(){
+		
+		$types=$this->scholarship_model->get_types();
+		$data["types"][-1]="All";
+		foreach($types as $type){
+			$data["types"][$type->scholar_type]= $type->type;
+		}
+		$colleges=$this->scholarship_model->get_colleges();
+		$data["colleges"][-1]="All";
+		foreach($colleges as $college){
+			$data["colleges"][$college->coll_id]= $college->college;
+		}
+		$courses=$this->scholarship_model->get_courses();
+		$data["courses"][-1]="All";
+		foreach($courses as $course){
+			$data["courses"][$course->cour_id]= $course->course;
+		}
+		$this->load->view("admin/scholar/choose_cat_to_print",$data);
+	}
 	
 	function encode_grade(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
@@ -941,6 +1006,21 @@ class scholar extends CI_Controller{
 	//site key = 6LdAif4SAAAAAMgubH5XWj8DZSRAIr1cuUws-BnQ
 	//secret key = 6LdAif4SAAAAAGuv5AUc6tkfDRhl4Gf9TkBiKxjL
 	
+	/*public function send_mail($to,$fname,$lname,$id){
+		$this->load->library('email');
+		 $this->email->to($to);
+	    $this->email->from('osaunp@gmail.com',"UNP-OSA");
+	    $this->email->subject("Verify Your Scholarship Account");
+	    $this->email->message("<p>Hi ".$fname . ",<p>"
+								."<p> Please click this ".anchor("scholar/verify"."/".md5($to."5x*y3")."/".$id,"link")." to verify your scholarship account application.</p>".
+								"<p>If the link above will not work. Please go to this address ".site_url("scholar/verify")."/".md5($to."5x*y3")."/".$id.".".
+								"<p>Regards,<p>".
+								"<b><i>The UNP Family</i></b>");
+    	$success=$this->email->send();
+		return $success;
+	}
+	 * 
+	 */
 	public function send_mail($to,$fname,$mname,$lname,$id) {
 		$this->load->library('My_PHPMailer');
         $mail = new PHPMailer();
@@ -951,7 +1031,7 @@ class scholar extends CI_Controller{
 		$mail->Port 	  = 465;   
         $mail->Host       = "smtp.gmail.com";//"smtp.gmail.com";      // setting GMail as our SMTP server
         $mail->Username   = "osaunp@gmail.com";  // user email address
-        $mail->Password   = "Alland0nato";            // password in GMail
+        $mail->Password   = "University0sa";            // password in GMail
 		 
 		 
         $mail->SetFrom('acristopherd@gmail.com', 'University of Northern Philippines');  //Who is sending the email
@@ -959,13 +1039,13 @@ class scholar extends CI_Controller{
         $mail->Subject    = "Verify Your Scholarship Account";
 		$message		=	"<p>Hi ".$fname . ",<p>"
 							."<p> Please click this ".anchor("scholar/verify"."/".md5($to."5x*y3")."/".$id,"link")." to verify your scholarship account application.</p>".
-							"<p>If the link above will not work. Please go to this address ".site_url("scholar/verify")."/".md5($to."5x*y3")."/".$id.".".
+							"<p>If the link above will not work. Please go to this address ".str_replace(".html", "", $subject,site_url("scholar/verify"))."/".md5($to."5x*y3")."/".$id.".".
 							"<p>Regards,<p>".
 							"<b><i>The UNP Family</i></b>";
         $mail->Body       = $message;
 							
         $mail->AltBody    = "Hi ".$fname . ",\n"
-							."If the link above will not work. Please go to this address ".site_url("scholar/verify")."/".md5($to."5x*y3")."/".$id.".\n\n".
+							."If the link above will not work. Please go to this address ".str_replace(".html", "", $subject,site_url("scholar/verify"))."/".md5($to."5x*y3")."/".$id.".\n\n".
 							"Regards,\n".
 							"The UNP Family";
         //$destino = "addressee@example.com"; // Who is addressed the email to
@@ -974,11 +1054,13 @@ class scholar extends CI_Controller{
         //$mail->AddAttachment("images/phpmailer.gif");      // some attached files
         //$mail->AddAttachment("images/phpmailer_mini.gif"); // as many as you want
         if(!$mail->Send()) {
-            $data["message"] = "Error: " . $mail->ErrorInfo.$message;
+            $data["message"] = "Error: " . $mail->ErrorInfo;
         } else {
-            $data["message"] = "Message sent correctly!".$message;
+            $data["message"] = "Message sent correctly!";
         }
         //$this->load->view('mail_sent',$data);
         return $data["message"];
     }
+	 
+	 
 }

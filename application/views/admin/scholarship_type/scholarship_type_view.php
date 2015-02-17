@@ -17,13 +17,18 @@
 	                    <?php echo form_input(array("name"=>"name","class"=>"form-control input-sm","placeholder"=>"Scholarship Name"),set_value("name")); ?>
 	                	<?php echo form_error('name'); ?>
 	                </div>
-	                <div class="form-group col-lg-6 col-md-6"">
-	                    <label class="control-label" for="name">Minimum Grade</label>
+	                <div class="form-group col-lg-6 col-md-6">
+	                    <label class="control-label" for="category">Category</label>
+	                    <?php echo form_dropdown("category",array(""=>"Select","Academic"=>"Academic","Private"=>"Private"),set_value("category"),"class='form-control input-sm'"); ?>
+	                	<?php echo form_error('min_ave'); ?>
+	                </div> 
+	                <div class="form-group col-lg-3 col-md-3">
+	                    <label class="control-label" for="min_grade">Minimum Grade</label>
 	                    <?php echo form_input(array("name"=>"min_grade","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Minimum Grade"),set_value("min_grade","0")); ?>
 	                	<?php echo form_error('min_grade'); ?>
 	                </div> 
-	                <div class="form-group col-lg-6 col-md-6">
-	                    <label class="control-label" for="name">Average</label>
+	                <div class="form-group col-lg-3 col-md-3">
+	                    <label class="control-label" for="min_ave">Average</label>
 	                    <?php echo form_input(array("name"=>"min_ave","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Average"),set_value("min_ave","0")); ?>
 	                	<?php echo form_error('min_ave'); ?>
 	                </div> 
@@ -51,13 +56,14 @@
     <div class = "row">    	
     	<h3 class="">List of Scholarships</h3>
     	<table class="table table-striped table-hover table-responsive">
-    		<thead><tr class="table-header"><th>No</th><th>Name</th><th>Min Grade</th><th>Average</th><th>Requirements</th><th>Edit</th></tr></thead>
+    		<thead><tr class="table-header"><th>No</th><th>Category</th><th>Name</th><th>Min Grade</th><th>Average</th><th>Requirements</th><th>Edit</th></tr></thead>
     		<tbody>
     			<?php
     			$no=1;
     			foreach($types as $type){
     			?>
-    			<tr><td><?php echo $no++?></td>	
+    			<tr><td><?php echo $no++?></td>	    				
+    				<td><?php echo $type["info"]->category?></td>
     				<td><?php echo $type["info"]->type?></td>
     				<td><?php echo $type["info"]->minimum_grade?></td>
     				<td><?php echo $type["info"]->min_average?></td>

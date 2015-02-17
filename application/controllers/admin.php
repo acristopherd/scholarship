@@ -41,7 +41,7 @@ class admin extends CI_Controller{
 				$data['login']=$this->user_model->get_login($this->input->post("username"),$hpass);	
 				//echo $hpass . " ". $data['login'][0]->password;
 				//print_r($data['login']);
-				if(sizeof($data['login'])>0 && trim($data['login'][0]->password)==trim($hpass)&&$data['login'][0]->access_level>=3){
+				if(sizeof($data['login'])>0 && trim($data['login'][0]->password)==trim($hpass)&&$data['login'][0]->access_level>=2){
 					if($data['login'][0]->access_level==5){
 						$this->session->set_userdata(array("super_admin_id"=>$data['login'][0]->id,
 												"fname"=>$data['login'][0]->fname,
@@ -68,6 +68,15 @@ class admin extends CI_Controller{
 												"username"=>$data['login'][0]->username,
 												"access_level"=>$data['login'][0]->access_level,
 												"college_id"=>$data['login'][0]->college_id,
+												"admin_secret"=>$this->encrypt->encode("ic4ntThink0fAno+h3r")));
+					}
+					else if($data['login'][0]->access_level==2){
+						$this->session->set_userdata(array("staff_id"=>$data['login'][0]->id,
+												"fname"=>$data['login'][0]->fname,
+												"mname"=>$data['login'][0]->mname,
+												"lname"=>$data['login'][0]->lname,
+												"username"=>$data['login'][0]->username,
+												"access_level"=>$data['login'][0]->access_level,												
 												"admin_secret"=>$this->encrypt->encode("ic4ntThink0fAno+h3r")));
 					}
 					redirect("admin");

@@ -24,7 +24,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
     			?>
     			<tr><td><?php echo $no++?></td><td><?php echo $announcement->title?></td><td><a class="message btn" data-toggle="popover" tabindex="<?php echo $no?>" role="button" data-trigger="focus"  title="Message" data-content="<?php echo strip_tags($announcement->message)?>"><?php echo strtok(strip_tags($announcement->message)," ")."..."?></a></td>
     				<td><?php echo $announcement->date_of_event ?></td><td><?php echo $announcement->venue ?></td><td><?php echo $announcement->from ?></td>
-    				<td><?php echo $announcement->date_posted ?></td><td><?php echo anchor("announcement/delete"."/".$announcement->id,"<span class='btn btn-primary btn-circle btn-delete'><i class='fa fa-times' ></i></span>")?></td></tr>
+    				<td><?php echo $announcement->date_posted ?></td><td><?php echo anchor("announcement/delete"."/".$announcement->id,"<span class='btn btn-primary btn-circle btn-delete'><i class='fa fa-archive' ></i></span>")?></td></tr>
     			
     			<?php
     			}

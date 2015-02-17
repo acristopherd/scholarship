@@ -55,7 +55,7 @@ $style = '<style type = "text/css">
     	<a class="btn btn-primary" href = "<?php echo site_url("scholar/print_scholar")."?".$url?>" id ="btn-print">Print</a>
     	<?php echo form_open("scholar/approv_all");?>  	    
     	<table class="table table-striped table-hover table-responsive" id ="scholars-table">
-    		<thead><tr class="table-header"><th></th><th></th><th>F.Name</th><th>M.Name</th><th>L.Name</th><th>Sex</th><th>Town</th><th>Scholarship</th><th>Requirements</th><th>Action</th></tr></thead>
+    		<thead><tr class="table-header"><th>No</th><th>F.Name</th><th>M.Name</th><th>L.Name</th><th>Sex</th><th>Town</th><th>Scholarship</th><th>Requirements</th><th>Action</th></tr></thead>
     		<tbody>
     			<?php
     			$no=1;    			
@@ -64,7 +64,7 @@ $style = '<style type = "text/css">
     				if($this->session->userdata("admin_id")||$this->session->userdata("super_admin_id")||$scholar['info']->coll_id==$this->session->userdata("college_id")){
     			?>	    			
     			<tr>
-    				<td><?php if(!$this->session->userdata("college_user_id"))echo form_checkbox(array("name"=>"aid[]","class"=>"form-input chk-approv"),$scholar['info']->aid);?></td><td><?php  echo $no++?></td><td><?php echo $scholar['info']->fname ?></td><td><?php echo $scholar['info']->mname?></td>
+    				<!--<td><?php if(!$this->session->userdata("college_user_id"))echo form_checkbox(array("name"=>"aid[]","class"=>"form-input chk-approv"),$scholar['info']->aid);?></td>--><td><?php  echo $no++?></td><td><?php echo $scholar['info']->fname ?></td><td><?php echo $scholar['info']->mname?></td>
     				<td><?php echo $scholar['info']->lname ?></td><td><?php echo $scholar['info']->gender ?></td><td><?php echo $scholar['info']->town ?></td>
     				<td><?php echo $scholar['info']->type ?></td>
     				<td>
@@ -91,6 +91,7 @@ $style = '<style type = "text/css">
 				?>
     		</tbody>
     	</table>
+    	<!--
     	<?php
     	if(!$this->session->userdata("college_user_id")){
     	?>
@@ -98,7 +99,7 @@ $style = '<style type = "text/css">
     	<?php echo form_submit(array("name"=>"btn_approv_all","class"=>"btn btn-primary"),"Approve Selected")?>
     	<?php
 		}
-		?>
+		?>-->
     	<?php echo form_close();?>
     </div>
     <?php 

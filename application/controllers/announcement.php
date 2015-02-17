@@ -37,8 +37,12 @@ class announcement extends CI_Controller{
     	
 		$data['announcements']=array();
 		
-		
+		if($scholar_type[0]->approved==1){
     	$announcements=$this->announcement_model->get_page($config['per_page'],$start,$scholar_type[0]->scholar_type);
+    	}
+    	else{
+    		$announcements=$this->announcement_model->get_page_general($config['per_page'],$start);
+    	}
     	//$data['announcements']=$this->announcement_model->get_page($config['per_page'],$start);
 		foreach($announcements as $announcement){
 			$type=$this->announcement_type_model->get_by_id($announcement->id);
@@ -74,7 +78,7 @@ class announcement extends CI_Controller{
 		$id = $this->uri->segment(3);
 		$delete=$this->announcement_model->delete($id);
 		if($delete){
-			$this->session->set_flashdata("message","Successfully deleted.");
+			$this->session->set_flashdata("message","Announcement has been archived.");
 			redirect("announcement#message");
 		}
 		else{

@@ -11,7 +11,7 @@ $style='<style type = "text/css">
 include("includes/header.php");?>
 <section class="container main-container">
 	<h1>Announcements</h1>
-	<div class = "container col-lg-6">
+	<div class = "container col-lg-6 col-md-8">
 	<?php foreach($announcements as $announcement){
 	?>
 	<a name="<?php echo $announcement['all']->id?>"></a>

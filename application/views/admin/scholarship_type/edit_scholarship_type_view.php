@@ -18,6 +18,11 @@
 	                    <?php echo form_input(array("name"=>"name","class"=>"form-control input-sm","placeholder"=>"Scholarship Name"),isset($types[0]['info']->type)?$types[0]['info']->type:set_value("name")); ?>
 	                	<?php echo form_error('name'); ?>
 	                </div> 
+	                <div class="form-group col-lg-6 col-md-6">
+	                    <label class="control-label" for="category">Category</label>
+	                    <?php echo form_dropdown("category",array(""=>"Select","Academic"=>"Academic","Private"=>"Private"),isset($types[0]['info']->category)?$types[0]['info']->category:set_value("category"),"class='form-control input-sm'"); ?>
+	                	<?php echo form_error('min_ave'); ?>
+	                </div> 
 	                 <div class="form-group col-lg-6 col-md-6"">
 	                    <label class="control-label" for="name">Minimum Grade</label>
 	                    <?php echo form_input(array("name"=>"min_grade","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Minimum Grade"),set_value("min_grade",isset($types[0]['info']->minimum_grade)?$types[0]['info']->minimum_grade:'0')); ?>
@@ -25,7 +30,7 @@
 	                </div> 
 	                <div class="form-group col-lg-6 col-md-6">
 	                    <label class="control-label" for="name">Minimum Average</label>
-	                    <?php echo form_input(array("name"=>"min_ave","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Minimum Average"),set_value("min_ave",isset($types[0]['info']->average)?$types[0]['info']->average:'0')); ?>
+	                    <?php echo form_input(array("name"=>"min_ave","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Minimum Average"),set_value("min_ave",isset($types[0]['info']->min_average)?$types[0]['info']->min_average:'0')); ?>
 	                	<?php echo form_error('min_ave'); ?>
 	                </div> 
 	                 <div class="form-group">

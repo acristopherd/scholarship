@@ -108,7 +108,12 @@
                             <a href="<?php echo site_url("admin")?>"><i class="fa fa-home fa-fw"></i> Home</a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('scholar/view_scholar')?>"><i class="fa fa-graduation-cap fa-fw"></i> Scholars</a>
+                        	
+                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Scholars<span class="fa arrow"></span></a>
+                       		<ul class="nav nav-second-level collapse">
+		                    	<li><a href="<?php echo site_url('scholar/view_scholar')?>?approved=0">Pending</a></li>
+		                        <li><a href="<?php echo site_url('scholar/view_scholar')?>?approved=1">Approved</a></li>
+		                    </ul>
                         </li>
                          <li>
                             <?php if($this->session->userdata("access_level")>=4){?><a href="<?php echo site_url('announcement/')?>"><i class="fa fa-bullhorn fa-fw"></i> Announcements</a><?php } ?>
@@ -129,6 +134,13 @@
 		                        <li><a href="<?php echo site_url('scholarshiptype')?>">Scholarship Types</a></li>	
 		                    </ul>
 		                    <?php } ?> 
+                        </li>
+                        <li>
+                            <?php if($this->session->userdata("access_level")>=4||$this->session->userdata("access_level")==2){?><a href="#"><i class="fa fa-paper fa-fw"></i> Reports</a>
+                            <ul class="nav nav-second-level collapse">
+		                    	<li><?php echo anchor("scholar/choose_cat_to_print","Scholars")?></li>
+		                    </ul>
+                            <?php } ?>
                         </li>
                     </ul>
                 </div>

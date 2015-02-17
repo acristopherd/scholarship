@@ -1,15 +1,21 @@
 
 <?php 
 $title = "Apply - Scholar";
+$style='<style type="text/css">
+	label.error{
+		background:red;
+		color:#EEE;
+	}
+	</style>';
 include("includes/header.php"); ?>
 <section class = "container main-container">
 	<div class = "row">
 		
-		<div class="col-lg-6">
+		<div class="col-lg-6 col-md-8">
 		<h1 class="page-header">
 			Scholarship
 		</h1>
-		<?php echo form_open_multipart("scholar/apply");?>
+		<?php echo form_open_multipart("scholar/apply",array("id"=>"apply"));?>
 		        
         <!-- Tab panes -->
         <div class="tab-content">
@@ -30,41 +36,41 @@ include("includes/header.php"); ?>
 	                </div>
 	                <div class="row"> 
 	                	<div class="form-group  col-lg-4">
-	                        <label class="control-label" for="type">Sem/Term</label>
+	                        <label class="control-label" for="sem">Sem/Term</label>
 	                        <?php echo form_dropdown("sem",array(""=>"-Select-","1"=>"1st","2"=>"2nd","3"=>"Summer"),set_value("sem"),"class='form-control input-sm' id ='sem'"); ?>
 	                		<?php echo form_error("sem");?>
 	                	</div>
 	                	<div class="form-group  col-lg-4">
-	                        <label class="control-label" for="type">School Year</label>
-	                        <?php echo form_dropdown("sy",array(""=>"-Select-",Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")))=>Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y"))),Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),set_value("sy"),"class='form-control input-sm' id ='sy'"); ?>
+	                        <label class="control-label" for="sy">School Year</label>
+	                        <?php echo form_dropdown("sy",array(Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),set_value("sy"),"class='form-control input-sm' id ='sy'"); ?>
 	                		<?php echo form_error("sy");?>
 	                	</div>
 	                </div>
 	                <div class="row">
 	                    <div class="form-group col-lg-4">
 	                        <label class="control-label" for="no_of_units">No of Units</label>
-	                        <?php echo form_input(array("name"=>"no_of_units","class"=>"form-control input-sm","placeholder"=>"No of Units","type"=>"number","min"=>3,"id"=>"units","value"=>set_value("no_of_units"))); ?>
+	                        <?php echo form_input(array("name"=>"no_of_units","class"=>"form-control input-sm","placeholder"=>"No of Units","type"=>"number","min"=>3,"max"=>"30","id"=>"units","value"=>set_value("no_of_units"))); ?>
 	                    	<?php echo form_error("no_of_units");?>
 	                    </div>                        
 	                    <div class="form-group col-lg-4">
 	                        <label class="control-label" for="no_of_subj">No of Subjects</label>
-	                        <?php echo form_input(array("name"=>"no_of_subj","class"=>"form-control input-sm","placeholder"=>"No of Subjects","type"=>"number","min"=>1,"value"=>set_value("no_of_subj"))); ?>
+	                        <?php echo form_input(array("name"=>"no_of_subj","class"=>"form-control input-sm","placeholder"=>"No of Subjects","type"=>"number","min"=>4,"max"=>10,"value"=>set_value("no_of_subj"))); ?>
 	                    	<?php echo form_error("no_of_subj");?>
 	                    </div>  
 	                </div>
 	                <div class="row">
 	                	<div class="form-group  col-lg-4">
-	                        <label class="control-label" for="type">Year Level</label>
+	                        <label class="control-label" for="yr_lvl">Year Level</label>
 	                        <?php echo form_dropdown("yr_lvl",array(""=>"-Select-","1"=>"I","2"=>"II","3"=>"III","4"=>"IV","5"=>"V"),set_value("yr_lvl"),"class='form-control input-sm'"); ?>
 	                		<?php echo form_error("yr_lvl");?>
 	                	</div>
 	                	<div class="form-group  col-lg-4">
-	                        <label class="control-label" for="type">College</label>
+	                        <label class="control-label" for="college">College</label>
 	                        <?php echo form_dropdown("college",$colleges,set_value("college"),"class='form-control input-sm'  id='college'"); ?>
 	                		<?php echo form_error("college");?>
 	                	</div>
 	                	<div class="form-group  col-lg-4">
-	                        <label class="control-label" for="type">Course</label>
+	                        <label class="control-label" for="course">Course</label>
 	                        <?php echo form_dropdown("course",$courses,set_value("course"),"class='form-control input-sm' id='course'"); ?>
 	                		<?php echo form_error("course");?>
 	                	</div>
@@ -112,6 +118,61 @@ include("includes/header.php"); ?>
 			
 		}
 	});
+	$("form#apply").validate({
+		rules: {  			             
+            scholar_type:{
+            	required:true
+            },  
+            sem:{
+            	required:true
+            },
+            sy:{
+            	required:true
+            },
+       		no_of_units:{
+       			required:true
+       		},
+       		no_of_subj:{
+       			required:true
+       		},
+       		yr_lvl:{
+       			required:true
+       		},
+       		college:{
+       			required:true
+       		},
+       		course:{
+       			required:true
+       		}
+       },
+       messages:{
+       		scholar_type:{
+       			required:"Choose a scholar type."
+       		},
+       		sem:{
+       			required:"Choose a sem."
+			},
+       		sy:{
+       			required:"Choose a school year."
+       		},
+       		no_of_units:{
+       			required:"Enter number of units."
+       		},
+       		no_of_subj:{
+       			required:"Enter number of subjects."
+       		},
+       		yr_lvl:{
+       			required:"Choose a year level."
+       		},
+       		course:{
+       			required:"Choose a course."
+       		},
+       		college:{
+       			required:"Choose a college."
+       		}
+       }
+	});
+	
 	$("#sem").bind("change",function(){
 		if($("#sem").val()&&$("#sy").val()){
 		$.post("<?php echo site_url("scholar/get_existing_scholarship")?>?sid="+Math.random(),{sem:$("#sem").val(),sy:$("#sy").val()},function(data){

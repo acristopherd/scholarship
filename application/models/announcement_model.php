@@ -31,6 +31,18 @@ class announcement_model extends CI_Model{
 		return $announcement;
 	}
 	
+	function get_page_general($limit=0,$start=0){
+		$this->db->join("tblannouncement_type","tblannouncement.id=tblannouncement_type.announcement_id","left");
+		//$this->db->where("type_id",$type);
+		$this->db->where("type_id");
+		$this->db->order_by("tblannouncement.id","desc");
+		$this->db->limit($limit,$start);
+		
+		$result=$this->db->get("tblannouncement");		
+		$announcement=$result->result();
+		return $announcement;
+	}
+	
 	function count(){
 		$count =$this->db->count_all_results("tblannouncement");
 		return $count;
@@ -52,6 +64,7 @@ class announcement_model extends CI_Model{
 	}
 	
 	function delete($id){
+		$this->db->query("insert into tblannouncement_archive (select * from tblannouncement where id =".$id .")");
 		$message['success']=$this->db->delete("tblannouncement",array("id"=>$id));
 		$message['id']= $this->db->insert_id();
 		return $message;
