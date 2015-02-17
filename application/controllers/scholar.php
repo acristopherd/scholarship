@@ -819,6 +819,9 @@ class scholar extends CI_Controller{
 		}
 		$where  = array();	
 		$data['scholars']=array();	
+		$where['sy'] = $this->input->get("sy")>0?$this->input->get("sy"):'2015-2016';
+		$where['semester'] = $this->input->get("sem")>0?$this->input->get("sem"):0;
+		
 		if($this->input->get("college")>0){
 			$where['coll_id'] = $this->input->get("college");
 			$data['scholars']=$this->scholarship_model->get_scholars_by_college($where);
@@ -834,6 +837,9 @@ class scholar extends CI_Controller{
 		}
 		$where  = array();	
 		$data['scholars']=array();	
+		$where['sy'] = $this->input->get("sy")>0?$this->input->get("sy"):'2015-2016';
+		$where['semester'] = $this->input->get("sem")>0?$this->input->get("sem"):0;
+		
 		if($this->input->get("course")>0){
 			$where['cour_id'] = $this->input->get("course");
 			$data['scholars']=$this->scholarship_model->get_scholars_by_course($where);
@@ -849,6 +855,9 @@ class scholar extends CI_Controller{
 		}
 		$where  = array();	
 		$data['scholars']=array();	
+		$where['sy'] = $this->input->get("sy")>0?$this->input->get("sy"):'2015-2016';
+		$where['semester'] = $this->input->get("sem")>0?$this->input->get("sem"):0;
+		
 		if($this->input->get("type")>0){
 			$where['scholar_type'] = $this->input->get("type");
 			$data['scholars']=$this->scholarship_model->get_scholars_by_type($where);
@@ -858,19 +867,40 @@ class scholar extends CI_Controller{
 	}
 
 	function choose_cat_to_print(){
-		
+		$sems=$this->scholarship_model->get_sems();
+		$data["sems"][-1]="Choose";
+		foreach($sems as $sem){
+			$word="";
+			switch($sem->semester){
+				case "1":	
+					$word="1st";
+					break;
+				case "2":	
+					$word="2nd";
+					break;
+				case "3":	
+					$word="Summer";
+					break;
+			}
+			$data["sems"][$sem->semester]= $word;
+		}
+		$sys=$this->scholarship_model->get_sys();
+		$data["sys"][-1]="Choose";
+		foreach($sys as $sy){
+			$data["sys"][$sy->sy]= $sy->sy;
+		}
 		$types=$this->scholarship_model->get_types();
-		$data["types"][-1]="All";
+		$data["types"][-1]="Choose";
 		foreach($types as $type){
 			$data["types"][$type->scholar_type]= $type->type;
 		}
 		$colleges=$this->scholarship_model->get_colleges();
-		$data["colleges"][-1]="All";
+		$data["colleges"][-1]="Choose";
 		foreach($colleges as $college){
 			$data["colleges"][$college->coll_id]= $college->college;
 		}
 		$courses=$this->scholarship_model->get_courses();
-		$data["courses"][-1]="All";
+		$data["courses"][-1]="Choose";
 		foreach($courses as $course){
 			$data["courses"][$course->cour_id]= $course->course;
 		}

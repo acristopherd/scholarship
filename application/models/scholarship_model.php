@@ -93,45 +93,48 @@ class scholarship_model extends CI_Model{
 	}
 	
 	function get_scholars_by_college($data=NULL){
-		$result=$this->db->query("select * from tblscholarship 
+		$sql="select * from tblscholarship 
 								inner join tblscholar on tblscholarship.sid = tblscholar.id
 								inner join tblcollege on tblcollege.id = tblscholarship.coll_id
 								inner join tblscholar_type on scholar_type = tblscholar_type.id
 								inner join tblcourse on tblscholarship.cour_id = tblcourse.id
-								where sy=(select distinct sy from tblscholarship order by aid asc limit 0,1) and 
-								semester=(select distinct semester from tblscholarship order by scholar_type,cour_id,aid asc limit 0,1)
-								and approved =1 and tblscholarship.coll_id=".$data['coll_id']);
+								where sy= ? and 
+								semester= ?	and 
+								approved =1 and tblscholarship.coll_id= ?";
 		
+		$result=$this->db->query($sql,$data);
 		$scholarship=$result->result();
 		//echo $this->db->last_query();
 		return $scholarship;
 	}
 	
 	function get_scholars_by_course($data=NULL){
-		$result=$this->db->query("select * from tblscholarship 
+		$sql="select * from tblscholarship 
 								inner join tblscholar on tblscholarship.sid = tblscholar.id
 								inner join tblcollege on tblcollege.id = tblscholarship.coll_id
 								inner join tblscholar_type on scholar_type = tblscholar_type.id
 								inner join tblcourse on tblscholarship.cour_id = tblcourse.id
-								where sy=(select distinct sy from tblscholarship order by aid asc limit 0,1) and 
-								semester=(select distinct semester from tblscholarship order by scholar_type,aid asc limit 0,1)
-								and approved =1 and tblscholarship.cour_id=".$data['cour_id']);
+								where sy= ? and 
+								semester= ?	and 
+								approved =1 and tblscholarship.cour_id= ?";
 		
+		$result=$this->db->query($sql,$data);
 		$scholarship=$result->result();
 		//echo $this->db->last_query();
 		return $scholarship;
 	}
 	
 	function get_scholars_by_type($data=NULL){
-		$result=$this->db->query("select * from tblscholarship 
+		$sql="select * from tblscholarship 
 								inner join tblscholar on tblscholarship.sid = tblscholar.id
 								inner join tblcollege on tblcollege.id = tblscholarship.coll_id
 								inner join tblscholar_type on scholar_type = tblscholar_type.id
 								inner join tblcourse on tblscholarship.cour_id = tblcourse.id
-								where sy=(select distinct sy from tblscholarship order by aid asc limit 0,1) and 
-								semester=(select distinct semester from tblscholarship order by coll_id,cour_id,aid asc limit 0,1)
-								and approved =1 and tblscholarship.scholar_type=".$data['scholar_type']);
+								where sy= ? and 
+								semester= ?	and 
+								approved =1 and scholar_type= ?";
 		
+		$result=$this->db->query($sql,$data);
 		$scholarship=$result->result();
 		//echo $this->db->last_query();
 		return $scholarship;
