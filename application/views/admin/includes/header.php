@@ -136,7 +136,7 @@
 		                    <?php } ?> 
                         </li>
                         <li>
-                            <?php if($this->session->userdata("access_level")>=4||$this->session->userdata("access_level")==2){?><a href="#"><i class="fa fa-paper fa-fw"></i> Reports</a>
+                            <?php if($this->session->userdata("access_level")>=4||$this->session->userdata("access_level")==2){?><a href="#"><i class="fa fa-book fa-fw"></i> Reports<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
 		                    	<li><?php echo anchor("scholar/choose_cat_to_print","Scholars")?></li>
 		                    </ul>

@@ -6,4 +6,8 @@ application/cache/*
 
 application/logs/*
 !application/logs/index.html
-!application/logs/.htaccess
+!application/logs/.htaccessapplication/images
+application/core
+application/errors
+application/font-awesome-4.1.0
+application/fonts

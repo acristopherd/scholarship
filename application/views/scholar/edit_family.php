@@ -5,7 +5,7 @@ $style='<style type = "text/css">
 		text-transform:capitalize;
 	}
 </style>';
-require_once("/../includes/header.php"); ?>
+$this->load->view("includes/header.php"); ?>
 <section class = "container main-container">
 	<h4>Account Settings</h4>
 	<div class = "row">
@@ -107,4 +107,4 @@ $(document).ready(function(){
 	});
 });
 		</script>';
-include("/../includes/footer.php"); ?>
+$this->load->view("includes/footer.php"); ?>

@@ -37,6 +37,7 @@
 				text-align:center;
 				display: relative;
 			}
+			.grade-header table{width:22em}
 			.sign{
 				border-top:1px solid black;
 				text-align:center;
@@ -61,6 +62,10 @@
 			.underline{text-decoration:underline}
 			#sign{width:25em;text-align:right}
 			#dean{text-transform:uppercase;font-weight:bold;text-decoration:underline}
+			img{
+				height:4em;
+			}
+			
 			@media print{
 				footer{display:none}
 				input{border:none;text-transform:uppercase;font-weight:bold;overflow:visible;width:150%}
@@ -73,10 +78,12 @@
 		<div class="page-wrapper ">
 			
 			<div class="grade-header">
-				<img src = "<?php echo base_url() ?>images/unpv1.png" />
-				Republic of the Philippines<br />
+				<table><tr><td><img style="float:right" src = "<?php echo base_url() ?>images/unpv1.png" /></td>
+				<td><pstyle="float:left">Republic of the Philippines<br />
 				<b>University of Northern Philippines</b><br />
-				Vigan City
+				Vigan City</p></td>
+				</tr>
+				</table>
 			</div>
 			<br />
 			<p style="text-transform:uppercase;text-align:center"><b><?php echo $scholar[0]->college_name?></b></p>

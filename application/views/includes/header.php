@@ -31,7 +31,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      
+	      <span><div class ="navbar-brand" style="background:url(<?php echo base_url()?>images/unp_icon.png);width:42px;height:42px"></div></span>
 	      <a class="navbar-brand" href="<?php echo site_url("osa")?>"><span>UNP - OSA</span></a>
 	    </div>
 	    <div class="navbar-collapse collapse navbar-responsive-collapse">
@@ -66,7 +66,7 @@
 	      </ul>
 	     
 	      <ul class="nav navbar-nav navbar-right">
-	      	 
+	      	 <!--
 	        <li>
 	        	<form class="navbar-form">
                 <div class="input-group">
@@ -78,8 +78,8 @@
                 	</span>
                 </div>
                 </form>
-                <!-- /input-group -->
             </li>
+           -->
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> <b class="caret"></b></a>
 	          <ul class="dropdown-menu">   

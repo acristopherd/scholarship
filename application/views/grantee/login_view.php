@@ -1,4 +1,4 @@
-<?php include("/../includes/header.php");?>
+<?php $this->load->view("includes/header.php");?>
 <section class="container">
 	<div class="row col-lg-4">
 	<?php echo form_open("osa/grantee")?>
@@ -35,4 +35,4 @@
 	</div>
 </section>
 	
-<?php include("/../includes/footer.php");?>
+<?php $this->load->view("includes/footer.php");?>

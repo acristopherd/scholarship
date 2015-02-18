@@ -65,7 +65,7 @@ require_once("includes/header.php"); ?>
 	                <div class="row"> 
 	                	<div class="form-group  col-lg-8">
 	                        <label class="control-label" for="contact">Contact No.</label>
-                        	<?php echo form_input(array("name"=>"contact","class"=>"form-control input-sm","placeholder"=>"Contact No."),set_value("contact")); ?>
+                        	<?php echo form_input(array("name"=>"contact","type"=>"tel", "pattern"=> "[0-9]{10}","class"=>"form-control input-sm","placeholder"=>"Contact No."),set_value("contact")); ?>
                 			<?php echo form_error('contact'); ?>
 	                    </div>
 	                </div>
@@ -121,7 +121,7 @@ require_once("includes/header.php"); ?>
 	                    	<?php echo form_error('father_occu'); ?>
 	                    </div>
 	                    <div class="form-group col-lg-6">
-	                        <label class="control-label" for="father_educ">Father Educational Attainment</label>
+	                        <label class="control-label" for="father_educ">Father's Educational Attainment</label>
 	                        <?php echo form_dropdown("father_educ",$educ,set_value("father_educ"),"class = 'form-control input-sm input-right'"); ?>
 	                   	<?php echo form_error('father_educ'); ?>
 	                     </div>
@@ -140,7 +140,7 @@ require_once("includes/header.php"); ?>
 	                    	<?php echo form_error('mother_occu'); ?>
 	                    </div>
 	                    <div class="form-group col-lg-6">
-	                        <label class="control-label" for="mother_educ">Mother Educational Attainment</label>
+	                        <label class="control-label" for="mother_educ">Mother's Educational Attainment</label>
 	                        <?php echo form_dropdown("mother_educ",$educ,set_value("mother_educ"),"class = 'form-control input-sm input-right'"); ?>
 	                   		<?php echo form_error('mother_educ'); ?>
 	                    </div>
@@ -282,6 +282,9 @@ $(document).ready(function(){
             	number:true,
             	min:0,
             	max:1000000
+            },
+            contact:{
+            	digits:true
             }
        },
        messages:{
@@ -299,7 +302,10 @@ $(document).ready(function(){
        		income:{
        			min:"enter a number",
        			number:"enter a number"
-       		}
+       		},
+            contact:{
+            	digits:"Enter a number"
+            }
        }
 	});
 	
