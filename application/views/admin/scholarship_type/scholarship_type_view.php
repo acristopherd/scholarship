@@ -1,6 +1,6 @@
 <?php $page_title = "Scholarship Type View - Admin"; 
 		$style ='<style type="text/css">.requirements{margin:.5em}input[type="text"]{text-transform:capitalize}</style>'?>
-<?php include("/../includes/header.php");?>
+<?php $this->load->view('admin/includes/header.php');?>
 <div id="page-wrapper">
     <h1>Types of Scholarship</h1>
     <div class="row">
@@ -90,4 +90,4 @@ $script='
 	});
 </script>';
 ?>
-<?php include("/../includes/footer.php");
+<?php  $this->load->view('admin/includes/footer.php');

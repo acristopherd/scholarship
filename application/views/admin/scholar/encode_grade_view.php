@@ -6,7 +6,7 @@ $style = '
 	}
 </style>
 ';?>
-<?php include("/../includes/header.php");?>
+<?php $this->load->view('admin/includes/header.php');?>
 <div id="page-wrapper">
     <h1> Scholars</h1>
     <div class="row">
@@ -128,4 +128,4 @@ $script='
 	});
 </script>';
 ?>
-<?php include("/../includes/footer.php");
+<?php  $this->load->view('admin/includes/footer.php');

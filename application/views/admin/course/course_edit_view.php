@@ -1,5 +1,5 @@
 <?php $page_title = "college View - Admin"; ?>
-<?php include("/../includes/header.php");?>
+<?php  $this->load->view('admin/includes/header.php');?>
 <div id="page-wrapper">
     <h1> Course</h1>
     <div class="row">
@@ -37,4 +37,4 @@
     
     
 </div>
-<?php include("/../includes/footer.php");
+<?php  $this->load->view('admin/includes/footer.php');

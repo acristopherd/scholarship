@@ -10,7 +10,7 @@ $style = '<style type = "text/css">
 				padding-left:1em;
 			}
 			</style>'?>
-<?php include("/../includes/header.php"); ?>
+<?php $this->load->view('admin/includes/header.php'); ?>
 <div id="page-wrapper">
     <h1> Scholars</h1>
     <div class="row">
@@ -111,7 +111,7 @@ $style = '<style type = "text/css">
 	}
 ?>
 </div>
-<?php include("/../includes/footer.php");?>
+<?php  $this->load->view('admin/includes/footer.php');?>
  <script src="<?php echo base_url();?>js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="<?php echo base_url();?>js/plugins/dataTables/dataTables.bootstrap.js"></script>
 

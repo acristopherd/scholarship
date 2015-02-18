@@ -4,7 +4,7 @@ $style='<style type = "text/css">
 		text-transform:capitalize;
 	}
 </style>'; ?>
-<?php include("/../includes/header.php");?>
+<?php $this->load->view('admin/includes/header.php');?>
 <div id="page-wrapper">
     <h1> Users</h1>
     <div class="row">
@@ -144,7 +144,7 @@ $style='<style type = "text/css">
     	</table>
     </div>
 </div>
-<?php include("/../includes/footer.php");?>
+<?php  $this->load->view('admin/includes/footer.php');?>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#lvl").change(function(){			

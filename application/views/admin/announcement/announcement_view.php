@@ -7,7 +7,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
 		text-overflow:ellipsis;
 	}
 </style>'?>
-<?php include("/../includes/header.php");?>
+<?php  $this->load->view('admin/includes/header.php');?>
 
 <div id="page-wrapper">
     <h1> Announcements </h1>
@@ -36,7 +36,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
     </div>
     </div>
    
-<?php include("/../includes/footer.php");
+<?php  $this->load->view('admin/includes/footer.php');
 ?>
 <script src="<?php echo base_url();?>js/plugins/dataTables/jquery.dataTables.js"></script>
 <script src="<?php echo base_url();?>js/plugins/dataTables/dataTables.bootstrap.js"></script>

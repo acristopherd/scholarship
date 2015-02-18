@@ -5,7 +5,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
 				text-transform:capitalize;
 			}
 		</style>'?>
-<?php include("/../includes/header.php");?>
+<?php $this->load->view('admin/includes/header.php');?>
 <div id="page-wrapper">
     <h1> Announcements</h1>
     <div class="row">
@@ -71,7 +71,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
     
     
 </div>
-<?php include("/../includes/footer.php");
+<?php  $this->load->view('admin/includes/footer.php');
 ?>
 <script src="<?php echo base_url();?>js/htmlarea/jHtmlArea-0.8.min.js"></script>
 <script type="text/javascript">
