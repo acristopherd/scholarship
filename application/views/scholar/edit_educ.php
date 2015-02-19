@@ -1,11 +1,11 @@
 <?php 
 //$headscript="<script src='https://www.google.com/recaptcha/api.js'></script>";
-$style='<style type = "text/css">
+$data['style']='<style type = "text/css">
 	input[type="text"]{
 		text-transform:capitalize;
 	}
 </style>';
-$this->load->view("includes/header.php"); ?>
+$this->load->view("includes/header.php",$data); ?>
 <section class = "container main-container">
 	<h4>Account Settings</h4>
 	<div class = "row">
@@ -54,13 +54,13 @@ $this->load->view("includes/header.php"); ?>
 </script>
 
 <?php 
-$script='<script type="text/javascript">
-$(document).ready(function(){
-	$("#btn-edit").click(function(){
-		$("input[disabled],select[disabled]").removeAttr("disabled");
-		$(".hidden").removeClass("hidden");
-		$(this).hide();
-	});
-});
-		</script>';
 $this->load->view("includes/footer.php"); ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#btn-edit").click(function(){
+			$("input[disabled],select[disabled]").removeAttr("disabled");
+			$(".hidden").removeClass("hidden");
+			$(this).hide();
+		});
+	});
+</script>

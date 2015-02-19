@@ -1052,7 +1052,7 @@ class scholar extends CI_Controller{
 	 * 
 	 */
 	public function send_mail($to,$fname,$mname,$lname,$id) {
-		$this->load->library('My_PHPMailer');
+		/*$this->load->library('My_PHPMailer');
         $mail = new PHPMailer();
 		//$mail->isMail();
         $mail->IsSMTP(); // we are going to use SMTP
@@ -1083,10 +1083,26 @@ class scholar extends CI_Controller{
 
         //$mail->AddAttachment("images/phpmailer.gif");      // some attached files
         //$mail->AddAttachment("images/phpmailer_mini.gif"); // as many as you want
-        if(!$mail->Send()) {
-            $data["message"] = "Error: " . $mail->ErrorInfo;
+		 * 
+		 */
+		 $message		=	"<p>Hi ".$fname . ",<p>"
+							."<p> Please click this ".anchor("scholar/verify"."/".md5($to."5x*y3")."/".$id,"link")." to verify your scholarship account application.</p>".
+							"<p>If the link above will not work. Please go to this address ".str_replace(".html", "",site_url("scholar/verify"))."/".md5($to."5x*y3")."/".$id.".".
+							"<p>Regards,<p>".
+							"<b><i>The UNP Family</i></b>";
+		 $this->load->library('email');
+		 $result = $this->email
+                ->from('osaunp@gmail.com')
+                ->reply_to('osaunp@gmail.com')    // Optional, an account where a human being reads.
+                ->to($to)
+                ->subject("Verify Your Scholarship Account")
+                ->message($message)
+                ->send();
+        if($result) {
+        	$data["message"] = "Message sent correctly!";
+           
         } else {
-            $data["message"] = "Message sent correctly!";
+             $data["message"] = "Error: " . $this->email->print_debugger();
         }
         //$this->load->view('mail_sent',$data);
         return $data["message"];

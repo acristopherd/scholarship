@@ -1,10 +1,10 @@
-<?php $page_title = "Users View - Admin";
-$style='<style type = "text/css">
+<?php $data['page_title'] = "Users View - Admin";
+$data['style']='<style type = "text/css">
 	.capitalize{
 		text-transform:capitalize;
 	}
 </style>'; ?>
-<?php $this->load->view('admin/includes/header.php');?>
+<?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Users</h1>
     <div class="row">

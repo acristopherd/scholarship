@@ -1,12 +1,12 @@
-<?php $page_title = "Scholar View - Grantee"; 
-$style = '<style type = "text/css">
+<?php $data['page_title'] = "Scholar View - Grantee"; 
+$data['style'] = '<style type = "text/css">
 			.requirement{
 				max-width:8em;
 				text-overflow:ellipsis;
 				overflow:hidden;
 			}
 			</style>'?>
-<?php $this->load->view("includes/header.php"); ?>
+<?php $this->load->view("includes/header.php",$data); ?>
 <div class="container main-container">
     <h1> Scholars</h1>
     

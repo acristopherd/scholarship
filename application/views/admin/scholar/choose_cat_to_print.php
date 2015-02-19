@@ -1,5 +1,5 @@
-<?php $page_title = "Scholar View - Admin"; 
-$style = '<style type = "text/css">
+<?php $data['page_title'] = "Scholar View - Admin"; 
+$data['style'] = '<style type = "text/css">
 			.requirement{
 				max-width:8em;
 				text-overflow:ellipsis;
@@ -10,7 +10,7 @@ $style = '<style type = "text/css">
 				padding-left:1em;
 			}
 			</style>'?>
-<?php $this->load->view('admin/includes/header.php'); ?>
+<?php $this->load->view('admin/includes/header.php',$data); ?>
 <div id="page-wrapper">
     <h1> Scholars</h1>
     <div class="row">

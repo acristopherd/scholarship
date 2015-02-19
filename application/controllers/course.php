@@ -63,6 +63,7 @@ class course extends CI_Controller{
 			foreach($colleges as $college){
 				$data['colleges'][$college->id]=$college->college;
 			}
+			$data['edit']=$this->course_model->get_course($id);
 	        $this->load->view("admin/course/course_edit_view.php",$data);
     	}
 		else{

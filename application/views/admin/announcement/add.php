@@ -1,11 +1,11 @@
-<?php $page_title = "Announcement View - Admin"; 
-$style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
+<?php $data['page_title'] = "Announcement View - Admin"; 
+$data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
 		<style type = "text/css">
 			input{
 				text-transform:capitalize;
 			}
 		</style>'?>
-<?php $this->load->view('admin/includes/header.php');?>
+<?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Announcements</h1>
     <div class="row">

@@ -1,5 +1,5 @@
-<?php $page_title = "college View - Admin"; ?>
-<?php  $this->load->view('admin/includes/header.php');?>
+<?php $data['page_title'] = "college View - Admin"; ?>
+<?php  $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> College</h1>
     <div class="row">

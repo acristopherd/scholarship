@@ -1,12 +1,12 @@
-<?php $page_title = "Grade - Admin"; 
-$style = '
+<?php $data['page_title'] = "Grade - Admin"; 
+$data['style'] = '
 <style type = "text/css">
 	input[type="text"]{
 		text-transform:capitalize;
 	}
 </style>
 ';?>
-<?php $this->load->view('admin/includes/header.php');?>
+<?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Scholars</h1>
     <div class="row">
@@ -79,8 +79,10 @@ $style = '
     </div>
     </div>
 </div>
-<?php 
-$script='
+
+
+<?php  $this->load->view('admin/includes/footer.php');?>
+
 <script type = "text/javascript">
 	$(document).ready(function(){
 		$("#btn-add").bind("click",function(){
@@ -126,6 +128,4 @@ $script='
 			$("#ave").val(parseFloat(ave/units));
 		});*/
 	});
-</script>';
-?>
-<?php  $this->load->view('admin/includes/footer.php');
+</script>

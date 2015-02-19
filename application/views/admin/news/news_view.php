@@ -1,5 +1,5 @@
-<?php $page_title = "News View - Admin"; 
-$style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
+<?php $data['page_title'] = "News View - Admin"; 
+$data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
 <style type="text/css">
 	.message{
 		height:2em;
@@ -7,7 +7,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
 		text-overflow:ellipsis;
 	}
 </style>'?>
-<?php $this->load->view('admin/includes/header.php');?>
+<?php $this->load->view('admin/includes/header.php',$data);?>
 
 <div id="page-wrapper">
     <h1> News </h1>

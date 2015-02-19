@@ -1,6 +1,9 @@
 <?php 
 class course_model extends CI_Model{
 	function get(){
+		$this->db->select("tblcourse.id as id, course,tblcourse.desc, college");
+		$this->db->join("tblcollege","tblcollege.id=tblcourse.coll_id");
+		$this->db->order_by('college');
 		$result=$this->db->get("tblcourse");
 		$course=$result->result();
 		return $course;

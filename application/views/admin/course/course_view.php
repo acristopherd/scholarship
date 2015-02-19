@@ -1,5 +1,5 @@
-<?php $page_title = "course View - Admin"; ?>
-<?php  $this->load->view('admin/includes/header.php');?>
+<?php $data['page_title'] = "course View - Admin"; ?>
+<?php  $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Courses</h1>
     <div class="row">
@@ -40,13 +40,13 @@
     <div class = "row">    	
     	<h3 class="">List of Courses</h3>
     	<table class="table table-striped table-hover table-responsive">
-    		<thead><tr class="table-header"><th>No</th><th>Accronym</th><th>Name</th><th>Edit</th></tr></thead>
+    		<thead><tr class="table-header"><th>No</th><th>Accronym</th><th>Name</th><th>College</th><th>Edit</th></tr></thead>
     		<tbody>
     			<?php
     			$no=1;
     			foreach($courses as $course){
     			?>
-    			<tr><td><?php echo $no++?></td><td><?php echo $course->course?></td><td><?php echo $course->desc?></td><td><?php echo anchor("course/edit/".$course->id,"<i class='fa fa-edit'></i>") ?></td></tr>
+    			<tr><td><?php echo $no++?></td><td><?php echo $course->course?></td><td><?php echo $course->desc?></td><td><?php echo $course->college?></td><td><?php echo anchor("course/edit/".$course->id,"<i class='fa fa-edit'></i>") ?></td></tr>
     			<?php
     			}
 				?>
@@ -54,4 +54,17 @@
     	</table>
     </div>
 </div>
-<?php  $this->load->view('admin/includes/footer.php');
+<?php  $this->load->view('admin/includes/footer.php');?>
+<script src="<?php echo base_url();?>js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="<?php echo base_url();?>js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+   
+    <script>
+    $(document).ready(function() {
+        $('table').dataTable();
+         $('[data-toggle="tooltip"]').tooltip();  
+         
+    });
+    </script>
+
+
