@@ -13,8 +13,8 @@
 	    		<div class="">
 	    			
 	    			<div class="form-group">
-	                    <label class="control-label" for="accronym">College Accronym</label>
-	                    <?php echo form_input(array("name"=>"accronym","class"=>"form-control input-sm","placeholder"=>"Accronym"),set_value("accronym")); ?>
+	                    <label class="control-label" for="accronym">College Acronym</label>
+	                    <?php echo form_input(array("name"=>"accronym","class"=>"form-control input-sm","placeholder"=>"Acronym"),set_value("accronym")); ?>
 	                	<?php echo form_error('accronym'); ?>
 	                </div>
 	                <div class="form-group">
@@ -40,7 +40,7 @@
     <div class = "row">    	
     	<h3 class="">List of colleges</h3>
     	<table class="table table-striped table-hover table-responsive">
-    		<thead><tr class="table-header"><th>No</th><th>Accronym</th><th>Name</th><th>Dean</th><th>Edit</th></tr></thead>
+    		<thead><tr class="table-header"><th>No</th><th>Acronym</th><th>Name</th><th>Dean</th><th>Edit</th></tr></thead>
     		<tbody>
     			<?php
     			$no=1;

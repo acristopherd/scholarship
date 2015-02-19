@@ -1085,6 +1085,7 @@ class scholar extends CI_Controller{
         //$mail->AddAttachment("images/phpmailer_mini.gif"); // as many as you want
 		 * 
 		 */
+		 $subject="Verify Your Scholarship Account";
 		 $message		=	"<p>Hi ".$fname . ",<p>"
 							."<p> Please click this ".anchor("scholar/verify"."/".md5($to."5x*y3")."/".$id,"link")." to verify your scholarship account application.</p>".
 							"<p>If the link above will not work. Please go to this address ".str_replace(".html", "",site_url("scholar/verify"))."/".md5($to."5x*y3")."/".$id.".".
@@ -1095,14 +1096,30 @@ class scholar extends CI_Controller{
                 ->from('osaunp@gmail.com')
                 ->reply_to('osaunp@gmail.com')    // Optional, an account where a human being reads.
                 ->to($to)
-                ->subject("Verify Your Scholarship Account")
+                ->subject($subject)
                 ->message($message)
                 ->send();
         if($result) {
         	$data["message"] = "Message sent correctly!";
            
         } else {
-             $data["message"] = "Error: " . $this->email->print_debugger();
+        	$config['mailtype']='html';
+        	$this->load->library("phpemail",$config);
+        	$result=$this->phpemail
+                ->from('osaunp@gmail.com')
+                ->reply_to('osaunp@gmail.com')    // Optional, an account where a human being reads.
+                ->to($to)
+           
+                ->subject($subject)
+                ->message($message)
+                ->send();
+                if($result){
+                	$data["message"] = "Message sent correctly!";
+                }
+				else{
+					$data["message"] = "Error: " . $result."Debug: ".$this->email->print_debugger();
+				}
+             
         }
         //$this->load->view('mail_sent',$data);
         return $data["message"];
