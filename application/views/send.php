@@ -15,7 +15,9 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
     		Send Message
     	</div>
     	<div class="panel-body">
-    		<?php echo form_open_multipart("message/save",array("class"=>"form"));?>		    	
+    		
+    		<?php echo form_open_multipart("message/save",array("class"=>"form"));?>	
+    			    	
 	    		<div class="">	    			
 	    			<div class="form-group col-lg-8">
 	                    <label class="control-label" for="a_title">Subject</label>

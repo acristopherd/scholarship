@@ -1,4 +1,4 @@
-<?php $data['page_title'] = "Announcement View - Admin"; 
+<?php $data['page_title'] = "News Add - Admin"; 
 $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
 		<style type = "text/css">
 			input{
@@ -24,7 +24,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 	                </div>
 	                <div class="form-group col-lg-8">
 	                    <label class="control-label" for="a_date">Date</label>
-	                    <?php echo form_input(array("name"=>"a_date","class"=>"form-control input-sm","placeholder"=>"Date","type"=>"date"),set_value("a_date")); 
+	                    <?php echo form_input(array("name"=>"a_date","class"=>"form-control input-sm","placeholder"=>"Date","type"=>"date","readonly"=>"readonly"),set_value("a_date",date('Y-m-d'))); 
 	                    		echo form_error("a_date");?>
 	                </div>
 	                <div class="form-group col-lg-8">

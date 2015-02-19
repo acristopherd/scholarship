@@ -46,11 +46,11 @@ $data['style'] = '
 	                </div> 
 	                <div class="form-group col-lg-2">
 	                    <label class="control-label" for="midterm">Midterm</label>
-	                    <?php echo form_input(array("type"=>"number","step"=>".25","name"=>"midterm[]","class"=>"form-control input-sm","placeholder"=>"Midterm","required"=>"required","min"=>"1.00","max"=>"5.00")); ?>
+	                    <?php echo form_input(array("type"=>"number","step"=>".25","name"=>"midterm[]","class"=>"form-control input-sm","placeholder"=>"Midterm","required"=>"required","min"=>"1.00","max"=>"3.00")); ?>
 	                </div> 
 	                <div class="form-group col-lg-2">
 	                    <label class="control-label" for="final">Finals</label>
-	                    <?php echo form_input(array("type"=>"number","step"=>".25","name"=>"final[]","class"=>"form-control input-sm final","placeholder"=>"Final","required"=>"required","min"=>"1.00","max"=>"5.00")); ?>
+	                    <?php echo form_input(array("type"=>"number","step"=>".25","name"=>"final[]","class"=>"form-control input-sm final","placeholder"=>"Final","required"=>"required","min"=>"1.00","max"=>"3.00")); ?>
 	                </div> 
 	            </div>
 	    		

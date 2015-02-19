@@ -13,8 +13,8 @@
 	    		<div class="">
 	    			<input type = "hidden" name = "id" value = "<?php echo (isset($edit))?$edit[0]->id:set_value("id")?>" />
 	    			<div class="form-group">
-	                    <label class="control-label" for="accronym">Course Accronym</label>
-	                    <?php echo form_input(array("name"=>"accronym","class"=>"form-control input-sm","placeholder"=>"Accronym"),(isset($courses))?$edit[0]->course:set_value("accronym")); ?>
+	                    <label class="control-label" for="accronym">Course Acronym</label>
+	                    <?php echo form_input(array("name"=>"accronym","class"=>"form-control input-sm","placeholder"=>"Acronym"),(isset($courses))?$edit[0]->course:set_value("accronym")); ?>
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="name">Course Name</label>
