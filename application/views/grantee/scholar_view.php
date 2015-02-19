@@ -8,12 +8,12 @@ $data['style'] = '<style type = "text/css">
 			</style>'?>
 <?php $this->load->view("includes/header.php",$data); ?>
 <div class="container main-container">
-    <h1> Scholars</h1>
+    <h1> Scholars [<?php echo $scholars[0]['info']->type?>]</h1>
     
     <?php if(sizeof($scholars)>0){?>
     <div class = "row">   
     	<table class="table table-striped table-hover table-responsive" id ="scholars-table">
-    		<thead><tr class="table-header"><th>No</th><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Sex</th><th>Town</th><th>Requirements</th></tr></thead>
+    		<thead><tr class="table-header"><th>No</th><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Sex</th><th>Town</th><th>Requirements</th><th>Status</th></tr></thead>
     		<tbody>
     			<?php
     			$no=1;    			
@@ -25,7 +25,7 @@ $data['style'] = '<style type = "text/css">
     				<td><?php echo $scholar['info']->lname ?></td><td><?php echo $scholar['info']->gender ?></td><td><?php echo $scholar['info']->town ?></td>
     				<td>
     					<a href = "<?php echo $scholar['info']->average>0?site_url("scholar/view_grade/".$scholar['info']->aid):"#"?>" class="requirement btn btn-sm btn-<?php echo $scholar['info']->average>0? "success": "danger disabled";?>"
-    						title = "<?php echo $scholar['info']->average>0? "Weighted Average": "Not yet submitted.";?>" data-toggle="tooltip" data-placement="top"> <?php echo $scholar['info']->average?$scholar['info']->average:"Ave" ?></a>
+    						title = "<?php echo $scholar['info']->average>0? "Weighted Average": "Not yet submitted.";?>" data-toggle="tooltip" data-placement="top"> <?php echo $scholar['info']->average?number_format($scholar['info']->average,2):"Ave" ?></a>
     					<?php     				
 	    				foreach($scholar['requirements'] as $requirement){
 	    				?>
@@ -35,6 +35,7 @@ $data['style'] = '<style type = "text/css">
 	    				}     				
 	    				?>
 	    			</td>
+	    			<td><?php echo $scholar['info']->approved==1?"Approved":"Pending"?></td>
     				
     			</tr>
     			<?php

@@ -16,7 +16,7 @@ $style='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="stylesheet">
     	</div>
     	<div class="panel-body">
     		
-    		<?php echo form_open_multipart("message/save",array("class"=>"form"));?>	
+    		<?php echo form_open_multipart("message/sponsor_to_admin",array("class"=>"form"));?>	
     			    	
 	    		<div class="">	    			
 	    			<div class="form-group col-lg-8">

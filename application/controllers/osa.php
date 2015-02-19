@@ -5,7 +5,7 @@ class osa extends CI_Controller{
 		$this->load->view("home_view.php");
 	}
 	
-	function grantee(){
+	function sponsor(){
 		if($this->input->post("uname")){
 			$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
 			$this->form_validation->set_rules("uname","Username","trim|required|min_length[5]|max_length[100]|xss_clean");
@@ -39,7 +39,7 @@ class osa extends CI_Controller{
 				else{
 					
 					$this->session->set_flashdata("login_failed","Username and password mismatched.");
-					redirect("osa/grantee");
+					redirect("osa/sponsor");
 				}
 			}
 		}
@@ -48,7 +48,7 @@ class osa extends CI_Controller{
 		}					
 	}
 
-	function grantee_logout(){
+	function sponsor_logout(){
 		$this->session->unset_userdata(array("grantee_id"=>"",
 												"fname"=>"",
 												"mname"=>"",

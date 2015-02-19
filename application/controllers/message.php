@@ -33,66 +33,8 @@ class message extends CI_Controller{
 		echo json_encode($messages);
 	}
 	
-	function add(){
-		
-		$this->load->view("send");
-	}
-	
-	function delete(){
-		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
-			return;
-		}
-		$id = $this->uri->segment(3);
-		$files=$this->message_attach_model->get_by_id($id);
-		$upload_path=realpath(APPPATH."../attachment");
-		foreach($files as $file){
-			unlink($upload_path."/".$file->loc);
-			unlink($upload_path."/thumbs/".$file->loc);
-		}
-		
-		$delete=$this->message_model->delete($id);
-		$delete=$this->message_attach_model->delete($id);
-		if($delete){
-			$this->session->set_flashdata("message","Successfully deleted.");
-			redirect("message#message");
-		}
-		else{
-			$this->session->set_flashdata("message","Delete failed. Please try again later.");
-			redirect("message#message");
-		}
-	}
-	
-	function delete_all(){
-		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
-			return;
-		}
-		
-		$upload_path=realpath(APPPATH."../attachment");
-		foreach($this->input->post("selected") as $id){
-			$files=$this->message_attach_model->get_by_id($id);
-			
-			foreach($files as $file){
-				unlink($upload_path."/".$file->loc);
-				unlink($upload_path."/thumbs/".$file->loc);
-			}
-			
-			$delete=$this->message_model->delete($id);
-			$delete_attach=$this->message_attach_model->delete($id);
-		}
-		if($delete&&$delete_attach){
-			$this->session->set_flashdata("message","Successfully deleted.");
-			redirect("message#message");
-		}
-		else{
-			$this->session->set_flashdata("message","Delete failed. Please try again later.");
-			redirect("message#message");
-		}
-	}
-	
-	function save(){
-		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+	function sponsor_to_admin(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r"||$this->session->userdata('access_level')!=2) {
 			$this->load->view("error_404");
 			return;
 		}
@@ -163,6 +105,64 @@ class message extends CI_Controller{
 				}
 				
 			}			
+		}		
+		$this->load->view("sponsor_send");
+	}
+	
+	function delete(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+			$this->load->view("error_404");
+			return;
 		}
+		$id = $this->uri->segment(3);
+		$files=$this->message_attach_model->get_by_id($id);
+		$upload_path=realpath(APPPATH."../attachment");
+		foreach($files as $file){
+			unlink($upload_path."/".$file->loc);
+			unlink($upload_path."/thumbs/".$file->loc);
+		}
+		
+		$delete=$this->message_model->delete($id);
+		$delete=$this->message_attach_model->delete($id);
+		if($delete){
+			$this->session->set_flashdata("message","Successfully deleted.");
+			redirect("message#message");
+		}
+		else{
+			$this->session->set_flashdata("message","Delete failed. Please try again later.");
+			redirect("message#message");
+		}
+	}
+	
+	function delete_all(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+			$this->load->view("error_404");
+			return;
+		}
+		
+		$upload_path=realpath(APPPATH."../attachment");
+		foreach($this->input->post("selected") as $id){
+			$files=$this->message_attach_model->get_by_id($id);
+			
+			foreach($files as $file){
+				unlink($upload_path."/".$file->loc);
+				unlink($upload_path."/thumbs/".$file->loc);
+			}
+			
+			$delete=$this->message_model->delete($id);
+			$delete_attach=$this->message_attach_model->delete($id);
+		}
+		if($delete&&$delete_attach){
+			$this->session->set_flashdata("message","Successfully deleted.");
+			redirect("message#message");
+		}
+		else{
+			$this->session->set_flashdata("message","Delete failed. Please try again later.");
+			redirect("message#message");
+		}
+	}
+	
+	function save(){
+		
 	}
 }

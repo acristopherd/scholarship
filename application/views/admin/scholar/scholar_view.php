@@ -69,7 +69,7 @@ $data['style'] = '<style type = "text/css">
     				<td><?php echo $scholar['info']->type ?></td>
     				<td>
     					<a href = "<?php echo $scholar['info']->average>0?site_url("scholar/print_grade/".$scholar['info']->aid):"#"?>" class="requirement btn btn-sm btn-<?php echo $scholar['info']->average>0? "success": "danger disabled";?>"
-    						title = "<?php echo $scholar['info']->average>0? "Weighted Average": "Not yet submitted.";?>" data-toggle="tooltip" data-placement="top"> <?php echo $scholar['info']->average?$scholar['info']->average:"Ave" ?></a>
+    						title = "<?php echo $scholar['info']->average>0? "Weighted Average": "Not yet submitted.";?>" data-toggle="tooltip" data-placement="top"> <?php echo $scholar['info']->average?number_format($scholar['info']->average,2):"Ave" ?></a>
     					<?php     				
 	    				foreach($scholar['requirements'] as $requirement){
 	    				?>

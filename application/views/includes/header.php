@@ -62,7 +62,7 @@
 	        <li><a href = "<?php echo site_url("news/view")?>"><i class="fa fa-th-list"></i> News</a></li>	        
 	 		<li><a href = "#">OSA</a></li>
 	 		<li><?php if ($this->session->userdata("grantee_id")) echo anchor("osa/our_scholars","Our scholars")?></li>
-	 		<li><?php if ($this->session->userdata("grantee_id")) echo anchor("message/add","Send Message")?></li>
+	 		<li><?php if ($this->session->userdata("grantee_id")) echo anchor("message/sponsor_to_admin","Send Message")?></li>
 	      </ul>
 	     
 	      <ul class="nav navbar-nav navbar-right">
@@ -100,7 +100,7 @@
 					}
 					else if($this->session->userdata("grantee_id")){
 				?>
-					<li><a href="<?php echo site_url("osa/grantee_logout")?>"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
+					<li><a href="<?php echo site_url("osa/sponsor_logout")?>"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
 				<?php
 					}
 				}
