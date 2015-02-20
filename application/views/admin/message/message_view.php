@@ -10,7 +10,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 <?php $this->load->view('admin/includes/header.php',$data);?>
 
 <div id="page-wrapper">
-    <h1> Inbox </h1>
+    <h1> Inbox <a href = "<?php echo site_url("message/inbox")?>" class="btn btn-primary"><i class="fa fa-refresh"></i></a></h1>
     
     <div class="row">    	
     <div class="wrapper">

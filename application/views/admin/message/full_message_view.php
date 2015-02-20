@@ -15,7 +15,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 	</div>
 	<br>
 	<div class="wrapper">
-		<p>From: <strong><?php echo $messages[0]->from_name ?></strong> (<?php echo $messages[0]->from_desc?>) on <i><?php echo $messages[0]->date_posted ?> </i></p>
+		<p>From: <strong><?php echo $messages[0]->from_name ?></strong> (<?php echo $messages[0]->from_desc?>) on <i><?php echo  date('F d, Y h:i:s a',human_to_unix($messages[0]->date_posted)) ?> </i></p>
 	</div>
 	<strong>Subject:</strong><br />
     <div class="well well-sm"> <?php echo $messages[0]->subject ?> </div>

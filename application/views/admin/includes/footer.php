@@ -57,7 +57,7 @@
 						msg:$("<div></div>").html(value.message+"...")
 						};
 					var anchor=$("<a></a>");
-					$(anchor).append(message.subject).attr("href","message/view/"+value.id);
+					$(anchor).append(message.subject).attr("href","<?php echo str_replace(".html","",site_url("message/view/"))?>/"+value.id);
 					 $(anchor).append(message.msg);
 					$("#msg-top").prepend($("<li></li>").append($(anchor)).after($("<li></li>").addClass("divider")).addClass("msg-top-message"));
 				});

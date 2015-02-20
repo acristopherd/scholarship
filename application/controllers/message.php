@@ -73,20 +73,19 @@ class message extends CI_Controller{
 			$this->load->view("error_404");
 		}
 	}
-	
 	function view_sent(){		
 		$id=$this->uri->segment(3);
-		$data["messages"]=$this->message_model->get_by_id($id);
+		$data["messages"]=$this->message_model->get_sent_by_id($id);
 		$data["attachments"]=$this->message_attach_model->get_by_id($id);
 		//$data["update"]=$this->message_model->update($id,array("msg_read"=>"1"));
 		if($this->session->userdata('admin_id')||$this->session->userdata('super_admin_id')){
-			$this->load->view("admin/message/full_message_view.php",$data);
+			$this->load->view("admin/message/full_sent_view.php",$data);
 		}
 		else if($this->session->userdata('grantee_id')){
-			$this->load->view("grantee/message/full_message_view.php",$data);
+			$this->load->view("grantee/message/full_sent_view.php",$data);
 		}
 		else if($this->session->userdata('user_id')){
-			$this->load->view("message/full_message_view.php",$data);
+			$this->load->view("message/full_sent_view.php",$data);
 		}
 		else{
 			$this->load->view("error_404");
@@ -284,7 +283,7 @@ class message extends CI_Controller{
 				}
 				else if($this->input->post('a_to')==4){
 					$this->load->model('scholar_model');
-					$ids = $this->scholar_model->get();
+					$ids = $this->scholar_model->get_confirmed();
 					foreach($ids as $id){
 						$tos[]=$id->id;
 					}

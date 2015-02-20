@@ -7,16 +7,24 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 		text-overflow:ellipsis;
 	}
 </style>'?>
-<?php  $this->load->view('includes/header.php',$data);?>
+<?php  $this->load->view('admin/includes/header.php',$data);?>
 
-<div class="container main-container">
+<div id="page-wrapper">
 	<div class="wrapper">
-		<a href = "<?php echo site_url("message/inbox")?>" class="btn btn-default">Back to Messages	</a>
-		
+		<a href = "<?php echo site_url("message/sent")?>" class="btn btn-default">Back to Messages	</a>
 	</div>
 	<br>
 	<div class="wrapper">
-		<p>From: <strong><?php echo $messages[0]->from_name ?></strong> (<?php echo $messages[0]->from_desc?>) on <i><?php echo  date('F d, Y h:i:s a',human_to_unix($messages[0]->date_posted))?> </i></p>
+		<p>Sent to: <strong><?php 
+		
+		if( $messages[0]->msg_type==2)
+			echo $messages[0]->fname." ".$messages[0]->lname;
+		else if( $messages[0]->msg_type==4)
+			echo $messages[0]->sfname." ".$messages[0]->slname;
+		else if( $messages[0]->msg_type==6)
+			echo $messages[0]->mfname." ".$messages[0]->mlname;
+		
+		?></strong> on <i><?php echo  date('F d, Y h:i:s a',human_to_unix($messages[0]->date_posted)) ?> </i></p>
 	</div>
 	<strong>Subject:</strong><br />
     <div class="well well-sm"> <?php echo $messages[0]->subject ?> </div>
@@ -45,7 +53,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     </div>
 </div>
    
-<?php $this->load->view('includes/footer.php');
+<?php $this->load->view('admin/includes/footer.php');
 ?>
 <script src="<?php echo base_url();?>js/plugins/dataTables/jquery.dataTables.js"></script>
 <script src="<?php echo base_url();?>js/plugins/dataTables/dataTables.bootstrap.js"></script>

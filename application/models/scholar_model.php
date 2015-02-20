@@ -19,6 +19,16 @@ class scholar_model extends CI_Model{
 		return $scholar;
 	}
 	
+	function get_confirmed(){
+		$this->db->order_by("lname","asc");
+		$this->db->order_by("gender","desc");
+		$this->db->where('confirmed','1');
+		$result=$this->db->get("tblscholar");
+		
+		$scholar=$result->result();
+		return $scholar;
+	}
+	
 	function get_by_id($id){
 		$this->db->where("id",$id);
 		$result=$this->db->get("tblscholar");

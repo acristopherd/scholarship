@@ -18,7 +18,7 @@ class message_model extends CI_Model{
 		$this->db->select("tblmessage.id as id,subject,date_posted,from_name,from_desc,msg_read");
 		$this->db->where('msg_to',$to);
 		if(sizeof($type)>0)$this->db->where_in('msg_type',$type);
-		$this->db->order_by("id","desc");
+		$this->db->order_by("tblmessage.id","desc");
 		$result=$this->db->get("tblmessage");		
 		$message=$result->result();
 		return $message;
@@ -27,10 +27,12 @@ class message_model extends CI_Model{
 	function get_sent($from=0,$type=1){
 		$this->db->join("tbluser","tbluser.id=tblsent_message.msg_to","left");
 		$this->db->join("tblscholar","tblscholar.id=tblsent_message.msg_to","left");
-		$this->db->select("tblsent_message.id as id,subject,date_posted,msg_to,msg_type,tblscholar.fname as sfname,tblscholar.lname as slname,tbluser.fname as fname,tbluser.lname as lname");
+		$this->db->join("tblmember","tblmember.id=tblsent_message.msg_to","left");
+		$this->db->select("tblsent_message.id as id,subject,date_posted,msg_to,msg_type,tblscholar.fname as sfname,tblscholar.lname as slname,tbluser.fname as fname,tbluser.lname as lname,tblmember.fname as mfname,tblmember.lname as mlname");
 		$this->db->where('msg_from',$from);
-		$this->db->order_by("id","desc");
-		$result=$this->db->get("tblsent_message");		
+		$this->db->order_by("tblsent_message.id","desc");
+		$result=$this->db->get("tblsent_message");	
+		//echo $this->db->last_query();	
 		$message=$result->result();
 		return $message;
 	}
@@ -38,18 +40,32 @@ class message_model extends CI_Model{
 	function get_by_id($id){		
 		//$this->db->join("tbluser","tbluser.id=tblmessage.user_id","inner");
 		$this->db->where("tblmessage.id",$id);
-		$this->db->select("tblmessage.id as id,subject,message,date_posted,from_name,from_desc");
+		
 		$this->db->order_by("id","desc");
 		$result=$this->db->get("tblmessage");		
 		$message=$result->result();
 		return $message;
 	}
-	
+	function get_sent_by_id($id){		
+		//$this->db->join("tbluser","tbluser.id=tblmessage.user_id","inner");
+		$this->db->join("tbluser","tbluser.id=tblsent_message.msg_to","left");
+		$this->db->join("tblscholar","tblscholar.id=tblsent_message.msg_to","left");
+		$this->db->join("tblmember","tblmember.id=tblsent_message.msg_to","left");
+		$this->db->select("tblsent_message.id as id,subject,message,date_posted,msg_to,msg_type,tblscholar.fname as sfname,tblscholar.lname as slname,tbluser.fname as fname,tbluser.lname as lname,tblmember.fname as mfname,tblmember.lname as mlname");
+		
+		$this->db->where("tblsent_message.id",$id);
+		
+		$this->db->order_by("id","desc");
+		$result=$this->db->get("tblsent_message");		
+		$message=$result->result();
+		return $message;
+	}
 	function get_some($limit=3,$start=0){
 		$this->db->limit($limit,$start);
-		$this->db->order_by("id","desc");
+		$this->db->order_by("tblmessage.id","desc");
 		//$this->db->join("tbluser","tbluser.id=msg_from","inner");
 		$this->db->select(array("LEFT(message,50) as `message`","tblmessage.id as id,subject","date_posted","from_name","msg_read"));
+		$this->db->where_in('msg_type',array('1','3','5'));
 		$result=$this->db->get("tblmessage");		
 		$message=$result->result();
 		return $message;

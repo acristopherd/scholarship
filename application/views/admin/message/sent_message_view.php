@@ -23,7 +23,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			foreach($messages as $message){
 			?>
 			<tr><td><?php echo form_checkbox(array("name"=>"selected[]","required"=>"required"),$message->id) ?><?php echo $no++?></td>
-				<td><?php echo anchor("message/view/".$message->id."/".rand(0, 9999),$message->subject) ?></td>    				
+				<td><?php echo anchor("message/view_sent/".$message->id."/".rand(0, 9999),$message->subject) ?></td>    				
 				<td><?php echo $message->date_posted ?></td>
 				<td><?php 
 				if($message->msg_type==2){
