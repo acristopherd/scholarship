@@ -14,6 +14,7 @@ $data['style']='<style type = "text/css">
     		Add User
     	</div>
     	<div class="panel-body">
+    		<?php if (isset($error)) echo '<div class="label label-danger">'.$error.'</div>';?>
     		<?php echo form_open("user/add",array("class"=>"form"));?>		    	
 	    		<div class="">
 	    			
@@ -51,6 +52,8 @@ $data['style']='<style type = "text/css">
 	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
 	                	
 	                	</div>
+	                	<span class="label label-warning">Password should be at least 8 characters and a combination of uppercase,lowercase and number.</span>
+                	
 	                	<?php echo form_error('pass'); ?>
 		           		</div>
 	                </div>
@@ -67,7 +70,7 @@ $data['style']='<style type = "text/css">
 	                 <div class="row"> 
 	                	<div class="form-group  col-lg-4">
 	                        <label class="control-label" for="lvl">Access Level</label>
-	                        <?php echo form_dropdown("lvl",array(""=>"-Select-","1"=>"Grantee","2"=>"Staff","3"=>"College","4"=>"Admin","5"=>"Super Admin"),set_value("lvl"),"required = 'required' class='form-control input-sm' id ='lvl'"); ?>
+	                        <?php echo form_dropdown("lvl",array(""=>"-Select-","1"=>"Sponsor","2"=>"Staff","3"=>"College","4"=>"Admin","5"=>"Super Admin"),set_value("lvl"),"required = 'required' class='form-control input-sm' id ='lvl'"); ?>
 	                		<?php echo form_error("lvl");?>
 	                	</div>
 	                </div>
@@ -96,6 +99,7 @@ $data['style']='<style type = "text/css">
     </div>    	
     </div>
     </div>
+    <?php if(isset($users)){?>
     <div class = "row">    	
     	<h3 class="">List of Users</h3>
     	<table class="table table-striped table-hover table-responsive">
@@ -131,7 +135,7 @@ $data['style']='<style type = "text/css">
     				<td><?php echo $user->username?></td><td><?php echo $account_type?></td>
     				<td><?php echo !empty($user->type_id)?$user->type:""?></td>
     				<td><?php echo !empty($user->college_id)?$user->college:""?></td>
-    				<td><?php echo anchor("user/delete/".$user->id."/".md5($user->id."dletm3"),"<i class='fa fa-trash-o'></i>",array("title"=>"Reset Password","class"=>"btn-delete")) ?>
+    				<td><?php echo anchor("user/delete/".$user->id."/".md5($user->id."dletm3"),"<i class='fa fa-trash-o'></i>",array("title"=>"Delete","class"=>"btn-delete")) ?>
     					<?php echo anchor("user/reset_pw/".$user->id."/".md5($user->id."restm3"),"<i class='fa fa-asterisk'></i>",array("title"=>"Reset Password")) ?>
     				</td>
     			</tr>
@@ -143,6 +147,7 @@ $data['style']='<style type = "text/css">
     		</tbody>
     	</table>
     </div>
+    <?php } ?>
 </div>
 <?php  $this->load->view('admin/includes/footer.php');?>
 <script type="text/javascript">

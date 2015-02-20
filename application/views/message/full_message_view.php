@@ -7,9 +7,9 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 		text-overflow:ellipsis;
 	}
 </style>'?>
-<?php  $this->load->view('admin/includes/header.php',$data);?>
+<?php  $this->load->view('includes/header.php',$data);?>
 
-<div id="page-wrapper">
+<div class="container main-container">
 	<div class="wrapper">
 		<a href = "<?php echo site_url("message/inbox")?>" class="btn btn-default">Back to Messages	</a>
 	</div>
@@ -44,7 +44,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     </div>
 </div>
    
-<?php $this->load->view('admin/includes/footer.php');
+<?php $this->load->view('includes/footer.php');
 ?>
 <script src="<?php echo base_url();?>js/plugins/dataTables/jquery.dataTables.js"></script>
 <script src="<?php echo base_url();?>js/plugins/dataTables/dataTables.bootstrap.js"></script>

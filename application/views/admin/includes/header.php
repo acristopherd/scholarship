@@ -121,9 +121,16 @@
                         <li>
                             <?php if($this->session->userdata("access_level")>=4){?><a href="<?php echo site_url('news/')?>"><i class="fa fa-th-list fa-fw"></i> News</a><?php } ?>
                         </li>
+                        <?php if($this->session->userdata("access_level")>=4){?>
                         <li>
-                            <?php if($this->session->userdata("access_level")>=4){?><a href="<?php echo site_url('message/')?>"><i class="fa fa-envelope fa-fw"></i> Messages</a><?php } ?>
+                        	<a href="#"><i class="fa fa-envelope fa-fw"></i> Messages<span class="fa arrow"></span></a>
+		                    <ul class="nav nav-second-level collapse">
+		                    	<li><a href="<?php echo site_url('message/admin_send')?>">Compose</a></li>
+		                    	<li><a href="<?php echo site_url('message/inbox')?>">Inbox</a></li>
+		                        <li><a href="<?php echo site_url('message/sent')?>">Sent</a></li>			                        	
+		                    </ul>                            
                         </li>
+                        <?php } ?>
                         <li>
                         	<?php if($this->session->userdata("access_level")>=4){?>
                              <a href="#"><i class="fa fa-gear fa-fw"></i> Utilities<span class="fa arrow"></span></a>

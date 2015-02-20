@@ -7,26 +7,26 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 		text-overflow:ellipsis;
 	}
 </style>'?>
-<?php $this->load->view('admin/includes/header.php',$data);?>
+<?php $this->load->view('includes/header.php',$data);?>
 
-<div id="page-wrapper">
-    <h1> Inbox </h1>
+<div class="container main-container">
+    <h1> Sent </h1>
     
     <div class="row">    	
     <div class="wrapper">
-    <?php echo form_open("message/delete_all");?>
+    <?php echo form_open("message/delete_all_sent");?>
     <table class="table table-striped table-hover table-responsive" >
-		<thead><tr class="table-header"><th>No</th><th>Title</th><th>Sent</th><th>From</th><th>Action</th></tr></thead>
+		<thead><tr class="table-header"><th>No</th><th>Title</th><th>Sent</th><th>To</th><th>Action</th></tr></thead>
 		<tbody>
 			<?php
 			$no=1;
 			foreach($messages as $message){
 			?>
 			<tr><td><?php echo form_checkbox(array("name"=>"selected[]","required"=>"required"),$message->id) ?><?php echo $no++?></td>
-				<td><?php echo $message->msg_read==1?anchor("message/view/".$message->id."/".rand(0, 9999),$message->subject.$message->msg_read):"<b>".anchor("message/view/".$message->id."/".rand(0, 9999),$message->subject)."</b>" ?></td>     				
+				<td><?php echo anchor("message/view_sent/".$message->id."/".rand(0, 9999),$message->subject) ?></td>    				
 				<td><?php echo $message->date_posted ?></td>
-				<td><?php echo $message->from_name." - ".$message->from_desc?></td>    				
-				</td><td><?php echo anchor("message/delete"."/".$message->id,"<span class='btn btn-primary btn-circle btn-delete'><i class='fa fa-times' ></i></span>")?></td>
+				<td><?php echo $message->msg_to==0?"Admin":""?></td>    				
+				</td><td><?php echo anchor("message/delete_sent"."/".$message->id,"<span class='btn btn-primary btn-circle btn-delete'><i class='fa fa-times' ></i></span>")?></td>
 			</tr>
 			
 			<?php
@@ -40,7 +40,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     </div>
     </div>
    
-<?php  $this->load->view('admin/includes/footer.php');
+<?php  $this->load->view('includes/footer.php');
 ?>
 <script src="<?php echo base_url();?>js/plugins/dataTables/jquery.dataTables.js"></script>
 <script src="<?php echo base_url();?>js/plugins/dataTables/dataTables.bootstrap.js"></script>

@@ -4,7 +4,7 @@ $style = '<style type = "text/css">
 </style>';
 include("includes/header.php");?>
 <section class="container main-container">
-	<div class="row col-lg-4">
+	<div class="row col-lg-4 col-md-6 col-sm-8">
 	<?php echo form_open("scholar/login")?>
 	<div class = "panel panel-default">
 		<div class = "panel-heading">

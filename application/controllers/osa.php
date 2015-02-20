@@ -23,7 +23,7 @@ class osa extends CI_Controller{
 												"fname"=>$data['login'][0]->fname,
 												"mname"=>$data['login'][0]->mname,
 												"lname"=>$data['login'][0]->lname,
-												"lvl"=>$data['login'][0]->access_level,
+												"access_level"=>$data['login'][0]->access_level,
 												"type_id"=>$data['login'][0]->type_id));
 					$this->session->set_flashdata("message","Login successful.");
 					
@@ -53,7 +53,8 @@ class osa extends CI_Controller{
 												"fname"=>"",
 												"mname"=>"",
 												"lname"=>"",
-												"email"=>""));
+												"email"=>"",
+												"access_level"=>""));
 		$this->session->set_flashdata("message","You have successfully logout.");
 		redirect("osa");
 	}

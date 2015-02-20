@@ -26,7 +26,7 @@
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     });
-    if (window.location.hash == "#message.html") {
+    if (window.location.hash == "#message.html" && <?php echo $this->session->flashdata("message")?"true":"false";?>) {
 			
 	     $().toastmessage('showToast',{
 		    text     : '<?php echo $this->session->flashdata("message");?>',
@@ -42,7 +42,10 @@
 			$("#message").modal();
 		}
 	$(document).ready(function(){
+		var loading=false;
 		$("#btn-msg-top").bind("click",function(){
+			loading=true;
+			if(loading){
 			$("#msg-top .msg-top-message").remove();
 			$("#msg-top").prepend('<span class="loading">loading</span>');
 			$.post("<?php echo site_url("message/view_some")?>",null,function(data){
@@ -50,18 +53,18 @@
 				$.each(data,function(key,value){
 					//alert(value.subject);
 					message={
-						subject:$("<div></div>").append($("<strong></strong>").html(value.fname+" "+value.lname)).append($("<span></span>").html(value.date_posted).addClass("pull-right text-muted")),
+						subject:$("<div></div>").append($("<strong></strong>").html(value.from_name)).append($("<span></span>").html(value.date_posted).addClass("pull-right text-muted")),
 						msg:$("<div></div>").html(value.message+"...")
 						};
 					var anchor=$("<a></a>");
 					$(anchor).append(message.subject).attr("href","message/view/"+value.id);
 					 $(anchor).append(message.msg);
 					$("#msg-top").prepend($("<li></li>").append($(anchor)).after($("<li></li>").addClass("divider")).addClass("msg-top-message"));
-					
-					//$("#msg-top").append();
 				});
 				
 			},"json");
+			}
+			loading=false;
 		});
 	});
     </script>

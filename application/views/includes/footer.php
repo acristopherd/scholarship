@@ -48,7 +48,7 @@
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     });
-    if (window.location.hash == "#message.html") {
+    if (window.location.hash == "#message.html" && <?php echo $this->session->flashdata("message")?"true":"false";?>) {
 			
 	     $().toastmessage('showToast',{
 		    text     : '<?php echo $this->session->flashdata("message");?>',

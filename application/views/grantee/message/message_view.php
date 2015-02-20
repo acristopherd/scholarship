@@ -7,13 +7,13 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 		text-overflow:ellipsis;
 	}
 </style>'?>
-<?php $this->load->view('admin/includes/header.php',$data);?>
+<?php $this->load->view('includes/header.php',$data);?>
 
-<div id="page-wrapper">
+<div class="container main-container">
     <h1> Inbox </h1>
     
     <div class="row">    	
-    <div class="wrapper">
+    <div class="wrapper col-lg-10">
     <?php echo form_open("message/delete_all");?>
     <table class="table table-striped table-hover table-responsive" >
 		<thead><tr class="table-header"><th>No</th><th>Title</th><th>Sent</th><th>From</th><th>Action</th></tr></thead>
@@ -23,7 +23,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			foreach($messages as $message){
 			?>
 			<tr><td><?php echo form_checkbox(array("name"=>"selected[]","required"=>"required"),$message->id) ?><?php echo $no++?></td>
-				<td><?php echo $message->msg_read==1?anchor("message/view/".$message->id."/".rand(0, 9999),$message->subject.$message->msg_read):"<b>".anchor("message/view/".$message->id."/".rand(0, 9999),$message->subject)."</b>" ?></td>     				
+				<td><?php echo $message->msg_read==1?anchor("message/view/".$message->id."/".rand(0, 9999),$message->subject):"<b>".anchor("message/view/".$message->id."/".rand(0, 9999),$message->subject)."</b>" ?></td>    				
 				<td><?php echo $message->date_posted ?></td>
 				<td><?php echo $message->from_name." - ".$message->from_desc?></td>    				
 				</td><td><?php echo anchor("message/delete"."/".$message->id,"<span class='btn btn-primary btn-circle btn-delete'><i class='fa fa-times' ></i></span>")?></td>
@@ -40,7 +40,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     </div>
     </div>
    
-<?php  $this->load->view('admin/includes/footer.php');
+<?php  $this->load->view('includes/footer.php');
 ?>
 <script src="<?php echo base_url();?>js/plugins/dataTables/jquery.dataTables.js"></script>
 <script src="<?php echo base_url();?>js/plugins/dataTables/dataTables.bootstrap.js"></script>

@@ -31,6 +31,8 @@ class scholarship_model extends CI_Model{
 		//echo $this->db->last_query();
 		return $result->result();
 	}
+	
+	
 	function get_latest_by_college(){
 		$result=$this->db->query("select coll_id,count(aid) as sos,college from tblscholarship 
 								inner join tblcollege on tblcollege.id = coll_id

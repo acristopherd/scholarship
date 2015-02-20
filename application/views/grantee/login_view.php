@@ -1,6 +1,6 @@
 <?php $this->load->view("includes/header.php");?>
 <section class="container main-container">
-	<div class="row col-lg-4 col-md-6 col-sm-10">
+	<div class="row col-lg-4 col-md-6 col-sm-8">
 	<div class='h2'>Sponsor</div>
 	<?php echo form_open("osa/sponsor")?>
 	<div class = "panel panel-default">

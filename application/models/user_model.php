@@ -17,6 +17,22 @@ class user_model extends CI_Model{
 		return $user;
 	}
 	
+	function get_by_level($level){
+		$this->db->where("access_level",$level);
+		$result=$this->db->get("tbluser");
+		$user=$result->result();
+		return $user;
+	}
+	
+	function get_grantee($type){
+		$this->db->select("user_id as id,fname,mname,lname,username,access_level");
+		$this->db->join("tbluser_grantee","tbluser_grantee.user_id=tbluser.id","inner");
+		$this->db->where('type_id',$type);
+		$result=$this->db->get("tbluser");
+		$user=$result->result();
+		//echo $this->db->last_query();
+		return $user;
+	}
 	function get_login($uname,$pw){
 		$this->db->select("tbluser.id as id,fname,mname,lname,password,username,access_level,type_id,college_id");
 		$this->db->join("tbluser_grantee","tbluser_grantee.user_id=tbluser.id","left");
@@ -25,7 +41,7 @@ class user_model extends CI_Model{
 		//$this->db->where("password",$pw);
 		$result=$this->db->get("tbluser");		
 		$scholar=$result->result();
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
 		return $scholar;
 	}
 	

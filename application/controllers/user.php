@@ -12,7 +12,7 @@ class user extends CI_Controller{
 		$this->load->model("college_model");
 		$colleges=$this->college_model->get();
 		$data['colleges']=array();
-		$data['colleges'][-1]="-Select-";
+		$data['colleges']['']="-Select-";
 		foreach($colleges as $college){
 			$data['colleges'][$college->id]=$college->college;
 		}
@@ -42,8 +42,20 @@ class user extends CI_Controller{
 		$this->form_validation->set_rules("lvl","Access Level","trim|required|greater_than[0]|xss_clean");
 		$this->form_validation->set_rules("type","Scholarship","trim|xss_clean");
 		if($this->form_validation->run()==FALSE){
-			
-	        $this->load->view("admin/user/view.php");
+			$this->load->model("college_model");
+		$colleges=$this->college_model->get();
+		$data['colleges']=array();
+		$data['colleges']['']="-Select-";
+		foreach($colleges as $college){
+			$data['colleges'][$college->id]=$college->college;
+		}
+    	$this->load->model("scholartype_model");
+		$types=$this->scholartype_model->get();
+		$data["types"]=array();
+		foreach($types as $type){
+			$data["types"][$type->id]=$type->type;
+		}
+	        $this->load->view("admin/user/view.php",$data);
 		}
 		else{
 			$hpass = hash("SHA256",$this->input->post("pass")."dontmess")."4dm1n";

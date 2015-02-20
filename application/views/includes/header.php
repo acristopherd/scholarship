@@ -62,7 +62,7 @@
 	        <li><a href = "<?php echo site_url("news/view")?>"><i class="fa fa-th-list"></i> News</a></li>	        
 	 		<li><a href = "#">OSA</a></li>
 	 		<li><?php if ($this->session->userdata("grantee_id")) echo anchor("osa/our_scholars","Our scholars")?></li>
-	 		<li><?php if ($this->session->userdata("grantee_id")) echo anchor("message/sponsor_to_admin","Send Message")?></li>
+	 		
 	      </ul>
 	     
 	      <ul class="nav navbar-nav navbar-right">
@@ -80,6 +80,25 @@
                 </form>
             </li>
            -->
+            <?php if ($this->session->userdata("grantee_id")||$this->session->userdata("user_id")) {?>
+           <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope fa-fw"></i> <b class="caret"></b></a>
+	          <?php if ($this->session->userdata("grantee_id")) {?>
+	          <ul class="dropdown-menu">
+	          		<li><?php echo anchor("message/sponsor_send","Compose")?></li>
+	          		<li><?php echo anchor("message/inbox","Inbox")?></li>
+	          		<li><?php echo anchor("message/sent","Sent")?></li>
+	          </ul>
+	          <?php } ?>
+	          <?php if ($this->session->userdata("user_id")) {?>
+	          <ul class="dropdown-menu">
+	          		<li><?php echo anchor("message/scholar_send","Compose")?></li>
+	          		<li><?php echo anchor("message/inbox","Inbox")?></li>
+	          		<li><?php echo anchor("message/sent","Sent")?></li>
+	          </ul>
+	          <?php } ?>
+	        </li>
+	        <?php } ?>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> <b class="caret"></b></a>
 	          <ul class="dropdown-menu">   
