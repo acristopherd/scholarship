@@ -60,6 +60,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			}
 		});
 		
+		
 	});
 	$(function () {
 	  $('[data-toggle="popover"]').popover()

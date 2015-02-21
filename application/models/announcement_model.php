@@ -19,6 +19,14 @@ class announcement_model extends CI_Model{
 		return $announcement;
 	}
 	
+	function get_by_id($id){
+		$this->db->where('id',$id);
+		$this->db->order_by("id","desc");
+		$result=$this->db->get("tblannouncement");		
+		$announcement=$result->result();
+		return $announcement;
+	}
+	
 	function get_page($limit=0,$start=0,$type){
 		$this->db->join("tblannouncement_type","tblannouncement.id=tblannouncement_type.announcement_id","left");
 		$this->db->where("type_id",$type);

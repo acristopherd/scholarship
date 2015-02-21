@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Scholarship Portal">
+	<meta name="keywords" content="Scholarship,Scholar,UNP,University of Northern Philippines,Vigan">
+	<meta name="author" content="Office of Student Affairs - University of Norther Philippines">
+	<link rel="icon" type="image/png" href="<?php echo base_url();?>images/unp_icon.png">
     <title><?php echo (isset($title)?$title:"Main")?></title>
 	
     <!-- Bootstrap -->

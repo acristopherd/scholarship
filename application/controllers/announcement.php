@@ -16,6 +16,13 @@ class announcement extends CI_Controller{
         $this->load->view("admin/announcement/announcement_view.php",$data);
     }
     
+	function full_view(){
+		$id=$this->uri->segment(3);
+		$announcement=$this->announcement_model->get_by_id($id);
+		$data['announcement']=$announcement[0];
+		$this->load->view('admin/announcement/full_announcement_view',$data);
+	} 
+	
     function view(){
     	if(!$this->session->userdata("user_id")) {
 			$this->load->view("error_404");

@@ -26,7 +26,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 	                </div>			
 	    			<div class="form-group col-lg-8">
 	                    <label class="control-label" for="a_title">Subject</label>
-	                    <?php echo form_input(array("name"=>"a_title","class"=>"form-control input-sm","placeholder"=>"Subject"),set_value("a_title")); 
+	                    <?php echo form_input(array("name"=>"a_title","class"=>"form-control input-sm","placeholder"=>"Subject","required"=>"required"),set_value("a_title")); 
 	                    		echo form_error("a_title");?>
 	                </div>
 	                
@@ -57,5 +57,25 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			a = $("<input>").attr('type','file').attr('name','attachment[]').attr('multiple','multiple').addClass('form-control input-sm');
 			$(this).before($(a)).remove();
 		});
+		
+		$(".form").validate({
+		rules: {  			             
+            a_title:{
+            	required:true,
+            	maxlenght:80
+            },  
+            a_msg:{
+            	maxlength:2000
+            }
+       },
+       messages:{
+       		a_title:{
+            	maxlenght:"Subject is too long."
+            },  
+            a_msg:{
+            	maxlength:"Message is up to 2000 characters only."
+            }
+       }
+	});
 	});
 </script>

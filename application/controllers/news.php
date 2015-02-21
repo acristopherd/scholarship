@@ -38,6 +38,12 @@ class news extends CI_Controller{
 		$this->load->view("news_view.php",$data);
     }
 	
+	function full_view(){
+		$id=$this->uri->segment(3);
+		$news=$this->news_model->get_by_id($id);
+		$data['news']=$news[0];
+		$this->load->view('admin/news/full_news_view',$data);
+	}
 	function get_latest(){
 		$limit=1;
     	if($this->input->post("data")){

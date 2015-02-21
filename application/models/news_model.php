@@ -10,6 +10,13 @@ class news_model extends CI_Model{
 		$announcement=$result->result();
 		return $announcement;
 	}
+	function get_by_id($id){
+		$this->db->order_by("id","desc");
+		$this->db->where('id',$id);
+		$result=$this->db->get("tblnews");		
+		$announcement=$result->result();
+		return $announcement;
+	}
 	
 	function get_page($limit=0,$start=0){
 		$this->db->limit($limit,$start);

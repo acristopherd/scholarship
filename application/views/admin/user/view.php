@@ -77,14 +77,14 @@ $data['style']='<style type = "text/css">
 	                <div class="row hidden" id="type-row"> 
 	                	<div class="form-group  col-lg-4">
 	                        <label class="control-label" for="type">Scholarship</label>
-	                        <?php echo form_dropdown("type",$types,set_value("type"),"required = 'required' class='form-control input-sm' id ='type'"); ?>
+	                        <?php echo form_dropdown("type",$types,set_value("type"),"class='form-control input-sm' id ='type'"); ?>
 	                		<?php echo form_error("type");?>
 	                	</div>
 	                </div>
 	                <div class="row hidden" id="college-row"> 
 	                	<div class="form-group  col-lg-4">
 	                        <label class="control-label" for="college">College</label>
-	                        <?php echo form_dropdown("college",$colleges,set_value("college"),"required = 'required' class='form-control input-sm' id ='college'"); ?>
+	                        <?php echo form_dropdown("college",$colleges,set_value("college"),"class='form-control input-sm' id ='college'"); ?>
 	                		<?php echo form_error("college");?>
 	                	</div>
 	                </div>

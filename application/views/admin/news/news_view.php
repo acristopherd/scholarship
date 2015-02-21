@@ -22,7 +22,8 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     			$no=1;
     			foreach($newss as $news){
     			?>
-    			<tr><td><?php echo $no++?></td><td><?php echo $news->title?></td><td><a class="message btn" data-toggle="popover" tabindex="<?php echo $no?>" role="button" data-trigger="focus"  title="Message" data-content="<?php echo strip_tags($news->news)?>"><?php echo strtok(strip_tags($news->news)," ")."..."?></a></td>
+    			<tr><td><?php echo $no++?></td><td><?php echo anchor("news/full_view/".$news->id.'/'.md5($news->id."r0sanne"),$news->title)?></td>
+    				<td><?php echo str_replace("</div>", ' ',str_replace("<div>", ' ', substr($news->news,0,150))); if(strlen($news->news)>150) echo anchor("news/full_view/".$news->id.'/'.md5($news->id."r0sanne"),"...",'class="btn-xs fa btn-default"')?></td>
     				<td><?php echo $news->news_date ?></td></td><td><?php echo $news->author ?></td>
     				<td><?php echo $news->date_posted ?></td><td><?php echo anchor("news/delete"."/".$news->id,"<span class='btn btn-primary btn-circle btn-delete'><i class='fa fa-times' ></i></span>")?></td></tr>
     			
@@ -34,7 +35,8 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     	
     </div>    	
     </div>
-    </div>
+    
+</div>
    
 <?php  $this->load->view('admin/includes/footer.php');
 ?>
@@ -49,10 +51,9 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			}
 		});
 		
+		
 	});
-	$(function () {
-	  $('[data-toggle="popover"]').popover()
-	})
+	
 			
 	
 </script>
