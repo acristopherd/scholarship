@@ -17,6 +17,7 @@ class admin extends CI_Controller{
 		$this->session->unset_userdata(array("super_admin_id"=>"",
 												"admin_id"=>"",
 												"college_user_id"=>"",
+												"staff_id"=>"",
 												"fname"=>"",
 												"mname"=>"",
 												"lname"=>"",

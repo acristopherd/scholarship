@@ -14,7 +14,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     
     <div class="row">    	
     <div class="wrapper">
-    <?php echo form_open("message/delete_all_sent");?>
+   <!-- <?php echo form_open("message/delete_all_sent");?>-->
     <table class="table table-striped table-hover table-responsive" >
 		<thead><tr class="table-header"><th>No</th><th>Title</th><th>Sent</th><th>To</th><th>Action</th></tr></thead>
 		<tbody>
@@ -22,7 +22,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			$no=1;
 			foreach($messages as $message){
 			?>
-			<tr><td><?php echo form_checkbox(array("name"=>"selected[]","required"=>"required"),$message->id) ?><?php echo $no++?></td>
+			<tr><td><!--<?php echo form_checkbox(array("name"=>"selected[]","required"=>"required"),$message->id) ?>--><?php echo $no++?></td>
 				<td><?php echo anchor("message/view_sent/".$message->id."/".rand(0, 9999),$message->subject) ?></td>    				
 				<td><?php echo $message->date_posted ?></td>
 				<td><?php 
@@ -41,8 +41,8 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			?>
 		</tbody>
     </table>
-    <input type = "submit" value="Delete Selected" class="btn btn-primary" id ="btn-delete-all" />
-    <?php echo form_close()	?>
+    <!--<input type = "submit" value="Delete Selected" class="btn btn-primary" id ="btn-delete-all" />
+    <?php echo form_close()	?>-->
     </div>    	
     </div>
     </div>

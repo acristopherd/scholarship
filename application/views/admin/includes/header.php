@@ -60,7 +60,7 @@
                         
                         <li class="divider"></li>
                         <li>
-                            <a class="text-center" href="<?php echo site_url("message")?>">
+                            <a class="text-center" href="<?php echo site_url("message/inbox")?>">
                                 <strong>Read All Messages</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
@@ -75,9 +75,9 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="<?php echo site_url("user/account")?>"><i class="fa fa-user fa-fw"></i> Account</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        
                         </li>
                         <li class="divider"></li>
                         	<li><a href="<?php echo site_url("admin/logout");?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -93,17 +93,7 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control input-sm" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
+                        
                         <li>
                             <a href="<?php echo site_url("admin")?>"><i class="fa fa-home fa-fw"></i> Home</a>
                         </li>
@@ -137,7 +127,7 @@
 		                    <ul class="nav nav-second-level collapse">
 		                    	<li><?php echo anchor("college","Colleges")?></li>
 		                        <li><?php echo anchor("course","Courses")?></li>	
-		                        <li><a href="<?php echo site_url('user')?>">Users</a></li>	
+		                        <?php if($this->session->userdata("access_level")>4){?>} <li><a href="<?php echo site_url('user')?>">Users</a></li>	<?php } ?>
 		                        <li><a href="<?php echo site_url('scholarshiptype')?>">Scholarship Types</a></li>	
 		                    </ul>
 		                    <?php } ?> 

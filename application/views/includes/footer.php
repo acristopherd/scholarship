@@ -14,24 +14,10 @@
         <div class="row col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
           <div class="">
 
-            <ul class="list-unstyled list-inline list-social-icons">
-                    <li>
-                        <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-linkedin-square fa-2x"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
-                    </li>
-                </ul>
             <p>&copy; <a href="#" rel="nofollow">Uiversity of Northern Phipippines Office of Student Affairs</a>. </p>
             <p>Email <a href="mailto:osa@unp.edu.ph">osa@unp.edu.ph</a>.</p>
             <p>Fax 722-0000</p>
-            <p><a href="">University of Norhtern Philippines </a>|<a href = ""> Vigan City</a></p>
+            <p><a href="http://unp.edu.ph">University of Norhtern Philippines </a>|<a href = "http://www.vigancity.gov.ph/"> Vigan City</a></p>
 
           </div>
         </div>

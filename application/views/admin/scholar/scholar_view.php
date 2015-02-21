@@ -12,7 +12,7 @@ $data['style'] = '<style type = "text/css">
 			</style>'?>
 <?php $this->load->view('admin/includes/header.php',$data); ?>
 <div id="page-wrapper">
-    <h1> Scholars</h1>
+    <h1> <?php echo $_GET['approved']==0?"Pending":"Approved"?> Scholarship</h1>
     <div class="row">
     	<div class="panel panel-primary">
     		<div class="panel-heading">
@@ -61,14 +61,14 @@ $data['style'] = '<style type = "text/css">
     			$no=1;    			
 				
     			foreach($scholars as $scholar){
-    				if($this->session->userdata("admin_id")||$this->session->userdata("super_admin_id")||$scholar['info']->coll_id==$this->session->userdata("college_id")){
+    				if($this->session->userdata("access_level")==2||$this->session->userdata("admin_id")||$this->session->userdata("super_admin_id")||$scholar['info']->coll_id==$this->session->userdata("college_id")){
     			?>	    			
     			<tr>
     				<!--<td><?php if(!$this->session->userdata("college_user_id"))echo form_checkbox(array("name"=>"aid[]","class"=>"form-input chk-approv"),$scholar['info']->aid);?></td>--><td><?php  echo $no++?></td><td><?php echo $scholar['info']->fname ?></td><td><?php echo $scholar['info']->mname?></td>
     				<td><?php echo $scholar['info']->lname ?></td><td><?php echo $scholar['info']->gender ?></td><td><?php echo $scholar['info']->town ?></td>
     				<td><?php echo $scholar['info']->type ?></td>
     				<td>
-    					<a href = "<?php echo $scholar['info']->average>0?site_url("scholar/print_grade/".$scholar['info']->aid):"#"?>" class="requirement btn btn-sm btn-<?php echo $scholar['info']->average>0? "success": "danger disabled";?>"
+    					<a href = "<?php echo $scholar['info']->average>0?site_url("scholar/print_grade/".$scholar['info']->aid."/".md5($scholar['info']->aid.$this->session->userdata("admin_secret"))):"#"?>" class="requirement btn btn-sm btn-<?php echo $scholar['info']->average>0? "success": "danger disabled";?>"
     						title = "<?php echo $scholar['info']->average>0? "Weighted Average": "Not yet submitted.";?>" data-toggle="tooltip" data-placement="top"> <?php echo $scholar['info']->average?number_format($scholar['info']->average,2):"Ave" ?></a>
     					<?php     				
 	    				foreach($scholar['requirements'] as $requirement){

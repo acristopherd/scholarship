@@ -46,14 +46,14 @@ $data['style']='<style type = "text/css">
 	                    <span class="input-group-addon input-sm"><i class="fa fa-user"></i></span>
 	                    <?php echo form_input(array("name"=>"uname","class"=>"form-control input-sm","placeholder"=>"Username","required"=>"","type"=>"text"),set_value("uname")); ?>
 	                    </div>
-	                	<?php echo form_error('email'); ?>
+	                	<?php echo form_error('uname'); ?>
 		            	</div>
 	                </div>
 	                <div class="row">
 	                	 <div class="form-group col-lg-8 col-md-10">
 	                    <label class="control-label" for="pass">Password</label>
 	                    <div class="input-group">
-	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
+	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","id"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
 	                	
 	                	</div>
 	                	<span class="label label-info">Password should be at least 8 characters and a combination of uppercase,lowercase and number.</span>

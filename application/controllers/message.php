@@ -11,8 +11,8 @@ class message extends CI_Controller{
 			$this->load->view("error_404");
 			return;
 		}
-		$data["messages"]=$this->message_model->get();
-        $this->load->view("admin/message/message_view.php",$data);
+		
+        $this->inbox();
     }
 	
 	function inbox(){
@@ -157,11 +157,11 @@ class message extends CI_Controller{
 				}
 				
 				if($success['success']==1){
-					$this->session->set_flashdata("message","Your message has been successfully saved.");
+					$this->session->set_flashdata("message","Your message has been successfully sent.");
 					redirect("osa#message");
 				}
 				else{
-					$this->session->set_flashdata("message","Your message was not saved. Please try again later.");
+					$this->session->set_flashdata("message","Your message was not sent. Please try again later.");
 					redirect("osa#message");
 				}
 				
@@ -230,11 +230,11 @@ class message extends CI_Controller{
 				$success=$this->message_model->add_batch($save);
 				
 				if($success['success']==1){
-					$this->session->set_flashdata("message","Your message has been successfully saved.");
+					$this->session->set_flashdata("message","Your message has been successfully sent.");
 					redirect("osa#message");
 				}
 				else{
-					$this->session->set_flashdata("message","Your message was not saved. Please try again later.");
+					$this->session->set_flashdata("message","Your message was not sent. Please try again later.");
 					redirect("osa#message");
 				}
 				
@@ -304,11 +304,11 @@ class message extends CI_Controller{
 				$success=$this->message_model->add_batch($save);
 				
 				if($success['success']==1){
-					$this->session->set_flashdata("message","Your message has been successfully saved.");
+					$this->session->set_flashdata("message","Your message has been successfully sent.");
 					redirect("message/sent#message");
 				}
 				else{
-					$this->session->set_flashdata("message","Your message was not saved. Please try again later.");
+					$this->session->set_flashdata("message","Your message was not sent. Please try again later.");
 					redirect("message/admin_send#message");
 				}
 				

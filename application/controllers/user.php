@@ -5,7 +5,7 @@ class user extends CI_Controller{
 		$this->load->model("user_model");
 	}
     function index(){
-    	if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r"||$this->session->userdata("access_level")<4) {
+    	if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r"||$this->session->userdata("access_level")<5) {
 			$this->load->view("error_404");
 			return;
 		}
@@ -83,6 +83,60 @@ class user extends CI_Controller{
     		redirect("user#message");
 		}
     }
+
+	function account(){
+		if(isset($_POST['uname'])){
+		$this->form_validation->set_message("password_check","Your password should contain atleast 1 Uppercase, 1 Lowercase and 1 Number.");
+		$this->form_validation->set_message("check_old_password","You entered a wrong password.");
+		$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
+		$this->form_validation->set_rules("uname","Username","trim|required|min_length[5]|max_length[100]|xss_clean");
+		$this->form_validation->set_rules("old_pass","Old Password","trim|required|min_length[8]|max_length[100]|xss_clean|callback_check_old_password");
+		$this->form_validation->set_rules("pass","Password","trim|required|min_length[8]|max_length[100]|xss_clean|callback_password_check");
+		$this->form_validation->set_rules("cpass","Password","trim|required|matches[pass]");
+		if($this->form_validation->run()==FALSE){
+			//echo "invalid";
+	        $this->load->view("admin/user/account.php");
+		}
+		else{
+			$hpass = hash("SHA256",$this->input->post("pass")."dontmess")."4dm1n";
+			$data=array("username"=>$this->input->post("uname"),
+						"password"=>$hpass);
+			if($this->session->userdata('super_admin_id')){
+				$id=$this->session->userdata('super_admin_id');
+			}
+			else if($this->session->userdata('admin_id')){
+				$id=$this->session->userdata('admin_id');
+			}
+			else if($this->session->userdata('staff_id')){
+				$id=$this->session->userdata('staff_id');
+			}
+			else if($this->session->userdata('college_id')){
+				$id=$this->session->userdata('college_id');
+			}
+			$data["message"]=$this->user_model->update($id,$data);
+			
+			$this->session->set_flashdata("message","Account has been successfully updated.");
+    		redirect("admin#message");
+		}
+		}
+		else{
+			if($this->session->userdata('super_admin_id')){
+				$id=$this->session->userdata('super_admin_id');
+			}
+			else if($this->session->userdata('admin_id')){
+				$id=$this->session->userdata('admin_id');
+			}
+			else if($this->session->userdata('staff_id')){
+				$id=$this->session->userdata('staff_id');
+			}
+			else if($this->session->userdata('college_id')){
+				$id=$this->session->userdata('college_id');
+			}
+			$user=$this->user_model->get_user($id);
+			$data['user']=$user[0];
+			$this->load->view("admin/user/account.php",$data);
+		}
+	}
 	
 	function reset_pw(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r"||$this->session->userdata("access_level")<4) {
@@ -107,7 +161,7 @@ class user extends CI_Controller{
 			redirect("user/");
 		}
 	}
-    function edit(){
+    /*function edit(){
     	if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r"||$this->session->userdata("access_level")<4) {
 			$this->load->view("error_404");
 			return;
@@ -137,7 +191,9 @@ class user extends CI_Controller{
 		}
     	
     	
-    }
+    }*
+	 * 
+	 */
 
 	function delete(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r"||$this->session->userdata("access_level")<4) {
@@ -159,6 +215,27 @@ class user extends CI_Controller{
 		else{
 			redirect("user/");
 		}
+	}
+	
+	public function check_old_password($str){
+		if($this->session->userdata('super_admin_id')){
+				$id=$this->session->userdata('super_admin_id');
+			}
+			else if($this->session->userdata('admin_id')){
+				$id=$this->session->userdata('admin_id');
+			}
+			else if($this->session->userdata('staff_id')){
+				$id=$this->session->userdata('staff_id');
+			}
+			else if($this->session->userdata('college_id')){
+				$id=$this->session->userdata('college_id');
+			}
+		$user=$this->user_model->get_user($id);
+		$hpass = hash("SHA256",$str."dontmess")."4dm1n";
+		if($user[0]->password==$hpass){
+			return true;
+		}
+		return false;
 	}
 
 	public function password_check($str)
