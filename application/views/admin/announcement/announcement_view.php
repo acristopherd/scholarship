@@ -45,7 +45,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 	$(document).ready(function(){
 		$("table").dataTable();
 		$(".btn-delete").on("click",function(e){
-			if(confirm("Delete this announcement?")==0){
+			if(confirm("Archive this announcement?")==0){
 				e.preventDefault();
 			}
 		});

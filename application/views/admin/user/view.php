@@ -3,19 +3,23 @@ $data['style']='<style type = "text/css">
 	.capitalize{
 		text-transform:capitalize;
 	}
+	label.error{
+		background:#F00;
+		color:#EEE;
+	}
 </style>'; ?>
 <?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Users</h1>
     <div class="row">
-    <div class="container col-lg-6">
+    <div class="container col-lg-6 col-md-7 col-sm-9">
     <div class="panel panel-primary">
     	<div class="panel-heading">
     		Add User
     	</div>
     	<div class="panel-body">
     		<?php if (isset($error)) echo '<div class="label label-danger">'.$error.'</div>';?>
-    		<?php echo form_open("user/add",array("class"=>"form"));?>		    	
+    		<?php echo form_open("user/add",array("class"=>"form","id"=>"add-form"));?>		    	
 	    		<div class="">
 	    			
 	    			 <div class="row">
@@ -52,7 +56,7 @@ $data['style']='<style type = "text/css">
 	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
 	                	
 	                	</div>
-	                	<span class="label label-warning">Password should be at least 8 characters and a combination of uppercase,lowercase and number.</span>
+	                	<span class="label label-info">Password should be at least 8 characters and a combination of uppercase,lowercase and number.</span>
                 	
 	                	<?php echo form_error('pass'); ?>
 		           		</div>
@@ -150,26 +154,55 @@ $data['style']='<style type = "text/css">
     <?php } ?>
 </div>
 <?php  $this->load->view('admin/includes/footer.php');?>
+<script src = "<?php echo base_url()?>js/jquery.validate.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#lvl").change(function(){			
 			if($(this).val()==1||$(this).val()=="1"){
 				$("#type-row").removeClass("hidden");
+				$("#type").attr("required","required");
 				$("#college-row").addClass("hidden");
+				$("#college").removeAttr("required");
 			}
 			else if($(this).val()==3||$(this).val()=="3"){
 				$("#type-row").addClass("hidden");
+				$("#college").attr("required","required");
 				$("#college-row").removeClass("hidden");
+				$("#type").removeAttr("required");
 			}
 			else{
 				$("#type-row").addClass("hidden");
 				$("#college-row").addClass("hidden");
+				$("#type").removeAttr("required");
+				$("#college").removeAttr("required");
 			}
 		});
 		$(".btn-delete").bind("click",function(e){
 			if(confirm("Are you sure you want to delete this user? This action cannot be undone.")==0){
 				e.preventDefault();
 			}
+		});
+		
+		$("#add-form").validate({
+			rules: {  			             
+	            pass:{
+	            	minlength:8
+	            },
+	            cpass:{
+	            	minlength:8,
+	            	equalTo:"#pass"
+	            }
+	       },
+	       messages:{
+	       		
+	       		pass:{
+	       			minlength:"Password too short. Min of 8 characters."
+				},
+	       		cpass:{
+	       			minlength:"Password too short. Min of 8 characters.",
+	       			equalTo:"Password did not match."
+	       		}
+	       }
 		});
 	});
 </script>
