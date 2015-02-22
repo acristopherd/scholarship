@@ -127,7 +127,7 @@
 		                    <ul class="nav nav-second-level collapse">
 		                    	<li><?php echo anchor("college","Colleges")?></li>
 		                        <li><?php echo anchor("course","Courses")?></li>	
-		                        <?php if($this->session->userdata("access_level")>4){?>} <li><a href="<?php echo site_url('user')?>">Users</a></li>	<?php } ?>
+		                        <?php if($this->session->userdata("access_level")>4){?> <li><a href="<?php echo site_url('user')?>">Users</a></li>	<?php } ?>
 		                        <li><a href="<?php echo site_url('scholarshiptype')?>">Scholarship Types</a></li>	
 		                    </ul>
 		                    <?php } ?> 

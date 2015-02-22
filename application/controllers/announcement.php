@@ -89,10 +89,11 @@ class announcement extends CI_Controller{
 			redirect("announcement#message");
 		}
 		else{
-			$this->session->set_flashdata("message","Delete failed. Please try again later.");
+			$this->session->set_flashdata("message","Action failed. Please try again later.");
 			redirect("announcement#message");
 		}
 	}
+
 	function save(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
 			$this->load->view("error_404");

@@ -13,7 +13,7 @@ class scholarshiptype extends CI_Controller{
 			return;
 		}
     	
-		
+		$data=array();
 		$types=$this->scholartype_model->get();
 		foreach($types as $type){
 			$requirements = $this->type_requirement_model->get($type->id);

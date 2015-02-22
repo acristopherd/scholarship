@@ -374,6 +374,55 @@ class message extends CI_Controller{
 		}
 	}
 
+	function reply(){
+		if($this->uri->segment(3)){
+			$data['to'] = $this->uri->segment(5);
+			$data['subject']="Re - ".$this->uri->segment(6);
+			$this->session->set_userdata('msg_type',$this->uri->segment(4));
+			$this->session->set_userdata('reply_to',$this->uri->segment(3));
+			$this->load->view('admin/message/reply',$data);
+		}
+		else{
+			if(isset($_POST['a_title'])){
+				$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
+				$this->form_validation->set_rules("a_to","To","trim|required|min_length[1]|max_length[80]|xss_clean");
+				$this->form_validation->set_rules("a_title","Title","trim|required|min_length[1]|max_length[80]|xss_clean");
+				$this->form_validation->set_rules("a_msg","Message","trim|required|min_length[1]|max_length[5000]|xss_clean");
+				if($this->form_validation->run()==FALSE){
+					
+					$this->load->view("organization/message/send");
+				}
+				else{
+					$to=0;
+					
+					$save=array("subject"=>$this->input->post("a_title"),
+								"message"=>$this->input->post("a_msg"),
+								"date_posted"=>mdate("%Y-%m-%d %h:%i:%s"),
+								"msg_from"=>0,
+								"from_name"=>"OSA",
+								"from_desc"=>"Admin",
+								"msg_to"=>$this->session->userdata('reply_to'),
+								"msg_type"=>$this->session->userdata('msg_type')+1);
+					
+					
+					//print_r($data['save']);
+					$success=$this->message_model->add($save);
+					
+					if($success['success']==1){
+						$this->session->set_flashdata("message","Your message has been successfully sent.");
+						redirect("message/sent#message");
+					}
+					else{
+						$this->session->set_flashdata("message","Your message was not sent. Please try again later.");
+						redirect("organization#message");
+					}
+					
+							
+				}	
+			}
+		}
+	}
+	
 	function delete_all(){
 		
 		$upload_path=realpath(APPPATH."../attachment");

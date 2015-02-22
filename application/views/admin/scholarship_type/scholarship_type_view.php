@@ -55,6 +55,7 @@
     
     <div class = "row">    	
     	<h3 class="">List of Scholarships</h3>
+    	<?php if(isset($types)&&sizeof($types)>0){ ?>
     	<table class="table table-striped table-hover table-responsive">
     		<thead><tr class="table-header"><th>No</th><th>Category</th><th>Name</th><th>Min Grade</th><th>Average</th><th>Requirements</th><th>Edit</th></tr></thead>
     		<tbody>
@@ -74,6 +75,13 @@
 				?>
     		</tbody>
     	</table>
+    	<?php }
+		else {
+			?>
+			<div class="alert alert-danger">No records to show</div>
+			<?php
+			}
+			?>
     </div>
 </div>
 <?php 
