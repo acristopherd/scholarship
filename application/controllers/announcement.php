@@ -35,7 +35,7 @@ class announcement extends CI_Controller{
 		$url=str_replace(".html", "",$url);
 		$config['base_url'] = $url;
 		$config['total_rows'] = $this->announcement_model->count_by_type($scholar_type[0]->scholar_type);		
-		$config['per_page'] = 4; 
+		$config['per_page'] = 10; 
 		$config['use_query_string']=true;
 		
 		$this->pagination->initialize($config); 

@@ -70,18 +70,20 @@ $data['style'] = '<style type = "text/css">
     				<td>
     					<a href = "<?php echo $scholar['info']->average>0?site_url("scholar/print_grade/".$scholar['info']->aid."/".md5($scholar['info']->aid.$this->session->userdata("admin_secret"))):"#"?>" class="requirement btn btn-sm btn-<?php echo $scholar['info']->average>0? "success": "danger disabled";?>"
     						title = "<?php echo $scholar['info']->average>0? "Weighted Average": "Not yet submitted.";?>" data-toggle="tooltip" data-placement="top"> <?php echo $scholar['info']->average?number_format($scholar['info']->average,2):"Ave" ?></a>
-    					<?php     				
+    					<?php 
+    					$lacks=!($scholar['info']->average>0);    				
 	    				foreach($scholar['requirements'] as $requirement){
+	    					$lacks=$lacks||empty($requirement->file_name);
 	    				?>
 	    				<a href = "<?php echo empty($requirement->file_name)?"#":base_url()."requirements/".$requirement->file_name ?>" class="requirement btn btn-sm btn-<?php echo empty($requirement->file_name)? "danger disabled": "success";?>"
 	    					title = "<?php echo $requirement->requ_name ?>"  data-toggle="tooltip" data-placement="top"><?php echo $requirement->requ_name ?></a>
 	    				<?php
-	    				}     				
-	    				?>
+	    				}    
+						?>
 	    			</td>
     				<td><div class="btn-group"><?php echo ($this->session->userdata("college_user_id")&&$this->session->userdata("college_id")==$scholar['info']->coll_id)||$this->session->userdata("super_admin_id")||$this->session->userdata("admin_id")?anchor("scholar/encode_grade/".$scholar['info']->aid."/".$scholar['info']->semester."/".$scholar['info']->sy,"<i class='fa fa-edit'></i>",array("class"=>"btn btn-sm btn-primary","title"=>"encode grade","data-toggle"=>"tooltip","data-placement"=>"top")):""?>
     					<?php echo anchor("scholar/print_grade/".$scholar['info']->aid."/".md5($scholar['info']->aid.$this->session->userdata("admin_secret")),"<i class='fa fa-print'></i>",array("class"=>"btn btn-sm btn-primary btn-print-grade","title"=>"print grade","data-toggle"=>"tooltip","data-placement"=>"top"))?>
-    					<?php  echo ($scholar['info']->approved==0) ? ($this->session->userdata("admin_id")||$this->session->userdata("super_admin_id")?anchor("scholar/confirm/".$scholar['info']->aid,"<i class='fa fa-thumbs-up'></i>",array("class"=>"btn btn-sm btn-primary","title"=>"Approve","data-toggle"=>"tooltip","data-placement"=>"top")):"<span class='btn  btn-sm btn-primary disabled'  data-toggle='tooltip' data-placement='top' title='not confirmed'> <i class='fa fa-thumbs-up'></i></span>"): "<span class='btn  btn-sm btn-success disabled'  data-toggle='tooltip' data-placement='top' title='confirmed'> <i class='fa fa-thumbs-up'></i></span>"?>
+    					<?php  echo ($scholar['info']->approved==0) ? ((($this->session->userdata("admin_id")||$this->session->userdata("super_admin_id"))&&!$lacks)?anchor("scholar/confirm/".$scholar['info']->aid,"<i class='fa fa-thumbs-up'></i>",array("class"=>"btn btn-sm btn-primary","title"=>"Approve","data-toggle"=>"tooltip","data-placement"=>"top")):"<span class='btn  btn-sm btn-primary disabled'  data-toggle='tooltip' data-placement='top' title='not confirmed'> <i class='fa fa-thumbs-up'></i></span>"): "<span class='btn  btn-sm btn-success disabled'  data-toggle='tooltip' data-placement='top' title='confirmed'> <i class='fa fa-thumbs-up'></i></span>"?>
     					</div>
     				</td>
     			</tr>

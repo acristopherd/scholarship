@@ -101,5 +101,12 @@ $data['style'] = '<style type = "text/css">
          	var w = window.open($(this).attr("href"),"Print Window","height=1000,width=1000,menubar=0,location=0");
          	e.preventDefault();
          });
+         
+       
+    	var w = window.open('about:blank','Popup_Window','toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=400,height=300,left = 312,top = 234');
+   
+         $("form").each(function(){
+         	$(this).target='Popup_Window';
+         });
     });
     </script>

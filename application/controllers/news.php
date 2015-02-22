@@ -21,7 +21,7 @@ class news extends CI_Controller{
 		$url=str_replace(".html", "",$url);
 		$config['base_url'] = $url;
 		$config['total_rows'] = $this->news_model->count();		
-		$config['per_page'] = 2; 
+		$config['per_page'] = 10; 
 		$config['use_query_string']=true;		
 		//$config['next_tag_open'] = '<span class="icon-next">';
 		//$config['next_tag_close'] = '</span>';
@@ -37,13 +37,14 @@ class news extends CI_Controller{
 		}
 		$this->load->view("news_view.php",$data);
     }
-	
+    
 	function full_view(){
 		$id=$this->uri->segment(3);
 		$news=$this->news_model->get_by_id($id);
 		$data['news']=$news[0];
 		$this->load->view('admin/news/full_news_view',$data);
 	}
+	
 	function get_latest(){
 		$limit=1;
     	if($this->input->post("data")){
@@ -95,7 +96,8 @@ class news extends CI_Controller{
 			return;
 		}
 		$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
-		$this->form_validation->set_rules("a_title","Title","trim|required|min_length[1]|max_length[80]|xss_clean");
+		$this->form_validation->set_message('check_title','A news with this title already exists.');
+		$this->form_validation->set_rules("a_title","Title","trim|required|min_length[1]|max_length[80]|callback_check_title|xss_clean");
 		$this->form_validation->set_rules("a_date","Date","trim|xss_clean");
 		$this->form_validation->set_rules("a_from","From","trim|required|min_length[1]|max_length[80]|xszs_clean");
 		$this->form_validation->set_rules("a_msg","Message","trim|required|min_length[1]|max_length[5000]|xss_clean");
@@ -108,6 +110,14 @@ class news extends CI_Controller{
 				$filenames[]=md5($this->input->post("title")).time()."_".$file_counter++;
 			}
 			
+			//echo sizeof($_FILES);
+			$data['save']=array("title"=>$this->input->post("a_title"),
+								"news"=>$this->input->post("a_msg"),
+								"news_date"=>$this->input->post("a_date"),
+								"author"=>$this->input->post("a_from"),
+								"date_posted"=>mdate("%Y-%m-%d %h:%i:%s"));
+								//print_r($data['save']);
+			$success=$this->news_model->add($data['save']);
 			$uploadpath = realpath(APPPATH."../news");
 			$config['upload_path'] = $uploadpath;
 			$config['allowed_types'] = 'gif|jpg|png';
@@ -118,19 +128,15 @@ class news extends CI_Controller{
 			
 			if ( ! $this->upload->do_multi_upload('pics'))
 			{
-				$data['error']= "Error uploading file.";
+				/*$data['error']= "Error uploading file.";
 				$this->load->view("news/add",$data);
 				return;
+				 * 
+				 */
 				//echo $this->upload->display_errors();//$this -> load -> view("literature_view.php",$data);
 			}
 			else {
-				$data['save']=array("title"=>$this->input->post("a_title"),
-								"news"=>$this->input->post("a_msg"),
-								"news_date"=>$this->input->post("a_date"),
-								"author"=>$this->input->post("a_from"),
-								"date_posted"=>mdate("%Y-%m-%d %h:%i:%s"));
-								//print_r($data['save']);
-				$success=$this->news_model->add($data['save']);
+				
 				$this->load->model("news_pic_model");
 				$this->load->helper("date");
 				$uploadpath = realpath(APPPATH."../news");
@@ -152,16 +158,28 @@ class news extends CI_Controller{
 					$this->news_pic_model->insert($data["pic_insert"]);
 				}
 				
-				if($success['success']==1){
-					$this->session->set_flashdata("message","Your news has been successfully saved.");
-					redirect("news#message");
-				}
-				else{
-					$this->session->set_flashdata("message","Your news was not saved. Please try again later.");
-					redirect("news#message");
-				}
 				
+				
+			}
+			if($success['success']==1){
+				$this->session->set_flashdata("message","Your news has been successfully saved.");
+				redirect("news#message");
+			}
+			else{
+				$this->session->set_flashdata("message","Your news was not saved. Please try again later.");
+				redirect("news#message");
 			}			
+		}
+	}
+
+	function check_title(){
+		$title = $this->input->post('a_title');
+		$news=$this->news_model->get_by_title($title);
+		if(sizeof($news)>0){
+			return false;
+		}
+		else {
+			return true;
 		}
 	}
 }

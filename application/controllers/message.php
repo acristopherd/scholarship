@@ -18,7 +18,7 @@ class message extends CI_Controller{
 	function inbox(){
 		//if(!$this->session->userdata('access_level')>4){//$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
 		if($this->session->userdata('admin_id')||$this->session->userdata('super_admin_id')){
-			$data["messages"]=$this->message_model->get_inbox(0);
+			$data["messages"]=$this->message_model->get_inbox(0,array(1,3));
 			
 	        $this->load->view("admin/message/message_view.php",$data);
 		}
@@ -38,7 +38,7 @@ class message extends CI_Controller{
 	
 	function sent(){
 		if($this->session->userdata('admin_id')||$this->session->userdata('super_admin_id')){
-			$data["messages"]=$this->message_model->get_sent(0);
+			$data["messages"]=$this->message_model->get_sent(0,array(2,4));
 	        $this->load->view("admin/message/sent_message_view.php",$data);
 		}
 		else if($this->session->userdata('grantee_id')){

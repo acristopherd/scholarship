@@ -30,6 +30,7 @@ class message_model extends CI_Model{
 		$this->db->join("tblmember","tblmember.id=tblsent_message.msg_to","left");
 		$this->db->select("tblsent_message.id as id,subject,date_posted,msg_to,msg_type,tblscholar.fname as sfname,tblscholar.lname as slname,tbluser.fname as fname,tbluser.lname as lname,tblmember.fname as mfname,tblmember.lname as mlname");
 		$this->db->where('msg_from',$from);
+		if(sizeof($type)>0)$this->db->where_in('msg_type',$type);
 		$this->db->order_by("tblsent_message.id","desc");
 		$result=$this->db->get("tblsent_message");	
 		//echo $this->db->last_query();	

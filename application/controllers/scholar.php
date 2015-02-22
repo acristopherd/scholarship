@@ -529,6 +529,61 @@ class scholar extends CI_Controller{
 		
 	}
 	
+	function late_requirement(){
+		if(isset($_POST['scholarhship_id'])){
+				$this->form_validation->set_rules("scholarship_id","Field","trim|required|greater_than[-1]|xss_clean");
+			
+				$uploadpath = realpath(APPPATH."../requirements");
+				$config['upload_path'] = $uploadpath;
+				$config['allowed_types'] = 'gif|jpg|png';				
+				$config['overwrite']=TRUE;
+				$config['max_size']	= '20960KB';		
+				$this->load->library('upload');
+				$config['file_name']=$this->session->userdata("lname")."_".md5($this->session->userdata("user_id").$this->session->userdata("lname").'1').time()."_".'1';
+				$this->upload->initialize($config);					
+				if ( ! $this->upload->do_upload('requirement'))
+				{
+					$data['error']= "Error uploading file.";
+					$this->load->view("scholar_apply",$data);
+					return;						
+				}
+				else{
+					
+				$upload_data=$this->upload->data();
+				
+				$this->load->model("requirement_model");
+				$this->load->helper("date");
+			
+				$uploadpath = realpath(APPPATH."../requirements");
+				//create image thumbnail
+				$config_t['image_library'] = 'gd2';                
+                $config_t['maintain_ratio'] = TRUE;
+                $config_t['width'] = 100;
+                $config_t['height'] = 100;
+                $this->load->library('image_lib'); 
+				
+				$config_t['source_image'] = $uploadpath."/".$upload_data["file_name"];
+            	$config_t['new_image'] = $uploadpath."/thumbs/";
+				$this->image_lib->initialize($config_t);
+				if(!$this->image_lib->resize()){}
+				$data["requirement_insert"]=array("scholarship_id"=>$this->input->post('scholarhship_id'),
+												"file_name"=>$upload_data["file_name"],
+												"upload_date"=>mdate("%Y-%m-%d"),
+												"scholar_type"=>$this->input->post("req_id"));
+				//print_r($data['requirement_insert']);
+				$this->requirement_model->insert($data["requirement_insert"]);
+				$this->session->set_flashdata("message","You have successfully submitted you 1 requirement.");
+								
+				redirect("scholar/my_scholarship#message");
+				}
+				
+		}
+		else{
+			$this->session->set_flashdata("message","No data submitted.");
+			//echo "no data";
+			redirect('scholar/my_scholarship');
+		}
+	}
 	function get_requirements(){		
 		$this->load->model("type_requirement_model");
 		$requirements=$this->type_requirement_model->get($this->input->post("type"));
@@ -593,7 +648,7 @@ class scholar extends CI_Controller{
 		$data["scholarships"]=$this->scholarship_model->get_by_id($this->session->userdata("user_id"));
 		$this->load->model("requirement_model");
 		foreach($data['scholarships'] as $key=>$scholarship){
-			$data["requirements"][$scholarship->aid][]=$this->requirement_model->get_by_id($scholarship->aid);
+			$data["requirements"][$scholarship->aid][]=$this->scholarship_model->get_requirements($scholarship->aid);
 		}
 		
 		$this->load->view("my_scholarship_view",$data);

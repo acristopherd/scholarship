@@ -26,6 +26,14 @@ class news_model extends CI_Model{
 		return $announcement;
 	}
 	
+	function get_by_title($id){
+		$this->db->order_by("id","desc");
+		$this->db->where('title',$id);
+		$result=$this->db->get("tblnews");		
+		$announcement=$result->result();
+		return $announcement;
+	}
+	
 	function get_latest($limit){
 		$this->db->limit($limit,0);
 		$this->db->order_by("id","desc");

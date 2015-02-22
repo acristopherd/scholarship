@@ -43,12 +43,22 @@ include("includes/header.php"); ?>
 				<span class="">Requirements:</span>
 				<?php				
 				foreach ($requirements[$scholarship->aid] as $requirement){					
-				?>	
+				//print_r( $requirement);?>	
 					<div><?php foreach($requirement as $r) {
-						echo '<a class="fancybox" href="'.base_url().'requirements/'.$r->file_name.'"><img src="'.base_url().'requirements/'.$r->file_name.'" /></a>';
+						if($r->file_name!=null){
+						echo '<a class="fancybox" href="'.base_url().'requirements/'.$r->file_name.'" title ="'.$r->requ_name.'"><img src="'.base_url().'requirements/'.$r->file_name.'" /></a>';
 						?>
 						
 						<?php	
+						}
+						else{
+							echo form_open_multipart("scholar/late_requirement/".$scholarship->aid,'class="form"');
+							echo form_hidden("scholarhship_id",$scholarship->aid);
+							echo form_hidden("req_id",$r->id);
+							echo form_upload(array("name"=>"requirement","required"=>"required","class"=>"form-control input-sm","accept"=>"image/*"));
+							echo form_submit(array("class"=>"btn btn-info btn-sm"),ucwords($r->requ_name));
+							echo form_close();
+						}
 						}
 						?></div>
 				<?php	

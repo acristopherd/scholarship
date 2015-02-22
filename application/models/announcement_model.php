@@ -14,7 +14,7 @@ class announcement_model extends CI_Model{
 	function get_latest(){
 		$this->db->limit(1,0);
 		$this->db->order_by("id","desc");
-		$result=$this->db->query("select id,title, left(message,100) as msg,`from` from tblannouncement order by id desc limit 0,1");		
+		$result=$this->db->query("select tblannouncement.id as id,title, left(message,100) as msg,`from` from tblannouncement left join tblannouncement_type on tblannouncement.id =announcement_id where ISNULL(announcement_id) order by tblannouncement.id desc limit 0,1");		
 		$announcement=$result->result();
 		return $announcement;
 	}
