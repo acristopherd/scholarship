@@ -115,7 +115,7 @@ $data['style']='<style type = "text/css">
     				$account_type="";
     				switch($user->access_level){
 						case 1:
-							$account_type="Grantee";
+							$account_type="Sponsor";
 							break;
 						case 2:
 							$account_type="Staff";

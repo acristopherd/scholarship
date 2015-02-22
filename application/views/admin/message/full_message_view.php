@@ -41,6 +41,8 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     		</div>
     	</div>
     	<?php }?>
+    	<a href ="<?php echo site_url("message/reply/".$messages[0]->msg_from."/".$messages[0]->msg_type."/".$messages[0]->from_name ."/".$messages[0]->subject)?>" class="btn btn-default">Reply</a>
+    
     </div>
 </div>
    

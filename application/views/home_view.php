@@ -70,9 +70,9 @@
 			          </p>
 			          
 			        </div>
-			        <div class="panel-footer">
+			       <!-- <div class="panel-footer">
 			        	<a href = "<?php echo site_url("announcement/view")?>" class="btn btn-warning">Read More</a>
-			        </div>
+			       </div>-->
 			    </div>
 			    <div class="panel panel-success" id ="latest_news">
 			        <div class="panel-heading">
@@ -84,9 +84,9 @@
 			          </p>
 			          
 			        </div>
-			        <div class="panel-footer">
+			        <!--<div class="panel-footer">
 			        	<a href = "<?php echo site_url("news/view")?>" class="btn btn-success">Read More</a>
-			        </div>
+			        </div>-->
 			    </div>
 			</div>
 			
@@ -108,7 +108,7 @@
 	
 	$(document).ready(function(){
 	//get announcement
-	$.post("'.site_url("announcement/get_latest").'",{sid:Math.random()},function(data){
+	$.post("'.site_url("announcement/get_latest").'?qid="+Math.random(),{sid:Math.random()},function(data){
 				$.each(data,function(key,value){
 					title=$("<p></p>").html(value.title).addClass("h4").addClass("text-center");
 					hr = $("<hr />");
@@ -121,15 +121,17 @@
 	},"json");
 	
 	//get news
-	$.post("'.site_url("news/get_latest").'",{sid:Math.random()},function(data){
+	$.post("'.site_url("news/get_latest").'?qid="+Math.random(),{sid:Math.random()},function(data){
 				$.each(data,function(key,value){
 					title=$("<p></p>").html(value.info.title).addClass("h4").addClass("text-center");
 					hr = $("<hr />");
-					img = $("<img>").attr("src","'.base_url().'news/thumbs/"+value.pics[0].loc);
+					if(!(typeof value.pics[0] === "undefined")) img = $("<img>").attr("src","'.base_url().'news/thumbs/"+value.pics[0].loc);
 					news=$("<p></p>").html(value.info.msg);
 					if(value.info.msg.length>100)$(news).append($("<a></a>").html("...").attr("href","'.site_url("news/view").'#"+value.info.id))
 					from = $("<i></i>").html("From: "+value.info.author).addClass("text-right");
-					$("#latest_news .panel-body").append($(title)).append($(hr)).append($(img)).append($(news)).append($(hr).clone()).append($(from));
+					$("#latest_news .panel-body").append($(title)).append($(hr));
+					if(!(typeof value.pics[0] === "undefined")) $("#latest_news .panel-body").append($(img))
+					$("#latest_news .panel-body").append($(news)).append($(hr).clone()).append($(from));
 				});
 				
 	},"json");

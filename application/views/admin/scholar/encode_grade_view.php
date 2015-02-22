@@ -4,6 +4,9 @@ $data['style'] = '
 	input[type="text"]{
 		text-transform:capitalize;
 	}
+	.grade-row div.form-group{
+		padding:5px 2px 5px; 	
+	}
 </style>
 ';?>
 <?php $this->load->view('admin/includes/header.php',$data);?>
@@ -26,29 +29,29 @@ $data['style'] = '
 	                	</div>
 	                	<div class="form-group  col-lg-3">
 	                        <label class="control-label" for="type">School Year</label>
-	                        <?php echo form_input(array("name"=>"sy","class"=>"form-control input-sm","disabled"=>"disabled"),$sy);//form_dropdown("sy",array(""=>"-Select-",Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")))=>Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y"))),Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),null,"class='form-control input-sm' id ='sy'"); ?>
+	                        <?php echo form_input(array("name"=>"sy","id"=>"sy","class"=>"form-control input-sm","disabled"=>"disabled"),$sy);//form_dropdown("sy",array(""=>"-Select-",Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")))=>Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y"))),Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),null,"class='form-control input-sm' id ='sy'"); ?>
 	                	</div>
     			</div>
     			<div id = "old-grade"></div>
 	    		<div class="row grade-row">
 	    			
-	    			<div class="form-group col-lg-2">	    				
+	    			<div class="form-group col-lg-2 col-md-2">	    				
 	                    <label class="control-label" for="subj_code">SubjCode</label>
 	                    <?php echo form_input(array("name"=>"subj_code[]","class"=>"form-control input-sm","placeholder"=>"Code","required"=>"required")); ?>
 	                </div>
-	    			<div class="form-group col-lg-5">
+	    			<div class="form-group col-lg-5  col-md-5">
 	                    <label class="control-label" for="subject">Subject Description</label>
 	                    <?php echo form_input(array("name"=>"subject[]","class"=>"form-control input-sm","placeholder"=>"Subject Description","required"=>"required")); ?>
 	                </div>
-	                <div class="form-group col-lg-1">
+	                <div class="form-group col-lg-1  col-md-1">
 	                    <label class="control-label" for="units">Units</label>
-	                    <?php echo form_input(array("type"=>"number","step"=>"1","name"=>"units[]","class"=>"form-control input-sm units","placeholder"=>"","required"=>"required","min"=>"1","max"=>"6")); ?>
+	                    <?php echo form_input(array("type"=>"number","step"=>"1","name"=>"units[]","class"=>"form-control input-sm units","placeholder"=>"Units","required"=>"required","min"=>"1","max"=>"6")); ?>
 	                </div> 
-	                <div class="form-group col-lg-2">
+	                <div class="form-group col-lg-2  col-md-2">
 	                    <label class="control-label" for="midterm">Midterm</label>
 	                    <?php echo form_input(array("type"=>"number","step"=>".25","name"=>"midterm[]","class"=>"form-control input-sm","placeholder"=>"Midterm","required"=>"required","min"=>"1.00","max"=>"3.00")); ?>
 	                </div> 
-	                <div class="form-group col-lg-2">
+	                <div class="form-group col-lg-2 col-md-2">
 	                    <label class="control-label" for="final">Finals</label>
 	                    <?php echo form_input(array("type"=>"number","step"=>".25","name"=>"final[]","class"=>"form-control input-sm final","placeholder"=>"Final","required"=>"required","min"=>"1.00","max"=>"3.00")); ?>
 	                </div> 
@@ -60,11 +63,11 @@ $data['style'] = '
 	    			</div>
     			</div>  
 	    		
-	    		<div class="form-group col-md-8 col-lg-5 ">
+	    		<div class="form-group col-md-6 col-lg-5 ">
 	    			<label class="control-label" for="adviser">Adviser</label>
 	    			<?php echo form_input(array("type"=>"text","name"=>"adviser","class"=>"form-control input-sm final","placeholder"=>"Adviser","required"=>"required","max"=>"50")); ?>
 	    		</div>	
-	    		<div class="form-group col-md-8 col-lg-5 ">
+	    		<div class="form-group col-md-6 col-lg-5 ">
 	    			<label class="control-label" for="dean">Dean</label>
 	    			<?php echo form_input(array("type"=>"text","name"=>"dean","class"=>"form-control input-sm final","placeholder"=>"Dean","required"=>"required","max"=>"50")); ?>
 	    		</div>	
@@ -98,7 +101,7 @@ $data['style'] = '
 		
 		//$("#sy").bind("change",function(){
 			//alert($("#stud_id").val());
-			$.post("'.site_url("scholar/get_grade").'",{sem:$("#sem").val(),sy:$("#sy").val(),stud_id:$("#stud_id").val()},function(data){
+			$.post("<?php echo site_url("scholar/get_grade")?>",{sem:$("#sem").val(),sy:$("#sy").val(),stud_id:$("#stud_id").val()},function(data){
 				$.each(data,function(key,value){
 					grade={
 						subjcode:$("<div></div>").html(value.sub_code).addClass("form-control input-sm"),
@@ -107,11 +110,11 @@ $data['style'] = '
 						mg:$("<div></div>").html(value.mg).addClass("form-control input-sm"),
 						fg:$("<div></div>").html(value.fg).addClass("form-control input-sm")
 						};
-					oldgrade=$("<div></div>").append($("<div></div>").addClass("form-group col-lg-2").append($(grade.subjcode)))
-											.append($("<div></div>").addClass("form-group col-lg-5").append($(grade.subj)))
-											.append($("<div></div>").addClass("form-group col-lg-1").append($(grade.units)))
-											.append($("<div></div>").addClass("form-group col-lg-2").append($(grade.mg)))
-											.append($("<div></div>").addClass("form-group col-lg-2").append($(grade.fg)));
+					oldgrade=$("<div></div>").append($("<div></div>").addClass("form-group col-lg-2 col-md-2").append($(grade.subjcode)))
+											.append($("<div></div>").addClass("form-group col-lg-5 col-md-5").append($(grade.subj)))
+											.append($("<div></div>").addClass("form-group col-lg-1 col-md-1").append($(grade.units)))
+											.append($("<div></div>").addClass("form-group col-lg-2 col-md-2").append($(grade.mg)))
+											.append($("<div></div>").addClass("form-group col-lg-2 col-md-2").append($(grade.fg))).addClass("row grade-row");
 					$("#old-grade").append($(oldgrade));
 				});
 				

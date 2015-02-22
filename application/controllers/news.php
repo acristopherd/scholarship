@@ -50,7 +50,10 @@ class news extends CI_Controller{
     	if($this->input->post("data")){
     		$limit =$this->input->post("data");
     	}
+		
     	$news=$this->news_model->get_latest($limit);
+		//echo $limit;
+		//print_r($news);
 		$data['newss']=array();
 		foreach($news as $new){
 			$pics=$this->news_pic_model->get_by_id($new->id);

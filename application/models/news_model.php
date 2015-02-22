@@ -35,10 +35,11 @@ class news_model extends CI_Model{
 	}
 	
 	function get_latest($limit){
-		$this->db->limit($limit,0);
+		$this->db->limit(0,0);
 		$this->db->order_by("id","desc");
-		$result=$this->db->query("select id,title, left(news,100) as msg,`author` from tblnews order by id desc limit 0,1");		
+		$result=$this->db->query("select id,title, left(news,100) as msg,`author` from tblnews order by id desc limit 0,".$limit);		
 		$announcement=$result->result();
+		//echo $this->db->last_query();
 		return $announcement;
 	}
 	

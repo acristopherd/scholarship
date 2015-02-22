@@ -353,6 +353,10 @@ class scholar extends CI_Controller{
 			$this->session->set_flashdata("message","You need to login first or ".anchor("scholar/signup","signup")." for a scholar account before you can access the page.");
 			redirect("scholar/login#dialog");
 		}
+		else if($this->session->userdata("confirmed")>0){
+			$this->session->set_flashdata("message","Verify your account first before applying for scholarship.");
+			redirect("scholar/send_verify#message");
+		}
 		$this->load->model("scholartype_model");
 		$types=$this->scholartype_model->get();
 		$data['type']=array();
@@ -409,7 +413,7 @@ class scholar extends CI_Controller{
 				//upload of files
 				$uploadpath = realpath(APPPATH."../requirements");
 				$config['upload_path'] = $uploadpath;
-				$config['allowed_types'] = 'gif|jpg|png';
+				$config['allowed_types'] = 'pdf|gif|jpg|png';
 				
 				$config['overwrite']=TRUE;
 				$config['max_size']	= '20960KB';		
@@ -535,7 +539,7 @@ class scholar extends CI_Controller{
 			
 				$uploadpath = realpath(APPPATH."../requirements");
 				$config['upload_path'] = $uploadpath;
-				$config['allowed_types'] = 'gif|jpg|png';				
+				$config['allowed_types'] = 'pdf|gif|jpg|png';				
 				$config['overwrite']=TRUE;
 				$config['max_size']	= '20960KB';		
 				$this->load->library('upload');
@@ -1008,7 +1012,7 @@ class scholar extends CI_Controller{
 		$this->load->model("adviser_model");
 		$this->adviser_model->insert(array("scholarship_id"=>$this->input->post("stud_id"),"adviser"=>$this->input->post("adviser"),"dean"=>$this->input->post("dean")));
 		$data['signs']=$this->adviser_model->get($this->input->post("stud_id"));
-		$scholarship_type=$this->scholarship_model->get_by_scholarship($sid);
+		$scholarship_type=$this->scholarship_model->get_by_scholarship($this->input->post("stud_id"));
 		$data['min_grade']=$scholarship_type[0]->minimum_grade;
 		$data['average']=$scholarship_type[0]->min_average;
 		$data['scholar_type']=$scholarship_type[0]->type;

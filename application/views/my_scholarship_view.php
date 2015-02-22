@@ -46,7 +46,12 @@ include("includes/header.php"); ?>
 				//print_r( $requirement);?>	
 					<div><?php foreach($requirement as $r) {
 						if($r->file_name!=null){
-						echo '<a class="fancybox" href="'.base_url().'requirements/'.$r->file_name.'" title ="'.$r->requ_name.'"><img src="'.base_url().'requirements/'.$r->file_name.'" /></a>';
+						?><a class="fancybox" href="<?php echo base_url()."requirements/".$r->file_name?>" title ="<?php echo $r->requ_name?>">
+							<?php 
+							if(strpos($r->file_name,'pdf') !== false)
+							echo '<img src="'.base_url().'requirements/'.$r->file_name.'" /></a>';
+							else 
+							echo '<div class="btn btn-primary" >'.$r->requ_name.'</div>';
 						?>
 						
 						<?php	
