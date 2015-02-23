@@ -106,7 +106,12 @@
 		                    </ul>
                         </li>
                          <li>
-                            <?php if($this->session->userdata("access_level")>=4){?><a href="<?php echo site_url('announcement/')?>"><i class="fa fa-bullhorn fa-fw"></i> Announcements</a><?php } ?>
+                            
+                        	 <a href="#"><i class="fa fa-bullhorn fa-fw"></i>Announcements<span class="fa arrow"></span></a>
+                       		<ul class="nav nav-second-level collapse">
+		                    	<li><?php if($this->session->userdata("access_level")>=4){?><a href="<?php echo site_url('announcement/')?>"> View</a><?php } ?></li>
+		                        <li><?php if($this->session->userdata("access_level")>=4){?><a href="<?php echo site_url('announcement/view_archive')?>"> Archive</a><?php } ?></li>
+		                    </ul>
                         </li>
                         <li>
                             <?php if($this->session->userdata("access_level")>=4){?><a href="<?php echo site_url('news/')?>"><i class="fa fa-th-list fa-fw"></i> News</a><?php } ?>

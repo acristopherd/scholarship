@@ -16,6 +16,22 @@ class announcement extends CI_Controller{
         $this->load->view("admin/announcement/announcement_view.php",$data);
     }
     
+	function view_archive(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+			$this->load->view("error_404");
+			return;
+		}
+		
+    	$data['announcements']=$this->announcement_model->get_archived();
+        $this->load->view("admin/announcement/archived_announcement_view.php",$data);
+	}
+	function archive_full_view(){
+		$id=$this->uri->segment(3);
+		$announcement=$this->announcement_model->get_archive_by_id($id);
+		$data['announcement']=$announcement[0];
+		$this->load->view('admin/announcement/archive_full_announcement_view',$data);
+	} 
+	
 	function full_view(){
 		$id=$this->uri->segment(3);
 		$announcement=$this->announcement_model->get_by_id($id);

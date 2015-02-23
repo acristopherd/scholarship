@@ -974,6 +974,8 @@ class scholar extends CI_Controller{
 		$data['scholar_id']=$this->uri->segment(3);
 		$data['sem']=$this->uri->segment(4);
 		$data['sy']=$this->uri->segment(5);
+		$this->load->model('adviser_model');
+		$data['adviser']=$this->adviser_model->get($this->uri->segment(3));
 		$this->load->view("admin/scholar/encode_grade_view",$data);
 		
 	}
@@ -1011,13 +1013,9 @@ class scholar extends CI_Controller{
 		$data['grades'] =$this->scholar_grade_model->get($this->input->post("stud_id"),$this->input->post("sy"),$this->input->post("sem"));
 		$this->load->model("adviser_model");
 		$this->adviser_model->insert(array("scholarship_id"=>$this->input->post("stud_id"),"adviser"=>$this->input->post("adviser"),"dean"=>$this->input->post("dean")));
-		$data['signs']=$this->adviser_model->get($this->input->post("stud_id"));
-		$scholarship_type=$this->scholarship_model->get_by_scholarship($this->input->post("stud_id"));
-		$data['min_grade']=$scholarship_type[0]->minimum_grade;
-		$data['average']=$scholarship_type[0]->min_average;
-		$data['scholar_type']=$scholarship_type[0]->type;
-		$data['scholar_ave']=$scholarship_type[0]->average;
-		$this->load->view("print_grade_view",$data);
+		redirect('scholar/print_grade/'.$this->input->post("stud_id").'/'.md5($this->uri->segment(3).$this->session->userdata("admin_secret")));
+		 
+		 return;
 	}
 	
 	function print_grade(){		

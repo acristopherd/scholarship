@@ -11,6 +11,21 @@ class announcement_model extends CI_Model{
 		return $announcement;
 	}
 	
+	function get_archived(){
+		$this->db->order_by("id","desc");
+		$result=$this->db->get("tblannouncement_archive");		
+		$announcement=$result->result();
+		return $announcement;
+	}
+	
+	function get_archive_by_id($id){
+		$this->db->where('id',$id);
+		$this->db->order_by("id","desc");
+		$result=$this->db->get("tblannouncement_archive");		
+		$announcement=$result->result();
+		return $announcement;
+	}
+	
 	function get_latest(){
 		$this->db->limit(1,0);
 		$this->db->order_by("id","desc");

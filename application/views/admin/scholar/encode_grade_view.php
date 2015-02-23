@@ -25,11 +25,11 @@ $data['style'] = '
     			<div class="row grade-row">
     				<div class="form-group  col-lg-3">
 	                        <label class="control-label" for="type">Sem/Term</label>
-	                        <?php echo form_dropdown("sem",array(""=>"-Select-","1"=>"1st","2"=>"2nd","3"=>"Summer"),$sem,"class='form-control input-sm' id ='sem' disabled"); ?>
+	                        <?php echo form_dropdown("sem",array(""=>"-Select-","1"=>"1st","2"=>"2nd","3"=>"Summer"),$sem,"class='form-control input-sm' id ='sem' readonly"); ?>
 	                	</div>
 	                	<div class="form-group  col-lg-3">
 	                        <label class="control-label" for="type">School Year</label>
-	                        <?php echo form_input(array("name"=>"sy","id"=>"sy","class"=>"form-control input-sm","disabled"=>"disabled"),$sy);//form_dropdown("sy",array(""=>"-Select-",Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")))=>Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y"))),Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),null,"class='form-control input-sm' id ='sy'"); ?>
+	                        <?php echo form_input(array("name"=>"sy","id"=>"sy","class"=>"form-control input-sm","readonly"=>"readonly"),$sy);//form_dropdown("sy",array(""=>"-Select-",Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")))=>Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y"))),Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),null,"class='form-control input-sm' id ='sy'"); ?>
 	                	</div>
     			</div>
     			<div id = "old-grade"></div>
@@ -65,11 +65,11 @@ $data['style'] = '
 	    		
 	    		<div class="form-group col-md-6 col-lg-5 ">
 	    			<label class="control-label" for="adviser">Adviser</label>
-	    			<?php echo form_input(array("type"=>"text","name"=>"adviser","class"=>"form-control input-sm final","placeholder"=>"Adviser","required"=>"required","max"=>"50")); ?>
+	    			<?php echo form_input(array("type"=>"text","name"=>"adviser","class"=>"form-control input-sm final","placeholder"=>"Adviser","required"=>"required","max"=>"50"),set_value('adviser',isset($adviser)?$adviser[0]->adviser:'')); ?>
 	    		</div>	
 	    		<div class="form-group col-md-6 col-lg-5 ">
 	    			<label class="control-label" for="dean">Dean</label>
-	    			<?php echo form_input(array("type"=>"text","name"=>"dean","class"=>"form-control input-sm final","placeholder"=>"Dean","required"=>"required","max"=>"50")); ?>
+	    			<?php echo form_input(array("type"=>"text","name"=>"dean","class"=>"form-control input-sm final","placeholder"=>"Dean","required"=>"required","max"=>"50"),set_value('adviser',isset($adviser)?$adviser[0]->adviser:'')); ?>
 	    		</div>	
 	    		<div class="form-group col-md-8 col-lg-3 ">
 	    			<?php echo form_submit(array("value"=>"Save","class"=>"form-control btn btn-primary")) ?>
