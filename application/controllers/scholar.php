@@ -33,12 +33,18 @@ class scholar extends CI_Controller{
 				$data['login']=$this->scholar_model->get_login($this->input->post("email"),$hpass);	
 				if(sizeof($data['login'])>0 && $data['login'][0]->pass==$hpass){
 					//print_r($data['login']);
+					if($data['login'][0]->account_approved==0){
+						//$this->session->set_flashdata("message","Your account is not yet validated. We will validate your account withing 24 hours. Please be patient 'til then.");
+						redirect("osa/pending_validation");
+						return;
+					}
 					$this->session->set_userdata(array("user_id"=>$data['login'][0]->id,
 												"fname"=>$data['login'][0]->fname,
 												"mname"=>$data['login'][0]->mname,
 												"lname"=>$data['login'][0]->lname,
 												"email"=>$data['login'][0]->email,
-												"confirmed"=>$data['login'][0]->confirmed));
+												"confirmed"=>$data['login'][0]->confirmed,
+												"account_approved"=>$data['login'][0]->account_approved));
 					$this->session->set_flashdata("message","Your account is not yet verified. Please verify your account via email.");
 					if($this->session->userdata("confirmed")==0){
 						redirect("scholar/send_verify");
@@ -285,6 +291,58 @@ class scholar extends CI_Controller{
 		else{
 			
 			$this->load->view("scholar/edit_educ",$data);
+		}
+		
+	}
+
+	function edit_work(){
+		$data['scholar']=$this->scholar_model->get_by_id($this->session->userdata("user_id"));
+		if($this->input->post("work")){
+			$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
+			$this->form_validation->set_rules("work[]","Work","trim|required|min_length[1]|max_length[100]|xss_clean");
+			$this->form_validation->set_rules("company[]","Company","trim|required|min_length[1]|max_length[100]|xss_clean");
+			$this->form_validation->set_rules("date_inclusive[]","Date Inclusive","trim|required|min_length[1]|max_length[100]|xss_clean");
+			$hpass = hash("SHA256",$this->input->post("pass")."x4*b9");
+			if($hpass!=$data['scholar'][0]->pass){
+				$data['error']="You have entered an incorrect password. Changes are not saved.";
+				$data['scholar']=$this->scholar_model->get_by_id($this->session->userdata("user_id"));
+				$this->load->view("scholar/edit_educ",$data);
+				return;	
+			}
+			if($this->form_validation->run()==FALSE){
+				echo validation_errors();			
+				//$this->load->view("scholar/edit_work");
+			}			
+			else{
+				$work=$_POST['work'];
+				//$this->work_model->delete($this->session->userdata("user_id"));
+				$save=array();
+				for($i=0;$i<sizeof($work);$i++){
+					$save[]=array("work_id"=>"default",
+								"scholar_id"=>$this->session->userdata("user_id"),
+								"work"=>ucwords($_POST['work'][$i]),
+								"workplace"=>ucwords($_POST['company'][$i]),
+								"date_inclusive"=>$_POST['date_inclusive'][$i]);
+					//$this->scholar_grade_model->insert($data);
+				}
+				$this->load->model("work_model");
+				$success=$this->work_model->update_work($this->session->userdata("user_id"),$save);
+				if($success){
+					$this->session->set_flashdata("message","Your work information has been updated.");
+					redirect("osa#message");
+				}
+				else{
+					$data['scholar']=$this->scholar_model->get_by_id($this->session->userdata("user_id"));
+					echo "failed to save.";
+					$this->load->view("scholar/edit_work",$data);
+				}
+
+			}
+		}
+		else{
+			$this->load->model('work_model');
+			$data['works']=$this->work_model->get_by_id($this->session->userdata("user_id"));
+			$this->load->view("scholar/edit_work",$data);
 		}
 		
 	}
@@ -686,9 +744,25 @@ class scholar extends CI_Controller{
 		 
 	}
 	
+	/*
+	 * Codes for admin access starts here
+	 */
+	function view_signups(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
+			return;
+		}
+		$data['scholars'] = $this->scholar_model->get_pending();
+		//print_r($data);
+		$this->load->view('admin/scholar/signup_view',$data);
+		
+	}
+	
 	function view_scholar(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$where  = array();
@@ -782,7 +856,8 @@ class scholar extends CI_Controller{
 	
 	function print_scholar(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$where  = array();
@@ -873,7 +948,8 @@ class scholar extends CI_Controller{
 
 	function print_scholar_college(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$where  = array();	
@@ -891,7 +967,8 @@ class scholar extends CI_Controller{
 	
 	function print_scholar_course(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$where  = array();	
@@ -909,7 +986,8 @@ class scholar extends CI_Controller{
 	
 	function print_scholar_type(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$where  = array();	
@@ -968,7 +1046,8 @@ class scholar extends CI_Controller{
 	
 	function encode_grade(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$data['scholar_id']=$this->uri->segment(3);
@@ -1069,9 +1148,80 @@ class scholar extends CI_Controller{
 		redirect("scholar/view_scholar#message");
 	}
 	
-	function approv_all(){
+	function approve_signup(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
 			$this->load->view("error_404");
+			return;
+		}
+		$id=$this->uri->segment(3);
+		$data=array('account_approved'=>1);
+		$success=$this->scholar_model->update($id,$data);		
+		$this->session->set_flashdata("message","Scholar approved.");
+		redirect("scholar/view_signups#message");
+	}
+	
+	function deny_signup(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+			$this->load->view("error_404");
+			return;
+		}
+		$id=$this->uri->segment(3);
+		$checkid = $this->uri->segment(4);
+		if(strcmp(md5($id."denys1gnup"),$checkid)!=0) {
+			return;
+		}
+		//begin send email
+		$signup= $this->scholar_model->get_by_id($id);
+		$to=$signup->email;
+		$fname=$signup->fname;
+		$subject="Account Denied";
+		 $message		=	"<p>Hi ".$fname . ",<p>"
+							."<p> Your request for an account has been denied due to the following reason.</p>".
+							"<p>We can't confirm your identity. You can try again to provide your correct information this time or come to the office personally.".
+							"<p>Thank you,<p>".
+							"<b><i>The OSA Family</i></b>";
+		 $this->load->library('email');
+		 $result = $this->email
+                ->from('osaunp@gmail.com')
+                ->reply_to('osaunp@gmail.com')    // Optional, an account where a human being reads.
+                ->to($to)
+                ->subject($subject)
+                ->message($message)
+                ->send();
+        if($result) {
+        	$data["message"] = "Message sent correctly!";
+           
+        } else {
+        	$config['mailtype']='html';
+        	$this->load->library("phpemail",$config);
+        	$result=$this->phpemail
+                ->from('osaunp@gmail.com')
+                ->reply_to('osaunp@gmail.com')    // Optional, an account where a human being reads.
+                ->to($to)
+           
+                ->subject($subject)
+                ->message($message)
+                ->send();
+                if($result){
+                	$data["message"] = "Message sent correctly!";
+                }
+				else{
+					$data["message"] = "Error: " . $result."Debug: ".$this->email->print_debugger();
+				}
+             
+        }
+        //end send email
+    
+		
+		$success=$this->scholar_model->delete($id);		
+		$this->session->set_flashdata("message","Application denied.");
+		redirect("scholar/view_signups#message");
+	}
+	
+	function approv_all(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$data=array();
@@ -1079,7 +1229,7 @@ class scholar extends CI_Controller{
 			$data[]=array("aid"=>$aid,"approved"=>"1");
 		}
 		$success=$this->scholarship_model->confirm_all($data);		
-		$this->session->set_flashdata("message","Selected scholarships confirmed.");
+		$this->session->set_flashdata("message","Selected scholarships approved.");
 		redirect("scholar/view_scholar#message");
 		
 	}

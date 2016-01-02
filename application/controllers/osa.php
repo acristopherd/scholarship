@@ -80,6 +80,14 @@ class osa extends CI_Controller{
 		}
 	}
 	
+	function pending_validation(){
+		$this->load->view("pending_signup");	
+	}
+	
+	function about(){
+		$this->load->view("about_view");
+	}
+	
 	function error404(){
 		$this->load->view("error_404");
 	}

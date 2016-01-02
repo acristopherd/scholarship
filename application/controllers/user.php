@@ -114,7 +114,7 @@ class user extends CI_Controller{
 				$id=$this->session->userdata('college_id');
 			}
 			$data["message"]=$this->user_model->update($id,$data);
-			
+			$this->session->set_userdata('username',$data['username']);
 			$this->session->set_flashdata("message","Account has been successfully updated.");
     		redirect("admin#message");
 		}

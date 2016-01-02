@@ -8,7 +8,8 @@ class announcement extends CI_Controller{
 	}
     function index(){
     	if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		
@@ -18,7 +19,8 @@ class announcement extends CI_Controller{
     
 	function view_archive(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		
@@ -53,7 +55,20 @@ class announcement extends CI_Controller{
 		$config['total_rows'] = $this->announcement_model->count_by_type($scholar_type[0]->scholar_type);		
 		$config['per_page'] = 10; 
 		$config['use_query_string']=true;
-		
+		$config['full_tag_open'] = '<ul>';
+		$config['full_tag_close'] = '</ul>';	
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
 		$this->pagination->initialize($config); 
 		$start = $this->uri->segment(3)?$this->uri->segment(3):0;
 		$data['links']= $this->pagination->create_links();
@@ -81,7 +96,8 @@ class announcement extends CI_Controller{
     }
 	function add(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$this->load->model("scholartype_model");
@@ -112,7 +128,8 @@ class announcement extends CI_Controller{
 
 	function save(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');

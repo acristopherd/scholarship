@@ -8,7 +8,8 @@ class college extends CI_Controller{
 	
     function index(){
     	if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
     	
@@ -18,7 +19,8 @@ class college extends CI_Controller{
 	
     function add(){
     	if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		$this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
@@ -47,7 +49,8 @@ class college extends CI_Controller{
 	
     function edit(){
     	if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
     	if($this->uri->segment(3)){

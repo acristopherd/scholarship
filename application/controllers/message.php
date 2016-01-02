@@ -8,7 +8,8 @@ class message extends CI_Controller{
 	}
     function index(){
     	if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
-			$this->load->view("error_404");
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
 			return;
 		}
 		
@@ -33,6 +34,23 @@ class message extends CI_Controller{
 		else{
 			$this->load->view("error_404");
 			return;
+		}
+	}
+	
+	function unread(){		
+		$id=$this->uri->segment(3);
+		if($this->session->userdata('admin_id')||$this->session->userdata('super_admin_id')){
+			$data["count"]=$this->message_model->get_unread(array(1,3,5));
+			$this->load->view("admin/message/full_sent_view.php",$data);
+		}
+		else if($this->session->userdata('grantee_id')){
+			$this->load->view("grantee/message/full_sent_view.php",$data);
+		}
+		else if($this->session->userdata('user_id')){
+			$this->load->view("message/full_sent_view.php",$data);
+		}
+		else{
+			$this->load->view("error_404");
 		}
 	}
 	
@@ -73,6 +91,7 @@ class message extends CI_Controller{
 			$this->load->view("error_404");
 		}
 	}
+	
 	function view_sent(){		
 		$id=$this->uri->segment(3);
 		$data["messages"]=$this->message_model->get_sent_by_id($id);
@@ -92,8 +111,28 @@ class message extends CI_Controller{
 		}
 	}
 	
+	
+	
 	function view_some(){
-		$messages=$this->message_model->get_some();
+		$msgs=$this->message_model->get_some();
+		$messages= array();
+		foreach ($msgs as $msg){			
+			$message= array("message"=>$msg->message,'id'=>$msg->id,'subject'=>$msg->subject,'from_name'=>$msg->from_name,'msg_read'=>$msg->msg_read);
+			$sec_ago=human_to_unix($msg->date_posted);
+			$sec_from_post=human_to_unix(mdate("%Y-%m-%d %h:%i:%s"))-$sec_ago;
+			$message['date_posted']='';
+			if($sec_from_post<(3600*24)){
+				$message['date_posted']= timespan($sec_ago)." ago.";
+			} 
+			else if($sec_from_post<(3600*24*2)){
+				$message['date_posted']= "Yesterday at ".mdate('%h:%m:%s %A',$sec_ago);
+			}
+			else{
+				$message['date_posted']= mdate('%M %d, %Y at %h:%m:%s %A',$sec_ago);
+			}
+			
+			$messages[]=$message;		
+		}
 		$messages=array_reverse($messages);
 		echo json_encode($messages);
 	}
