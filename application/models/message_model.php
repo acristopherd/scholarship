@@ -23,7 +23,11 @@ class message_model extends CI_Model{
 		$message=$result->result();
 		return $message;
 	}
-	
+	function count_unread($type){
+		$this->db->where_in('msg_type',$type);
+		$this->db->from('tblmessage');
+		return $this->db->count_all_results();
+	}
 	function get_sent($from=0,$type=1){
 		$this->db->join("tbluser","tbluser.id=tblsent_message.msg_to","left");
 		$this->db->join("tblscholar","tblscholar.id=tblsent_message.msg_to","left");

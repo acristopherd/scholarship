@@ -11,11 +11,14 @@
     <title><?php echo (isset($title)?$title:"Main")?></title>
 	
     <!-- Bootstrap -->
-    <link href="<?php echo base_url();?>css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>css/modern-business.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>css/bootplus.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>css/bootplus-responsive.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>css/docs.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>js/google-code-prettify/prettify.css" rel="stylesheet">
     <link href="<?php echo base_url()?>font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url()?>css/jquery.toastmessage.css" rel="stylesheet">
     <link href="<?php echo base_url();?>css/all.css" rel="stylesheet">
+  
 	<?php echo (isset($link)?$link:" ")?>
 	<?php echo (isset($style)?$style:" ")?>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -27,49 +30,52 @@
     <?php if(isset($headscript)) echo $headscript;?>
   </head>
   <body>
+  <div id="wrap">
   	<!--navigation top-->
-  	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <span><div class ="navbar-brand" style="background:url(<?php echo base_url()?>images/unp_icon.png);width:42px;height:42px"></div></span>
-	      <a class="navbar-brand" href="<?php echo site_url("osa")?>"><span>UNP - OSA</span></a>
-	    </div>
-	    <div class="navbar-collapse collapse navbar-responsive-collapse">
-	      <ul class="nav navbar-nav">
-	        <li><a href="<?php echo site_url("osa")?>"><i class="fa fa-home fa-fw"></i> Home</a></li>
-	        
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-graduation-cap fa-fw"></i> Scholarship <b class="caret"></b></a>
-	          <ul class="dropdown-menu">
-	            <li><?php if(!$this->session->userdata("user_id"))echo anchor("scholar/signup","Signup")?></li>
-	            <li><?php echo anchor("scholar/apply","Apply")?></li>
-	            <li class="dropdown"><a href="#">Types</a>
-	            	<ul class = "dropdown-menu">
-	            		<li><a href = "#">Barangay Scholar</a></li>
-	            		<li><a href = "#">CHED Scholar</a></li>
-	            		<li><a href = "#">City Scholar</a></li>
-	            		<li><a href = "#">course Scholar</a></li>
-	            	</ul>
-	            </li>
+  	<div class="container">
+  	<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          
+        
+          <a class="brand" href="<?php echo site_url('osa/')?>"><!--<img height="10" class="nav-bar-image" src="<?php echo base_url()?>images/close.gif"> -->UNP-OSA</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="" id ="nav-home"><a href="<?php echo site_url('osa/')?>">Home</a></li>
+              <li class="dropdown" id ="nav-scholarship">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-graduation-cap fa-fw"></i> Scholarship <b class="caret"></b></a>
+		          <ul class="dropdown-menu">
+		            <li><?php if(!$this->session->userdata("user_id"))echo anchor("scholar/signup","Signup")?></li>
+		            <li><?php echo anchor("scholar/apply","Apply")?></li>
+		            <li class="dropdown-submenu" role ="menu">
+		            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Types</a>
+		            	<ul class = "dropdown-menu">
+		            		<li><a href = "#">Barangay Scholar</a></li>
+		            		<li><a href = "#">CHED Scholar</a></li>
+		            		<li><a href = "#">City Scholar</a></li>
+		            		<li><a href = "#">course Scholar</a></li>
+		            	</ul>
+		            </li>
+		            
+		          </ul>
+		        </li>
+		      <?php if($this->session->userdata("user_id")||$this->session->userdata("grantee_id")){?>
+		        <li id ="nav-announcement"><a href = "<?php echo site_url("announcement/view")?>"><i class="fa fa-bullhorn"></i> Announcements</a></li>
+		        <?php
+				}
+				?>
+		        <li id ="nav-news"><a href = "<?php echo site_url("news/view")?>"><i class="fa fa-th-list"></i> News</a></li>	     
+		 		<li><?php if ($this->session->userdata("grantee_id")) echo anchor("osa/our_scholars","Our scholars")?></li>
+	 			<!---<li><a href="#"><i class="fa fa-phone"></i> Contact</a></li>-->
+	            <li id ="nav-about"><a href="<?php echo site_url("osa/about/")?>"><i class="fa fa-question"></i> About</a></li>
 	            
-	          </ul>
-	        </li>
-	        <?php if($this->session->userdata("user_id")||$this->session->userdata("grantee_id")){?>
-	        <li><a href = "<?php echo site_url("announcement/view")?>"><i class="fa fa-bullhorn"></i> Announcements</a></li>
-	        <?php
-			}
-			?>
-	        <li><a href = "<?php echo site_url("news/view")?>"><i class="fa fa-th-list"></i> News</a></li>	        
-	 		<li><a href = "#">OSA</a></li>
-	 		<li><?php if ($this->session->userdata("grantee_id")) echo anchor("osa/our_scholars","Our scholars")?></li>
-	 		
-	      </ul>
-	     
-	      <ul class="nav navbar-nav navbar-right">
+            </ul>
+            <ul class="nav  pull-right">
 	      	 <!--
 	        <li>
 	        	<form class="navbar-form">
@@ -115,6 +121,7 @@
 		            <li><a href="<?php echo site_url("scholar/edit_personal/".$this->session->userdata("user_id"))?>">Personal Info</a></li>
 		            <li><a href="<?php echo site_url("scholar/edit_family/".$this->session->userdata("user_id"))?>">Family Background</a></li>
 		            <li><a href="<?php echo site_url("scholar/edit_educ/".$this->session->userdata("user_id"))?>">Education</a></li>
+		            <li><a href="<?php echo site_url("scholar/edit_work/".$this->session->userdata("user_id"))?>">Work</a></li>
 		            <li><a href="<?php echo site_url("scholar/edit_account/".$this->session->userdata("user_id"))?>">Account</a></li>
 		            <li class="divider"></li>
 		            <li><a href="<?php echo site_url("scholar/logout")?>"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
@@ -137,7 +144,11 @@
 	        </li>
 	        <li class="divider ">&nbsp;</li>
 	      </ul>
-	    </div>
-	  </nav>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+  	</div>
 	  <!--end of navigation top-->
+
     

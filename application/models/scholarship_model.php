@@ -15,6 +15,16 @@ class scholarship_model extends CI_Model{
 		$scholarship=$result->result();
 		return $scholarship;
 	}
+	
+	function count_pending(){
+		$this->db->where('approved',0);
+		$this->db->from('tblscholarship');
+		$result=$this->db->count_all_results();
+		//echo $this->db->last_query();
+		
+		return $result;
+	}
+	
 	function update_average($id,$data){
 		$this->db->update("tblscholarship",$data,array("aid"=>$id));
 	}

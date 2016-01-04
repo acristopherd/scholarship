@@ -1,4 +1,24 @@
 body{overflow-x:hidden;height:100%;}
+html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+	  body{ background-image:url(../images/unpv1.png) !important;background-repeat: no-repeat !important;background-position:top right !important;background-size: 300px 300px !important;}
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height:100%;
+        height: auto !important;
+        height:100%;
+        /* Negative indent footer by its height */
+        margin: 0px auto 0px;
+        padding-top:0;
+      }
+      #footer{
+      	position: absolute !important;
+      	bottom: 0px !important;
+      }
+      .main-header h1{font-weight:700;padding-top: 1em}
 .main-container {padding-top:1em !important;min-height:400px;}
 .main-container::before {content:" "}
 .main-container{min-height:80%;padding-top:3em;}

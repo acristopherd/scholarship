@@ -13,7 +13,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     <h1> Inbox <a href = "<?php echo site_url("message/inbox")?>" class="btn btn-primary"><i class="fa fa-refresh"></i></a></h1>
     
     <div class="row">    	
-    <div class="wrapper col-lg-10">
+    <div class="wrapper span10">
     <?php echo form_open("message/delete_all");?>
     <table class="table table-striped table-hover table-responsive" >
 		<thead><tr class="table-header"><th>No</th><th>Title</th><th>Sent</th><th>From</th><th>Action</th></tr></thead>

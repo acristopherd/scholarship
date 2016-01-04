@@ -13,39 +13,49 @@ $data['style'] = '<style type = "text/css">
 <?php $this->load->view('admin/includes/header.php',$data); ?>
 <div id="page-wrapper">
     <h1> <?php echo $_GET['approved']==0?"Pending":"Approved"?> Scholarship</h1>
-    <div class="row">
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li class="active"><?php echo $_GET['approved']==0?"Pending":"Approved"?> Scholarship</li>
+    </ol>
+    <div class="row-fluid">
     	<div class="panel panel-primary">
     		<div class="panel-heading">
-    			Filters:
+    			<b>Filters:</b>
     		</div>
     		<div class="panel-body">
-    			<?php echo form_open("scholar/view_scholar",array("class"=>"form-inline","role"=>"form","method"=>"get"));?>
-    			<div class="form-group pad-em-1"><?php echo form_label("S.Y.:","sy",array("class"=>"control-label")); echo form_dropdown("sy",$sys,$selected['sy'],"class='form-control'")?></div>
-    			<div class="form-group pad-em-1"><?php echo form_label("Sem:","sem",array("class"=>"control-label")); echo form_dropdown("sem",$sems,$selected['sem'],"class='form-control'")?></div>
-		    	<div class="form-group pad-em-1"><?php echo form_label("College:","college",array("class"=>"control-label")); echo form_dropdown("college",$colleges,$selected['college'],"class='form-control'")?></div>
-		    	<div class="form-group pad-em-1"><?php echo form_label("Course:","course",array("class"=>"control-label")); echo form_dropdown("course",$courses,$selected['course'],"class='form-control'")?></div>
-		    	<div class="form-group pad-em-1"><?php echo form_label("Town:","town",array("class"=>"control-label")); echo form_dropdown("town",$towns,$selected['town'],"class='form-control'")?></div>
-		    	<div class="form-group pad-em-1"><?php echo form_label("Sex:","sex",array("class"=>"control-label")); echo form_dropdown("sex",array("-1"=>"All","Male"=>"Male","Female"=>"Female"),$selected['sex']?$selected['sex']:-1,"class='form-control'")?></div>
-		    	<div class="form-group pad-em-1"><?php echo form_label("Status:","approved",array("class"=>"control-label")); echo form_dropdown("approved",array("-1"=>"All","1"=>"Approved","0"=>"Not Approved"),$selected['sex']?$selected['approved']:-1,"class='form-control'")?></div>
-		    	<div class="form-group pad-em-1"><?php echo form_label("Scholarhip:","type",array("class"=>"control-label")); echo form_dropdown("type",$types,$selected['type'],"class='form-control'")?></div>
-		    	<div>
+    			<?php echo form_open("scholar/view_scholar",array("class"=>"form","role"=>"form","method"=>"get"));?>
+    			<div class="row-fluid">
+    			<div class="form-group col-lg-3 col-md-3"><div class="input-group"><?php echo form_label("S.Y.:","sy",array("class"=>"input-group-addon")); echo form_dropdown("sy",$sys,$selected['sy'],"class='form-control'")?></div></div>
+    			<div class="form-group col-lg-3 col-md-3"><div class="input-group"><?php echo form_label("Sem:","sem",array("class"=>"input-group-addon")); echo form_dropdown("sem",$sems,$selected['sem'],"class='form-control'")?></div></div>
+		    	<div class="form-group col-lg-3 col-md-3"><div class="input-group"><?php echo form_label("College:","college",array("class"=>"input-group-addon")); echo form_dropdown("college",$colleges,$selected['college'],"class='form-control'")?></div></div>
+		    	<div class="form-group col-lg-3 col-md-3"><div class="input-group"><?php echo form_label("Course:","course",array("class"=>"input-group-addon")); echo form_dropdown("course",$courses,$selected['course'],"class='form-control'")?></div></div>
+		    	
+		    	<div class="form-group col-lg-3 col-md-3"><div class="input-group"><?php echo form_label("Town:","town",array("class"=>"input-group-addon")); echo form_dropdown("town",$towns,$selected['town'],"class='form-control'")?></div></div>
+		    	<div class="form-group col-lg-3 col-md-3"><div class="input-group"><?php echo form_label("Sex:","sex",array("class"=>"input-group-addon")); echo form_dropdown("sex",array("-1"=>"All","Male"=>"Male","Female"=>"Female"),$selected['sex']?$selected['sex']:-1,"class='form-control'")?></div></div>
+		    	<div class="form-group col-lg-3 col-md-3"><div class="input-group"><?php echo form_label("Status:","approved",array("class"=>"input-group-addon")); echo form_dropdown("approved",array("-1"=>"All","1"=>"Approved","0"=>"Not Approved"),$selected['sex']?$selected['approved']:-1,"class='form-control'")?></div></div>
+		    	<div class="form-group col-lg-3 col-md-3"><div class="input-group"><?php echo form_label("Scholarhip:","type",array("class"=>"input-group-addon")); echo form_dropdown("type",$types,$selected['type'],"class='form-control'")?></div></div>
+		    	</div>
+		    	<div class="container-fluid">
 		    	<?php echo form_submit(array("class"=>"btn btn-primary","id"=>"btn-apply"),"Apply");?>
 		    	</div>
 		    	<?php echo form_close(); ?>
     		</div>
     		<div class="panel-footer">
-    			
-    			<?php 	echo form_open("scholar/view_scholar",array("class"=>"form-inline","role"=>"form"));
+    			<div class="container-fluid">
+    			<?php 	echo form_open(site_url("scholar/view_scholar/")."?approved=".$_GET['approved'],array("class"=>"form-inline","role"=>"form"));
 						echo form_submit(array("class"=>"btn btn-warning"),"Reset");
     					echo form_close();
     			?>
-    			
+    			</div>
     		</div>
     	</div>
     	
     </div>
     <?php if(sizeof($scholars)>0){?>
-    <div class = "row">  
+    <div class = "row-fluid">  
     	<?php $url = "";
     		foreach($_GET as $key=>$value){
     			$url .=$key."=".$value."&";

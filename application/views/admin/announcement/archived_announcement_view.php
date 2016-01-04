@@ -10,9 +10,16 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 <?php  $this->load->view('admin/includes/header.php',$data);?>
 
 <div id="page-wrapper">
+	<div class="containter-fluid">
     <h1> Announcements Archive </h1>
-    
-    <div class="row">    	
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li class="active">Announcements Archive</li>
+    </ol>
+    <div class="row-fluid">    	
     <div class="wrapper">
     	
     <table class="table table-striped table-hover table-responsive" >
@@ -35,6 +42,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     	</table>
     	
     </div>    	
+    </div>
     </div>
     </div>
    

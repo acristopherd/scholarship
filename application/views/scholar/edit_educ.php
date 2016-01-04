@@ -6,20 +6,24 @@ $data['style']='<style type = "text/css">
 	}
 </style>';
 $this->load->view("includes/header.php",$data); ?>
-<section class = "container main-container">
-	<h4>Account Settings</h4>
+<header class="" id = "overview">
+	<div class="container main-header">
+		<h1 class="h1">Account Settings</h1>
+	</div>
+</header>
+<div class = "container main-container">
 	<div class = "row">
 		
-		<div class="col-lg-6">
+		<div class="span6">
 		
 		<?php echo form_open("scholar/edit_educ",array("name"=>"signup","id"=>"signup"));?>
 		
         <!-- Tab panes -->
-        <div class = "panel panel-default">
-				<div class="panel-heading">
-					Educational Background
+        <div class = "card card-default">
+				<div class="card-heading simple">
+					<h3>Educational Background</h3>
 				</div>
-				<div class = "panel-body">
+				<div class = "card-body">
 	                <div class="form-group">
 	                    <label class="control-label" for="school_grad">School Graduated</label>
 	                    <?php echo form_input(array("name"=>"school_grad","class"=>"form-control input-sm","placeholder"=>"School Graduated","required"=>"","disabled"=>"disabled"),set_value("school_grad",isset($scholar[0]->school_grad)?$scholar[0]->school_grad:"")); ?>
@@ -32,14 +36,14 @@ $this->load->view("includes/header.php",$data); ?>
 		            </div>
 	                <div class="form-group password-row hidden wrapper">
 	                    <label class="control-label" for="pass">Enter password to confirm.</label>
-	                    <div class="input-group">
-	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
+	                    <div class="input-prepend">
+	                    <span class="add-on input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
 	                	
 	                	</div>
 	                	<?php echo form_error('pass'); ?>
 		            </div>
 	            </div>
-	            <div class="panel-footer">
+	            <div class="card-actions">
 	            	<div ><?php echo form_button(array("value"=>"Edit","class"=>"btn btn-primary","id"=>"btn-edit","name"=>"btn-edit"),"Edit"); ?><?php echo form_submit(array("value"=>"Save","class"=>"btn btn-success btn-submit hidden","id"=>"btn-submit")); ?></div> 
                 	
 	            </div>
@@ -48,7 +52,7 @@ $this->load->view("includes/header.php",$data); ?>
 		<?php echo form_close(); ?>
 		
 	</div>
-</section>
+</div>
 <script type="text/javascript">
 	
 </script>

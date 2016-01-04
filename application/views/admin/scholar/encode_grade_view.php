@@ -12,7 +12,7 @@ $data['style'] = '
 <?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Scholars</h1>
-    <div class="row">
+    <div class="container-fluid">
     <div class="container col-lg-11">
     <div class="panel panel-primary">
     	<div class="panel-heading">
@@ -23,11 +23,11 @@ $data['style'] = '
     			<input name="stud_id" id="stud_id" value ="<?php echo $this->uri->segment(3)?>" type="hidden" />  
     			
     			<div class="row grade-row">
-    				<div class="form-group  col-lg-3">
+    				<div class="form-group  span3">
 	                        <label class="control-label" for="type">Sem/Term</label>
 	                        <?php echo form_dropdown("sem",array(""=>"-Select-","1"=>"1st","2"=>"2nd","3"=>"Summer"),$sem,"class='form-control input-sm' id ='sem' readonly"); ?>
 	                	</div>
-	                	<div class="form-group  col-lg-3">
+	                	<div class="form-group  span3">
 	                        <label class="control-label" for="type">School Year</label>
 	                        <?php echo form_input(array("name"=>"sy","id"=>"sy","class"=>"form-control input-sm","readonly"=>"readonly"),$sy);//form_dropdown("sy",array(""=>"-Select-",Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")))=>Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")-1))."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y"))),Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))=>Date("Y")."-".Date("Y",mktime(0,0,0,Date("m"),Date("d"),Date("Y")+1))),null,"class='form-control input-sm' id ='sy'"); ?>
 	                	</div>
@@ -35,43 +35,43 @@ $data['style'] = '
     			<div id = "old-grade"></div>
 	    		<div class="row grade-row">
 	    			
-	    			<div class="form-group col-lg-2 col-md-2">	    				
+	    			<div class="form-group span2 col-md-2">	    				
 	                    <label class="control-label" for="subj_code">SubjCode</label>
 	                    <?php echo form_input(array("name"=>"subj_code[]","class"=>"form-control input-sm","placeholder"=>"Code","required"=>"required")); ?>
 	                </div>
-	    			<div class="form-group col-lg-5  col-md-5">
+	    			<div class="form-group span5  col-md-5">
 	                    <label class="control-label" for="subject">Subject Description</label>
 	                    <?php echo form_input(array("name"=>"subject[]","class"=>"form-control input-sm","placeholder"=>"Subject Description","required"=>"required")); ?>
 	                </div>
-	                <div class="form-group col-lg-1  col-md-1">
+	                <div class="form-group span1  col-md-1">
 	                    <label class="control-label" for="units">Units</label>
 	                    <?php echo form_input(array("type"=>"number","step"=>"1","name"=>"units[]","class"=>"form-control input-sm units","placeholder"=>"Units","required"=>"required","min"=>"1","max"=>"6")); ?>
 	                </div> 
-	                <div class="form-group col-lg-2  col-md-2">
+	                <div class="form-group span2  col-md-2">
 	                    <label class="control-label" for="midterm">Midterm</label>
 	                    <?php echo form_input(array("type"=>"number","step"=>".25","name"=>"midterm[]","class"=>"form-control input-sm","placeholder"=>"Midterm","required"=>"required","min"=>"1.00","max"=>"3.00")); ?>
 	                </div> 
-	                <div class="form-group col-lg-2 col-md-2">
+	                <div class="form-group span2 col-md-2">
 	                    <label class="control-label" for="final">Finals</label>
 	                    <?php echo form_input(array("type"=>"number","step"=>".25","name"=>"final[]","class"=>"form-control input-sm final","placeholder"=>"Final","required"=>"required","min"=>"1.00","max"=>"3.00")); ?>
 	                </div> 
 	            </div>
 	    		
 	    		<div class="row">
-	    			<div class="form-group col-lg-3">
+	    			<div class="form-group span3">
 	    			<div class = "btn btn-primary" id="btn-add"><i class="fa fa-plus"></i></div>
 	    			</div>
     			</div>  
 	    		
-	    		<div class="form-group col-md-6 col-lg-5 ">
+	    		<div class="form-group col-md-6 span5 ">
 	    			<label class="control-label" for="adviser">Adviser</label>
-	    			<?php echo form_input(array("type"=>"text","name"=>"adviser","class"=>"form-control input-sm final","placeholder"=>"Adviser","required"=>"required","max"=>"50"),set_value('adviser',isset($adviser)?$adviser[0]->adviser:'')); ?>
+	    			<?php echo form_input(array("type"=>"text","name"=>"adviser","class"=>"form-control input-sm final","placeholder"=>"Adviser","required"=>"required","max"=>"50"),set_value('adviser',isset($adviser)&&sizeof($adviser)>0?$adviser[0]->adviser:'')); ?>
 	    		</div>	
-	    		<div class="form-group col-md-6 col-lg-5 ">
+	    		<div class="form-group col-md-6 span5 ">
 	    			<label class="control-label" for="dean">Dean</label>
-	    			<?php echo form_input(array("type"=>"text","name"=>"dean","class"=>"form-control input-sm final","placeholder"=>"Dean","required"=>"required","max"=>"50"),set_value('adviser',isset($adviser)?$adviser[0]->adviser:'')); ?>
+	    			<?php echo form_input(array("type"=>"text","name"=>"dean","class"=>"form-control input-sm final","placeholder"=>"Dean","required"=>"required","max"=>"50"),set_value('adviser',isset($adviser)&&sizeof($adviser)>0?$adviser[0]->adviser:'')); ?>
 	    		</div>	
-	    		<div class="form-group col-md-8 col-lg-3 ">
+	    		<div class="form-group col-md-8 span3 ">
 	    			<?php echo form_submit(array("value"=>"Save","class"=>"form-control btn btn-primary")) ?>
 	    		</div>		
 	    		  
@@ -110,11 +110,11 @@ $data['style'] = '
 						mg:$("<div></div>").html(value.mg).addClass("form-control input-sm"),
 						fg:$("<div></div>").html(value.fg).addClass("form-control input-sm")
 						};
-					oldgrade=$("<div></div>").append($("<div></div>").addClass("form-group col-lg-2 col-md-2").append($(grade.subjcode)))
-											.append($("<div></div>").addClass("form-group col-lg-5 col-md-5").append($(grade.subj)))
-											.append($("<div></div>").addClass("form-group col-lg-1 col-md-1").append($(grade.units)))
-											.append($("<div></div>").addClass("form-group col-lg-2 col-md-2").append($(grade.mg)))
-											.append($("<div></div>").addClass("form-group col-lg-2 col-md-2").append($(grade.fg))).addClass("row grade-row");
+					oldgrade=$("<div></div>").append($("<div></div>").addClass("form-group span2 col-md-2").append($(grade.subjcode)))
+											.append($("<div></div>").addClass("form-group span5 col-md-5").append($(grade.subj)))
+											.append($("<div></div>").addClass("form-group span1 col-md-1").append($(grade.units)))
+											.append($("<div></div>").addClass("form-group span2 col-md-2").append($(grade.mg)))
+											.append($("<div></div>").addClass("form-group span2 col-md-2").append($(grade.fg))).addClass("row grade-row");
 					$("#old-grade").append($(oldgrade));
 				});
 				

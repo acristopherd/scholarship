@@ -6,13 +6,28 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 		overflow:hidden;
 		text-overflow:ellipsis;
 	}
+	th{
+		background:#4387f5;color:#efefff;
+		border-bottom: 2px solid #4387f5;
+		cursor:pointer;
+	}
+	th:hover{
+		border-bottom-color: #eef;
+	}
 </style>'?>
 <?php $this->load->view('includes/header.php',$data);?>
 
 <div class="container main-container">
-    <h1> Sent </h1>
+	
+
+	<header class="" id = "overview">
+	<div class="container main-header">
+		<h1 class="h1">Sent</h1>
+		<p></p>
+	</div>
+</header>
     
-    <div class="row">    	
+    <section class="container">    	
     <div class="wrapper">
     <?php echo form_open("message/delete_all_sent");?>
     <table class="table table-striped table-hover table-responsive" >
@@ -22,7 +37,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			$no=1;
 			foreach($messages as $message){
 			?>
-			<tr><td><?php echo form_checkbox(array("name"=>"selected[]","required"=>"required"),$message->id) ?><?php echo $no++?></td>
+			<tr><td><?php echo form_checkbox(array("name"=>"selected[]","required"=>"required"),$message->id) ?> <?php echo $no++?></td>
 				<td><?php echo anchor("message/view_sent/".$message->id."/".rand(0, 9999),$message->subject) ?></td>    				
 				<td><?php echo $message->date_posted ?></td>
 				<td><?php echo $message->msg_to==0?"Admin":""?></td>    				
@@ -37,7 +52,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     <input type = "submit" value="Delete Selected" class="btn btn-primary" id ="btn-delete-all" />
     <?php echo form_close()	?>
     </div>    	
-    </div>
+    </section>
     </div>
    
 <?php  $this->load->view('includes/footer.php');
@@ -47,6 +62,9 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("table").dataTable();
+		$(".row").addClass("row-fluid").removeClass("row");
+		$(".col-sm-6").addClass("span6");
+		$("ul.pagination").parent().addClass("pagination");
 		$(".btn-delete").on("click",function(e){
 			
 			if(confirm("Delete this message?")==0){

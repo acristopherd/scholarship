@@ -1,16 +1,17 @@
 <?php 
 $style = '<style type = "text/css">
-	.panel p{padding:0 1em}
+	.card p{padding:0 1em}
+	
 </style>';
 include("includes/header.php");?>
-<section class="container main-container">
-	<div class="row col-lg-4 col-md-6 col-sm-8">
-	<?php echo form_open("scholar/login")?>
-	<div class = "panel panel-default">
-		<div class = "panel-heading">
+<div class="container main-container">
+	
+	<?php echo form_open("scholar/login",array('class'=>'form-signin'))?>
+	<div class = "card card-default span4">
+		<div class = "card-heading">
 			<h3>Login</h3>
 		</div>
-		<div class = "panel-body">
+		<div class = "card-body">
 			<?php echo $this->session->flashdata("login_failed")?"<div class='alert alert-danger'>".$this->session->flashdata("login_failed")."</div>":"";?>
 			<div class="form-group">
 				<?php 
@@ -31,7 +32,7 @@ include("includes/header.php");?>
 			</div>
 			
 		</div>
-		<div class = "panel-footer">
+		<div class = "card-footer">
 			<p>
 				No account yet? 
 			</p>
@@ -42,10 +43,8 @@ include("includes/header.php");?>
 			
 	</div>
 	<?php echo form_close()?>
-	</div>
-	<div class="container">
-		
-	</div>
-</section>
+	
+	
+</div>
 	
 <?php include("includes/footer.php");?>

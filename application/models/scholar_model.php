@@ -19,6 +19,24 @@ class scholar_model extends CI_Model{
 		return $scholar;
 	}
 	
+	function get_pending(){
+		$this->db->order_by('id','desc');
+		$this->db->where('account_approved',0);
+		$result=$this->db->get("tblscholar");
+		//echo $this->db->last_query();
+		$scholar=$result->result();
+		return $scholar;
+	}
+	
+	function count_pending(){
+		$this->db->where('account_approved',0);
+		$this->db->from('tblscholar');
+		$result=$this->db->count_all_results();
+		//echo $this->db->last_query();
+		
+		return $result;
+	}
+	
 	function get_confirmed(){
 		$this->db->order_by("lname","asc");
 		$this->db->order_by("gender","desc");
@@ -93,5 +111,10 @@ class scholar_model extends CI_Model{
 		$this->db->where("id",$id);
 		$success=$this->db->update("tblscholar",$data);
 		return $success;
+	}
+	
+	function delete($id){
+		$success=$this->db->delete('tblscholar',array('id'=>$id));
+		return  $success;
 	}
 }

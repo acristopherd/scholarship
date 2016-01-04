@@ -1,102 +1,83 @@
+
+<?php $style = '
+	<style type = "text/css">
+		.announcements {
+        background-image:url('.base_url().'images/books.jpg) !important	;
+      }
+      .separator-pics{
+      	height:200px;
+      	overflow:hidden;
+      }
+	  #myCarousel{min-height:250px !important;vertical-align:bottom !important;}
+	  
+	  .carousel-inner div:even(2){
+	  	background:red !important;
+	  }
+	</style>
+';?>
 <?php include("includes/header.php");?>
     <!--header start-->
-
-     <header id="myCarousel" class="carousel slide">
-        <!-- Indicators 
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-		-->
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">            
-            <div class="item next left">
-                <div class="fill" style="background-image:url('<?php echo base_url(); ?>images/books.jpg');"></div>
-                <div class="carousel-caption">
-                    <h2>Scholarship</h2>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-    </header>
-	<!--header ends-->
-	
-	<div class="modal">
-		<?php echo $this->session->flashdata("message")?>
-	</div>
-	
-	<section class = "container">
-		<div class = "row">
-			<p>&nbsp;</p>
+    
+     
+	<div class="container">
+		<div class = "announcements">
+			<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
 		</div>
 		<div class = "row">
-			<div class = "col-lg-8">
+			<div class = "span8">
 				
-				<div class="panel panel-default">
-					<div class="panel-heading">
+				<div class="card card-default">
+					<div class="card-heading">
 						<div class="h4">No. of Scholars per College</div>
 					</div>
-					<div class="panel-body">
+					<div class="card-body">
 						<div  id="scholarchart" style="width:100%;height:400px;display:block">Loading...</div>
 					</div>
 				</div>
 				
-				<div class="panel panel-default">
-					<div class="panel-heading">
+				<div class="card card-default">
+					<div class="card-heading">
 						<div class="h4">Scholars per Scholarship Type</div>
 					</div>
-					<div class="panel-body">
+					<div class="card-body">
 						<div  id="scholarpiechart" style="width:100%;height:400px;display:block">Loading...</div>
 					</div>
 				</div>
 					
 			</div>
-			<div class = "col-lg-4">
-				<div class="panel panel-warning" id = "latest_announcement">
-			        <div class="panel-heading">
-			          <h4>Latest Announcement</h4>
-			        </div>
-			        <div class="panel-body">
-			          <p>
-			          	
-			          </p>
-			          
-			        </div>
-			       <!-- <div class="panel-footer">
-			        	<a href = "<?php echo site_url("announcement/view")?>" class="btn btn-warning">Read More</a>
-			       </div>-->
-			    </div>
-			    <div class="panel panel-success" id ="latest_news">
-			        <div class="panel-heading">
+			<div class = "span4">
+				
+			    <div class="card card-success" id ="latest_news">
+			        <div class="card-heading">
 			          <h4>Latest News</h4>
 			        </div>
-			        <div class="panel-body">
+			        <div class="card-body">
 			          <p>
 			          	
 			          </p>
 			          
 			        </div>
-			        <!--<div class="panel-footer">
+			        <!--<div class="card-footer">
 			        	<a href = "<?php echo site_url("news/view")?>" class="btn btn-success">Read More</a>
 			        </div>-->
 			    </div>
 			</div>
 			
 		</div>
-		<div class = "row">
-			<p>&nbsp;</p>
-		</div>
-	</section>
-	
-	
+	</div>
+
 	<?php $script='
 <!-- Flot Charts JavaScript -->
     <script src="'.base_url().'js/plugins/flot/excanvas.min.js"></script>
@@ -107,15 +88,18 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
+		
+	$("#myCarousel").carousel();
 	//get announcement
 	$.post("'.site_url("announcement/get_latest").'?qid="+Math.random(),{sid:Math.random()},function(data){
+				var colors=["info","danger","success"];
 				$.each(data,function(key,value){
 					title=$("<p></p>").html(value.title).addClass("h4").addClass("text-center");
 					hr = $("<hr />");
 					announcement=$("<p></p>").html(value.msg);
 					if(value.msg.length>100)$(announcement).append($("<a></a>").html("...").attr("href","'.site_url("announcement/view").'#"+value.id))
 					from = $("<i></i>").html("From: "+value.from).addClass("text-right");
-					$("#latest_announcement .panel-body").append($(title)).append($(hr)).append($(announcement)).append($(hr).clone()).append($(from));
+					$("#myCarousel .carousel-inner").append($("<div></div>").addClass("item").addClass("alert alert-"+colors[key]).append($(title)).append($(hr)).append($(announcement)).append($(hr).clone()).append($(from)));
 				});
 				
 	},"json");
@@ -129,9 +113,9 @@
 					news=$("<p></p>").html(value.info.msg);
 					if(value.info.msg.length>100)$(news).append($("<a></a>").html("...").attr("href","'.site_url("news/view").'#"+value.info.id))
 					from = $("<i></i>").html("From: "+value.info.author).addClass("text-right");
-					$("#latest_news .panel-body").append($(title)).append($(hr));
-					if(!(typeof value.pics[0] === "undefined")) $("#latest_news .panel-body").append($(img))
-					$("#latest_news .panel-body").append($(news)).append($(hr).clone()).append($(from));
+					$("#latest_news .card-body").append($(title)).append($(hr));
+					if(!(typeof value.pics[0] === "undefined")) $("#latest_news .card-body").append($(img))
+					$("#latest_news .card-body").append($(news)).append($(hr).clone()).append($(from));
 				});
 				
 	},"json");
@@ -223,7 +207,7 @@
 		
 		var plot =$.plot( $("#scholarpiechart"),chart_data, options);
 	},"json");
-	
+	$("#nav-home").addClass("active");
 	
 	});
 </script>

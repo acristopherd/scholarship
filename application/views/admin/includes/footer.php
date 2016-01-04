@@ -17,7 +17,7 @@
     <script src="<?php echo base_url();?>js/jquery.js"></script>
     
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?php echo base_url();?>js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url();?>js/admin.bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>js/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="<?php echo base_url();?>js/sb-admin-2.js"></script>    
     <script src="<?php echo base_url();?>js/jquery.toastmessage.js"></script>
@@ -53,7 +53,7 @@
 				$.each(data,function(key,value){
 					//alert(value.subject);
 					message={
-						subject:$("<div></div>").append($("<strong></strong>").html(value.from_name)).append($("<span></span>").html(value.date_posted).addClass("pull-right text-muted")),
+						subject:$("<div></div>").append($("<strong></strong>").html(value.from_name)).append($("<div></div>").html("<i class='fa fa-clock-o'></i> "+value.date_posted).addClass("small text-muted")),
 						msg:$("<div></div>").html(value.message+"...")
 						};
 					var anchor=$("<a></a>");

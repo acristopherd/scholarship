@@ -9,7 +9,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 <div class="container main-container">
     
     <div class="row">
-    <div class="wrapper col-lg-6 col-md-7 col-sm-10">
+    <div class="wrapper span6 col-md-7 col-sm-10">
     <div class="panel panel-primary">
     	<div class="panel-heading">
     		Create Message
@@ -19,31 +19,31 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     		<?php echo form_open_multipart("message/sponsor_to_admin",array("class"=>"form"));?>	
     			 <?php if(isset($error))echo $error?>  	
 	    		<div class="">	    			
-	    			<div class="form-group col-lg-8">
+	    			<div class="form-group span8">
 	                    <label class="control-label" for="a_to">To</label>
 	                    <?php echo form_dropdown('a_to',array("1"=>"Admin","7"=>"Scholars"),set_value("a_to"),'class="form-control input-sm"'); 
 	                    		echo form_error("a_to");?>
 	                </div>	
-	    			<div class="form-group col-lg-8">
+	    			<div class="form-group span8">
 	                    <label class="control-label" for="a_title">Subject</label>
 	                    <?php echo form_input(array("name"=>"a_title","class"=>"form-control input-sm","placeholder"=>"Subject"),set_value("a_title")); 
 	                    		echo form_error("a_title");?>
 	                </div>
 	                
 	               
-	                <div class="form-group col-lg-12">
+	                <div class="form-group span12">
 	                    <label class="control-label" for="a_msg">Message</label>
 	                    <?php echo form_textarea(array("name"=>"a_msg","id"=>"a_msg","class"=>"form-control input-sm","placeholder"=>"Message"),set_value("a_msg"));
 								echo form_error("a_msg"); ?>
 	                </div>
-	                <div class="form-group col-lg-12">
+	                <div class="form-group span12">
 	                    <label class="control-label" for="attachment" id ="attachment-label">Attachment</label>
 	                    <?php //echo form_input(array("name"=>"attachment","type"=>"file","class"=>"form-control input-sm","placeholder"=>"","multiple"=>"","accept"=>""));
 								//echo form_error("attachment"); ?>
 						<div class="btn btn-primary" id ="btn-attach">Attach File</div>
 	                </div>
 	    		</div>
-	    		<div class="form-group col-md-8 col-lg-4">
+	    		<div class="form-group col-md-8 span4">
 	    			<?php echo form_submit(array("value"=>"Send","class"=>"form-control btn btn-primary")) ?>
 	    		</div>		    
 	    		

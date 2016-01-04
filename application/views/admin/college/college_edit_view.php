@@ -2,7 +2,15 @@
 <?php  $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> College</h1>
-    <div class="row">
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li><?php echo anchor("collage/","Colleges")?></li>
+        <li class="active">Edit</li>
+    </ol>
+    <div class="row-fluid">
     <div class="wrapper col-lg-6">
     <div class="panel panel-primary">
     	<div class="panel-heading">

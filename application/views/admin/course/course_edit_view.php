@@ -2,8 +2,16 @@
 <?php  $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Course</h1>
-    <div class="row">
-    <div class="wrapper col-lg-6">
+     <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li><?php echo anchor("course/","Courses")?></li>
+        <li class="active">Edit</li>
+    </ol>
+    <div class="row-fluid">
+    <div class="wrapper col-lg6">
     <div class="panel panel-primary">
     	<div class="panel-heading">
     		Edit Course
@@ -26,7 +34,7 @@
 	                	<?php echo form_error('college'); ?>
 	                </div> 
 	    		</div>
-	    		<div class="form-group col-md-8 col-lg-4">
+	    		<div class="form-group col-md-8 ">
 	    			<?php echo form_submit(array("value"=>"Save","class"=>"form-control btn btn-primary")) ?>
 	    		</div>		    	
 		    <?php echo form_close();?>

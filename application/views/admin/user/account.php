@@ -22,7 +22,7 @@ $data['style']='<style type = "text/css">
     		<?php echo form_open("user/account",array("class"=>"form","id"=>"add-form"));?>		    	
 	    		<div class="">
 	                <div class="row">
-	                	<div class="form-group col-lg-8 col-md-10">
+	                	<div class="form-group span8 col-md-10">
 	                    <label class="control-label" for="uname">Username</label>
 	                    <div class="input-group">
 	                    <span class="input-group-addon input-sm"><i class="fa fa-user"></i></span>
@@ -32,7 +32,7 @@ $data['style']='<style type = "text/css">
 		            	</div>
 	                </div>
 	                <div class="row">
-	                	 <div class="form-group col-lg-8 col-md-10">
+	                	 <div class="form-group span8 col-md-10">
 	                    <label class="control-label" for="old_pass">Enter Old Password</label>
 	                    <div class="input-group">
 	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"old_pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
@@ -42,7 +42,7 @@ $data['style']='<style type = "text/css">
 		           		</div>
 	                </div>
 	                <div class="row">
-	                	 <div class="form-group col-lg-8 col-md-10">
+	                	 <div class="form-group span8 col-md-10">
 	                    <label class="control-label" for="pass">Password</label>
 	                    <div class="input-group">
 	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","id"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
@@ -54,7 +54,7 @@ $data['style']='<style type = "text/css">
 		           		</div>
 	                </div>
 	                <div class="row">
-	                	<div class="form-group col-lg-8 col-md-10">
+	                	<div class="form-group span8 col-md-10">
 	                    <label class="control-label" for="pass">Confirm Password</label>
 	                    <div class="input-group">
 	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span>
@@ -65,7 +65,7 @@ $data['style']='<style type = "text/css">
 	                </div>
 	    		</div>
 	    		<div class="row">
-	    		<div class="form-group col-md-8 col-lg-4">
+	    		<div class="form-group col-md-8 span4">
 	    			<?php echo form_submit(array("value"=>"Save","class"=>"form-control btn btn-primary")) ?>
 	    		</div>		
 	    		</div>    	

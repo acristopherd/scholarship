@@ -10,9 +10,20 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 <?php $this->load->view('admin/includes/header.php',$data);?>
 
 <div id="page-wrapper">
+	<div class="container-fluid">
     <h1> News </h1>
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li class="active">View News</li>
+    </ol>
+    <div class="row-fluid">
     <a href="<?php echo site_url("news/add")?>" class = "btn btn-primary">Add New </a>
-    <div class="row">    	
+    </div>
+    <hr>
+    <div class="row-fluid">    	
     <div class="wrapper">
     	
     <table class="table table-striped table-hover table-responsive" >
@@ -25,7 +36,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     			<tr><td><?php echo $no++?></td><td><?php echo anchor("news/full_view/".$news->id.'/'.md5($news->id."r0sanne"),$news->title)?></td>
     				<td><?php echo str_replace("</div>", ' ',str_replace("<div>", ' ', substr($news->news,0,150))); if(strlen($news->news)>150) echo anchor("news/full_view/".$news->id.'/'.md5($news->id."r0sanne"),"...",'class="btn-xs fa btn-default"')?></td>
     				<td><?php echo $news->news_date ?></td></td><td><?php echo $news->author ?></td>
-    				<td><?php echo $news->date_posted ?></td><td><?php echo anchor("news/delete"."/".$news->id,"<span class='btn btn-primary btn-circle btn-delete'><i class='fa fa-times' ></i></span>")?></td></tr>
+    				<td><?php echo $news->date_posted ?></td><td><?php echo anchor("news/delete"."/".$news->id,"<span class='btn btn-sm btn-primary btn-circle btn-delete'><i class='fa fa-times' ></i></span>")?></td></tr>
     			
     			<?php
     			}
@@ -35,7 +46,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     	
     </div>    	
     </div>
-    
+    </div>
 </div>
    
 <?php  $this->load->view('admin/includes/footer.php');

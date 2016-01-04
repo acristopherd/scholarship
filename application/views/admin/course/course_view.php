@@ -2,7 +2,14 @@
 <?php  $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Courses</h1>
-    <div class="row">
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li class="active">Courses</li>
+    </ol>
+    <div class="container-fluid">
     <div class="container col-lg-6">
     <div class="panel panel-primary">
     	<div class="panel-heading">
@@ -37,7 +44,7 @@
     </div>
     </div>
     
-    <div class = "row">    	
+    <div class = "container-fluid">    	
     	<h3 class="">List of Courses</h3>
     	<table class="table table-striped table-hover table-responsive">
     		<thead><tr class="table-header"><th>No</th><th>Acronym</th><th>Name</th><th>College</th><th>Edit</th></tr></thead>

@@ -759,6 +759,21 @@ class scholar extends CI_Controller{
 		
 	}
 	
+	function view_full_signup(){
+		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
+    		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());
+			$this->load->view("admin/session_expired_view");
+			return;
+		}
+		$id= $this->uri->segment(3);
+		if(strcmp(md5($this->uri->segment(3).$this->session->userdata("admin_secret")),$this->uri->segment(4))>0){
+			redirect("osa/404");
+		}
+		$scholar= $this->scholar_model->get_by_id($id);
+		$data['scholar']=$scholar[0];
+		$this->load->view('admin/scholar/full_signup_view',$data);
+	}
+	
 	function view_scholar(){
 		if(!$this->encrypt->decode($this->session->userdata("admin_secret"))=="ic4ntThink0fAno+h3r") {
     		$this->session->set_flashdata("last_viewed",$this->uri->uri_string());

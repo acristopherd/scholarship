@@ -11,7 +11,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 
 <div id="page-wrapper">
 	<div class="wrapper">
-		<a href = "<?php echo site_url("message/inbox")?>" class="btn btn-default">Back to Messages	</a>
+		<a href = "<?php echo site_url("message/inbox")?>" class="btn btn-primary">Back to Messages	</a>
 	</div>
 	<br>
 	<div class="wrapper">
@@ -41,7 +41,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     		</div>
     	</div>
     	<?php }?>
-    	<a href ="<?php echo site_url("message/reply/".$messages[0]->msg_from."/".$messages[0]->msg_type."/".$messages[0]->from_name ."/".$messages[0]->subject)?>" class="btn btn-default">Reply</a>
+    	<a href ="<?php echo site_url("message/reply/".$messages[0]->msg_from."/".$messages[0]->msg_type."/".$messages[0]->from_name ."/".$messages[0]->subject)?>" class="btn btn-primary">Reply</a>
     
     </div>
 </div>

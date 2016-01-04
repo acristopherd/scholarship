@@ -12,12 +12,23 @@
 				display:none;
 				}
 			}
-			
+			.header{
+				text-align:center;
+			}
+			.strong{font-weight:bold}
+			.osa{text-transform:uppercase}
 		</style>
 	</head>
 	<body>
 	
 <div id="page-wrapper">
+	<div class="header">
+		<p>Republic of the Philippines<br>
+		<span class="strong">University of Northern Philippines</span><br>
+		Vigan City</p>
+		<br>
+		<p class="osa strong">Office of Students Affairs</p>
+	</div>
     <h1> Scholars</h1>
     <a href="#" onclick="window.print()" class="no-print">Print</a>
     <?php if(sizeof($scholars)>0){?>
@@ -45,7 +56,7 @@
     		</tbody>
     	</table>
     	
-    	
+    	<p class="left small">Printed: <?php echo date("m/d/Y")?></p>
     </div>
     <?php 
     }

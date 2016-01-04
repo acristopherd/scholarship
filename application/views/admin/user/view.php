@@ -11,7 +11,14 @@ $data['style']='<style type = "text/css">
 <?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1> Users</h1>
-    <div class="row">
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li class="active">Users</li>
+    </ol>
+    <div class="container-fluid">
     <div class="container col-lg-6 col-md-7 col-sm-9">
     <div class="panel panel-primary">
     	<div class="panel-heading">
@@ -43,7 +50,7 @@ $data['style']='<style type = "text/css">
 	                	<div class="form-group col-lg-8 col-md-10">
 	                    <label class="control-label" for="uname">Username</label>
 	                    <div class="input-group">
-	                    <span class="input-group-addon input-sm"><i class="fa fa-user"></i></span>
+	                    <col-lg- class="input-group-addon input-sm"><i class="fa fa-user"></i></col-lg->
 	                    <?php echo form_input(array("name"=>"uname","class"=>"form-control input-sm","placeholder"=>"Username","required"=>"","type"=>"text"),set_value("uname")); ?>
 	                    </div>
 	                	<?php echo form_error('uname'); ?>
@@ -53,10 +60,10 @@ $data['style']='<style type = "text/css">
 	                	 <div class="form-group col-lg-8 col-md-10">
 	                    <label class="control-label" for="pass">Password</label>
 	                    <div class="input-group">
-	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"pass","id"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
+	                    <col-lg- class="input-group-addon input-sm"><i class="fa fa-lock"></i></col-lg-><?php echo form_password(array("name"=>"pass","id"=>"pass","class"=>"form-control input-sm","placeholder"=>"Password","required"=>"")); ?>
 	                	
 	                	</div>
-	                	<span class="label label-info">Password should be at least 8 characters and a combination of uppercase,lowercase and number.</span>
+	                	<col-lg- class="label label-info">Password should be at least 8 characters and a combination of uppercase,lowercase and number.</col-lg->
                 	
 	                	<?php echo form_error('pass'); ?>
 		           		</div>
@@ -65,7 +72,7 @@ $data['style']='<style type = "text/css">
 	                	<div class="form-group col-lg-8 col-md-10">
 	                    <label class="control-label" for="pass">Confirm Password</label>
 	                    <div class="input-group">
-	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span>
+	                    <col-lg- class="input-group-addon input-sm"><i class="fa fa-lock"></i></col-lg->
 	                    <?php echo form_password(array("name"=>"cpass","class"=>"form-control input-sm","placeholder"=>"ConfirmPassword","required"=>"")); ?>
 	                	</div>
 	                	<?php echo form_error('cpass'); ?>
@@ -104,7 +111,7 @@ $data['style']='<style type = "text/css">
     </div>
     </div>
     <?php if(isset($users)){?>
-    <div class = "row">    	
+    <div class = "container-fluid">    	
     	<h3 class="">List of Users</h3>
     	<table class="table table-striped table-hover table-responsive">
     		<thead><tr class="table-header"><th>No</th><th>Name</th><th>Username</th><th>Account Type</th><th>Scholarship</th><th>College</th><th>Actions</th></tr></thead>
@@ -140,7 +147,7 @@ $data['style']='<style type = "text/css">
     				<td><?php echo !empty($user->type_id)?$user->type:""?></td>
     				<td><?php echo !empty($user->college_id)?$user->college:""?></td>
     				<td><?php echo anchor("user/delete/".$user->id."/".md5($user->id."dletm3"),"<i class='fa fa-trash-o'></i>",array("title"=>"Delete","class"=>"btn-delete")) ?>
-    					<?php echo anchor("user/reset_pw/".$user->id."/".md5($user->id."restm3"),"<i class='fa fa-asterisk'></i>",array("title"=>"Reset Password")) ?>
+    					<?php echo anchor("user/reset_pw/".$user->id."/".md5($user->id."restm3"),"<i class='fa fa-refresh'></i>",array("title"=>"Reset Password")) ?>
     				</td>
     			</tr>
     			<?php

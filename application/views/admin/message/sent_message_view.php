@@ -11,8 +11,14 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 
 <div id="page-wrapper">
     <h1> Sent </h1>
-    
-    <div class="row">    	
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li class="active">Messages - Sent</li>
+    </ol>
+    <div class="row-fluid">    	
     <div class="wrapper">
    <!-- <?php echo form_open("message/delete_all_sent");?>-->
     <table class="table table-striped table-hover table-responsive" >

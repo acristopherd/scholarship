@@ -7,7 +7,19 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 		</style>'?>
 <?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
+	<div class="container-fluid">
     <h1> News</h1>
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li>
+           <?php echo anchor("news/","News")?>
+        </li>
+        <li class="active">Add</li>
+        
+    </ol>
     <div class="row">
     <div class="wrapper col-lg-6">
     <div class="panel panel-primary">
@@ -53,7 +65,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     </div>
     </div>
     
-    
+    </div>
 </div>
 <?php  $this->load->view('admin/includes/footer.php');
 ?>

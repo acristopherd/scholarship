@@ -3,27 +3,37 @@
 <?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1>Types of Scholarship</h1>
-    <div class="row">
-    <div class="container col-lg-6">
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li class="active">Messages - Inbox</li>
+    </ol>
+    <div class="container-fluid">
+    <div class="col-lg-6 col-md-8">
     <div class="panel panel-primary">
     	<div class="panel-heading">
     		Add Scholarship
     	</div>
     	<div class="panel-body">
     		<?php echo form_open("scholarshiptype/add",array("class"=>"form"));?>		    	
-	    		<div class="">
-	                <div class="form-group">
+	    		<div class="row-fluid">
+	    			<div class="form-group">
 	                    <label class="control-label" for="name">Scholarship Full Name</label>
 	                    <?php echo form_input(array("name"=>"name","class"=>"form-control input-sm","placeholder"=>"Scholarship Name"),set_value("name")); ?>
 	                	<?php echo form_error('name'); ?>
 	                </div>
+	    		</div>
+	    		<div class="row">
+	                
 	                <div class="form-group col-lg-6 col-md-6">
 	                    <label class="control-label" for="category">Category</label>
 	                    <?php echo form_dropdown("category",array(""=>"Select","Academic"=>"Academic","Private"=>"Private"),set_value("category"),"class='form-control input-sm'"); ?>
 	                	<?php echo form_error('min_ave'); ?>
 	                </div> 
 	                <div class="form-group col-lg-3 col-md-3">
-	                    <label class="control-label" for="min_grade">Minimum Grade</label>
+	                    <label class="control-label" for="min_grade">Min Grade</label>
 	                    <?php echo form_input(array("name"=>"min_grade","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Minimum Grade"),set_value("min_grade","0")); ?>
 	                	<?php echo form_error('min_grade'); ?>
 	                </div> 
@@ -32,13 +42,16 @@
 	                    <?php echo form_input(array("name"=>"min_ave","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Average"),set_value("min_ave","0")); ?>
 	                	<?php echo form_error('min_ave'); ?>
 	                </div> 
-	                 <div class="form-group">
+	                 
+	    		</div>
+	    		<div class="row-fluid">
+	    			<div class="form-group">
 	                    <label class="control-label" for="requirements[]">Requirements</label>
 	                    <?php echo form_input(array("name"=>"requirements[]","class"=>"form-control input-sm requirements","placeholder"=>"Requirement Name",set_value("name"))); ?>
 	                	<?php echo form_error('requirements[]'); ?>
 	                </div> 
 	    		</div>
-	    		<div class="row">
+	    		<div class="container-fluid">
 	    			<div class="form-group col-lg-3">
 	    			<div class = "btn btn-primary" id="btn-add"><i class="fa fa-plus"></i></div>
 	    			</div>
@@ -53,7 +66,7 @@
     </div>
     </div>
     
-    <div class = "row">    	
+    <div class = "container-fluid">    	
     	<h3 class="">List of Scholarships</h3>
     	<?php if(isset($types)&&sizeof($types)>0){ ?>
     	<table class="table table-striped table-hover table-responsive">
@@ -68,7 +81,7 @@
     				<td><?php echo $type["info"]->type?></td>
     				<td><?php echo $type["info"]->minimum_grade?></td>
     				<td><?php echo $type["info"]->min_average?></td>
-    				<td><?php foreach ($type["requirements"] as $requirement)echo "<span class='btn btn-default btn-sm btn-outline'>".$requirement->requ_name."</span>&nbsp;"?></td>
+    				<td><?php foreach ($type["requirements"] as $requirement)echo "<col-lg- class='btn btn-default btn-sm btn-outline'>".$requirement->requ_name."</col-lg->&nbsp;"?></td>
     				<td><?php echo anchor("scholarshiptype/edit/".$type['info']->id,"<i class='fa fa-edit'></i>") ?>&nbsp;<?php echo anchor("scholarshiptype/delete/".$type['info']->id."/".md5(mdate($type['info']->id."")),"<i class='fa fa-times'></i>",array("class"=>"btn-delete")) ?></td></tr>
     			<?php
     			}
@@ -85,7 +98,7 @@
     </div>
 </div>
 <?php 
-$script='
+$script['script']='
 <script type = "text/javascript">
 	$(document).ready(function(){
 		$("#btn-add").bind("click",function(){
@@ -98,4 +111,4 @@ $script='
 	});
 </script>';
 ?>
-<?php  $this->load->view('admin/includes/footer.php');
+<?php  $this->load->view('admin/includes/footer.php',$script);

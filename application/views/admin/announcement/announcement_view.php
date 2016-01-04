@@ -10,9 +10,20 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 <?php  $this->load->view('admin/includes/header.php',$data);?>
 
 <div id="page-wrapper">
+	<div class="container-fluid">
     <h1> Announcements </h1>
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li class="active">View Announcements</li>
+    </ol>
+    <div class='row-fluid'>
     <a href="<?php echo site_url("announcement/add")?>" class = "btn btn-primary">Add New </a>
-    <div class="row">    	
+    </div>
+    <hr>
+    <div class="row-fluid">    	
     <div class="wrapper">
     	
     <table class="table table-striped table-hover table-responsive" >
@@ -25,7 +36,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     			<tr><td><?php echo $no++?></td><td><?php echo anchor("announcement/full_view/".$announcement->id.'/'.md5($announcement->id."r0sanne"),$announcement->title)?></td>
     				<td><?php echo str_replace("</div>", ' ',str_replace("<div>", ' ', substr($announcement->message,0,150))); if(strlen($announcement->message)>150) echo anchor("announcement/full_view/".$announcement->id.'/'.md5($announcement->id."r0sanne"),"...",'class="btn-xs fa btn-default"')?></td>
     				<td><?php echo $announcement->date_of_event ?></td><td><?php echo $announcement->venue ?></td><td><?php echo $announcement->from ?></td>
-    				<td><?php echo $announcement->date_posted ?></td><td><?php echo anchor("announcement/delete"."/".$announcement->id,"<span class='btn btn-primary btn-circle btn-delete'><i class='fa fa-archive' ></i></span>")?></td></tr>
+    				<td><?php echo $announcement->date_posted ?></td><td><?php echo anchor("announcement/delete"."/".$announcement->id,"<span class='btn btn-primary btn-circle btn-delete btn-sm' title='archive' data-toggle='tooltip' data-placement='top'><i class='fa fa-archive' ></i></span>")?></td></tr>
     			
     			<?php
     			}
@@ -34,6 +45,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
     	</table>
     	
     </div>    	
+    </div>
     </div>
     </div>
    
@@ -52,6 +64,7 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 		
 	});
 	$(function () {
+	$('[data-toggle="tooltip"]').tooltip();  
 	  $('[data-toggle="popover"]').popover()
 	})
 			

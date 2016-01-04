@@ -3,8 +3,16 @@
 <?php $this->load->view('admin/includes/header.php',$data);?>
 <div id="page-wrapper">
     <h1>Types of Scholarship</h1>
-    <div class="row">
-    <div class="container col-lg-6">
+    <hr>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li><?php echo anchor("scholarshiptype/","Scholarship Types")?></li>
+        <li class="active">Edit</li>
+    </ol>
+    <div class="container-fluid">
+    <div class=" col-lg-6 col-md-8">
     <div class="panel panel-primary">
     	<div class="panel-heading">
     		Edit Scholarship Type
@@ -18,17 +26,17 @@
 	                    <?php echo form_input(array("name"=>"name","class"=>"form-control input-sm","placeholder"=>"Scholarship Name"),isset($types[0]['info']->type)?$types[0]['info']->type:set_value("name")); ?>
 	                	<?php echo form_error('name'); ?>
 	                </div> 
-	                <div class="form-group col-lg-6 col-md-6">
+	                <div class="form-group span6 col-md-6">
 	                    <label class="control-label" for="category">Category</label>
 	                    <?php echo form_dropdown("category",array(""=>"Select","Academic"=>"Academic","Private"=>"Private"),isset($types[0]['info']->category)?$types[0]['info']->category:set_value("category"),"class='form-control input-sm'"); ?>
 	                	<?php echo form_error('min_ave'); ?>
 	                </div> 
-	                 <div class="form-group col-lg-6 col-md-6"">
+	                 <div class="form-group span6 col-md-6">
 	                    <label class="control-label" for="name">Minimum Grade</label>
 	                    <?php echo form_input(array("name"=>"min_grade","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Minimum Grade"),set_value("min_grade",isset($types[0]['info']->minimum_grade)?$types[0]['info']->minimum_grade:'0')); ?>
 	                	<?php echo form_error('min_grade'); ?>
-	                </div> 
-	                <div class="form-group col-lg-6 col-md-6">
+	                </div>
+	                <div class="form-group span6 col-md-6">
 	                    <label class="control-label" for="name">Minimum Average</label>
 	                    <?php echo form_input(array("name"=>"min_ave","type"=>"number","step"=>".25","min"=>"0","max"=>"5.0","class"=>"form-control input-sm","placeholder"=>"Minimum Average"),set_value("min_ave",isset($types[0]['info']->min_average)?$types[0]['info']->min_average:'0')); ?>
 	                	<?php echo form_error('min_ave'); ?>
@@ -53,17 +61,18 @@
 	    			<div class = "btn btn-primary" id="btn-add"><i class="fa fa-plus"></i></div>
 	    			</div>
     			</div>  
-	    		<div class="form-group col-md-8 col-lg-4">
-	    			<?php echo form_submit(array("value"=>"Save","class"=>"form-control btn btn-primary")) ?>
-	    		</div>		    
-	    			
+    			<div class="row">
+		    		<div class="form-group col-md-8 col-lg-4">
+		    			<?php echo form_submit(array("value"=>"Save","class"=>"form-control btn btn-primary")) ?>
+		    		</div>	
+	    		</div>	    
+	    	
 		    <?php echo form_close();?>
+    		</div>    	
     	</div>
-    </div>    	
     </div>
     </div>
 </div>
-
 <?php  $this->load->view('admin/includes/footer.php');?>
 <script type = "text/javascript">
 	$(document).ready(function(){

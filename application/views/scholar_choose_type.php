@@ -4,7 +4,7 @@ $title = "Apply - Scholar";
 include("includes/header.php"); ?>
 <section class = "container">
 	<div class = "row">
-		<div class="col-lg-6">
+		<div class="span6">
 		</div>
 		<div class="">
 		<h1 class="page-header">

@@ -11,6 +11,17 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 
 <div id="page-wrapper">
 	<?php echo anchor("announcement/view_archive","Back to Archive",'class="btn btn-primary"')?>
+	
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i> <?php echo anchor("admin/","Home")?>
+        </li>
+        <li>
+           <?php echo anchor("announcement/view_archive","Announcements Archive")?>
+        </li>
+        <li class="active"><?php echo $announcement->title?> </li>
+        
+    </ol>
     <h1> <?php echo $announcement->title?> </h1>
     <div class="well well-sm">
     	<div>From: <b><?php echo $announcement->from ?></b></div>

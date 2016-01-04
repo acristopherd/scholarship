@@ -6,39 +6,43 @@ $data['style']='<style type = "text/css">
 	}
 </style>';
 $this->load->view("includes/header.php",$data); ?>
-<section class = "container main-container">
-	<h4>Account Settings</h4>
+<header class="" id = "overview">
+	<div class="container main-header">
+		<h1 class="h1">Account Settings</h1>
+	</div>
+</header>
+<div class = "container main-container">
 	<div class = "row">
 		
-		<div class="col-lg-6">
+		<div class="span6">
 		
 		<?php echo form_open("scholar/edit_account",array("name"=>"signup","id"=>"signup"));?>
 		
         <!-- Tab panes -->
-        <div class = "panel panel-default">
-				<div class="panel-heading">
-					Account Information
+        <div class = "card ">
+				<div class="card-heading simple">
+					<h3 class="">Account Information</h3>
 				</div>
-				<div class = "panel-body">
+				<div class = "card-body">
 					 <div class="form-group">
 	                    <label class="control-label" for="email">Email</label>
-	                    <div class="input-group">
-	                    <span class="input-group-addon input-sm">@</span>
+	                    <div class="input-group input-prepend">
+	                    <span class="add-on input-sm">@</span>
 	                    <?php echo form_input(array("name"=>"email","class"=>"form-control input-sm","placeholder"=>"Email","required"=>"","type"=>"email"),set_value("email",isset($scholar[0]->email)?$scholar[0]->email:"")); ?>
 	                    </div>
 	                	<?php echo form_error('email'); ?>
 		            </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="pass">New Password</label>
-	                    <div class="input-group">
-	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"new_pass","class"=>"form-control input-sm","placeholder"=>"New Password","required"=>"")); ?>
+	                    <div class="input-prepend">
+	                    <span class="add-on input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"new_pass","class"=>"form-control input-sm","placeholder"=>"New Password","required"=>"")); ?>
 	                	</div>
 	                	<?php echo form_error('new_pass'); ?>
 		            </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="pass">Confirm New Password</label>
-	                    <div class="input-group">
-	                    <span class="input-group-addon input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"cnew_pass","class"=>"form-control input-sm","placeholder"=>"Confirm New Password","required"=>"")); ?>
+	                    <div class="input-prepend">
+	                    <span class="add-on input-sm"><i class="fa fa-lock"></i></span><?php echo form_password(array("name"=>"cnew_pass","class"=>"form-control input-sm","placeholder"=>"Confirm New Password","required"=>"")); ?>
 	                	</div>
 	                	<?php echo form_error('cnew_pass'); ?>
 		            </div>
@@ -51,7 +55,7 @@ $this->load->view("includes/header.php",$data); ?>
 	                	<?php echo form_error('pass'); ?>
 		            </div>
 	            </div>
-	            <div class="panel-footer">
+	            <div class="card-actions">
 	            	<div ><?php echo form_submit(array("value"=>"Save","class"=>"btn btn-success btn-submit","id"=>"btn-submit")); ?></div> 
                 	
 	            </div>
@@ -60,7 +64,7 @@ $this->load->view("includes/header.php",$data); ?>
 		<?php echo form_close(); ?>
 		
 	</div>
-</section>
+</div>
 <script type="text/javascript">
 	
 </script>

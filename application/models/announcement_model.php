@@ -11,6 +11,14 @@ class announcement_model extends CI_Model{
 		return $announcement;
 	}
 	
+	function get_10(){
+		$this->db->order_by("id","desc");
+		$this->db->limit(10,0);
+		$result=$this->db->get("tblannouncement");		
+		$announcement=$result->result();
+		return $announcement;
+	}
+	
 	function get_archived(){
 		$this->db->order_by("id","desc");
 		$result=$this->db->get("tblannouncement_archive");		
@@ -27,9 +35,9 @@ class announcement_model extends CI_Model{
 	}
 	
 	function get_latest(){
-		$this->db->limit(1,0);
+		$this->db->limit(3,0);
 		$this->db->order_by("id","desc");
-		$result=$this->db->query("select tblannouncement.id as id,title, left(message,100) as msg,`from` from tblannouncement left join tblannouncement_type on tblannouncement.id =announcement_id where ISNULL(announcement_id) order by tblannouncement.id desc limit 0,1");		
+		$result=$this->db->query("select tblannouncement.id as id,title, left(message,100) as msg,`from` from tblannouncement left join tblannouncement_type on tblannouncement.id =announcement_id where ISNULL(announcement_id) order by tblannouncement.id desc limit 0,3");		
 		$announcement=$result->result();
 		return $announcement;
 	}

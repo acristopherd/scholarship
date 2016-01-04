@@ -4,60 +4,72 @@ $data['style']='<link href="'.base_url().'css/htmlarea/jHtmlArea.css" rel="style
 			input{
 				text-transform:capitalize;
 			}
+			.form-group{ width:100% !important;
+			}
+				textarea{width:90% !important}
 		</style>'?>
 <?php $this->load->view('includes/header.php',$data);?>
 <div class="container main-container">
     
-    <div class="row">
-    <div class="wrapper col-lg-6 col-md-7 col-sm-10">
-    <div class="panel panel-primary">
-    	<div class="panel-heading">
-    		Create Message
+    <section class="span6">
+    <?php echo form_open_multipart("message/scholar_send",array("class"=>"form"));?>
+    <div class="container-fluid">
+    	<div class="">
+    		<h3>Create Message</h3>
     	</div>
-    	<div class="panel-body">
+    	<hr>
+    	<div class="">
     		
-    		<?php echo form_open_multipart("message/scholar_send",array("class"=>"form"));?>	
-    			 <?php if(isset($error))echo $error?>  	
-	    		<div class="">	    	
-	    			<div class="form-group col-lg-8">
-	                    <label class="control-label" for="a_to">To</label>
-	                    <?php echo form_dropdown('a_to',$to,set_value("a_to"),'class="form-control input-sm"'); 
-	                    		echo form_error("a_to");?>
-	                </div>			
-	    			<div class="form-group col-lg-8">
-	                    <label class="control-label" for="a_title">Subject</label>
-	                    <?php echo form_input(array("name"=>"a_title","class"=>"form-control input-sm","placeholder"=>"Subject","required"=>"required"),set_value("a_title")); 
-	                    		echo form_error("a_title");?>
-	                </div>
-	                
-	               
-	                <div class="form-group col-lg-12">
-	                    <label class="control-label" for="a_msg">Message</label>
-	                    <?php echo form_textarea(array("name"=>"a_msg","id"=>"a_msg","class"=>"form-control input-sm","placeholder"=>"Message"),set_value("a_msg"));
-								echo form_error("a_msg"); ?>
-	                </div>
-	               
-	    		</div>
-	    		<div class="form-group col-md-8 col-lg-4">
-	    			<?php echo form_submit(array("value"=>"Send","class"=>"form-control btn btn-primary")) ?>
-	    		</div>		    
-	    		
-		    <?php echo form_close();?>
+		 <?php if(isset($error))echo $error?>
+			<div class="form-group span8">
+                <label class="control-label" for="a_to">To</label>
+                <?php echo form_dropdown('a_to',$to,set_value("a_to"),'class="form-control input-sm"'); 
+                		echo form_error("a_to");?>
+            </div>			
+			<div class="form-group span8">
+                <label class="control-label" for="a_title">Subject</label>
+                <?php echo form_input(array("name"=>"a_title","class"=>"form-control input-sm","placeholder"=>"Subject","required"=>"required"),set_value("a_title")); 
+                		echo form_error("a_title");?>
+            </div>
+            
+           
+            <div class="form-group span12">
+                <label class="control-label" for="a_msg">Message</label>
+                <?php echo form_textarea(array("name"=>"a_msg","id"=>"a_msg","class"=>"form-control input-sm","placeholder"=>"Message"),set_value("a_msg"));
+						echo form_error("a_msg"); ?>
+            </div>
+	           
     	</div>
+    		
+    	<div class="container-fluid">
+    		<hr> 
+	    	<?php echo form_submit(array("value"=>"Send","class"=>"form-control btn btn-primary pull-right")) ?>
+	    </div>		    
+	    		
     </div>    	
-    </div>
-    </div>
+     <?php echo form_close();?>
+    </section>
+    
     
     
 </div>
 <?php $this->load->view('includes/footer.php',$data);?>
+<script src="<?php echo base_url();?>js/htmlarea/jHtmlArea-0.8.min.js"></script>
 <script>
 	$(document).ready(function(){
 		$("#btn-attach").click(function(){
 			a = $("<input>").attr('type','file').attr('name','attachment[]').attr('multiple','multiple').addClass('form-control input-sm');
 			$(this).before($(a)).remove();
 		});
-		
+		$("textarea").htmlarea({
+		toolbar: [
+		        ["bold", "italic", "underline","strikethrough","|","subscript","superscript"],
+		        ["orderedList","unorderedList"],
+		        ["indent","outdent"],
+		        ["justifyleft","justifycenter","justifyright"],
+		        ["link", "unlink"]
+		    ]
+		});
 		$(".form").validate({
 		rules: {  			             
             a_title:{
